@@ -54,7 +54,9 @@ if (!Q._initialized) {
             Q.advisor_action_timer -= 1;
         }
 
-        window.updateSidebar()
+        if (Q.current_scene !== 'post_event') {
+            visit('post_event');  // Automatically trigger the post_event scene logic
+        }
 
     }, 1000); // 1000ms = 1 second
 }
