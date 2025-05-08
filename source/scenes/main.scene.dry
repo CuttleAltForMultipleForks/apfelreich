@@ -54,22 +54,6 @@ if (!Q._initialized) {
             Q.advisor_action_timer -= 1;
         }
 
-(function() {
-  // Assuming visit is a function that takes the scene ID and switches to that scene
-  const visitPostEvent = setInterval(() => {
-    if (window.dendryUI && window.dendryUI.dendryEngine) {
-      const currentScene = window.dendryUI.dendryEngine.state.sceneId;
-      
-      if (currentScene !== 'post_event') {
-        console.log('Visiting post_event');
-        visit('post_event');  // Trigger visit to 'post_event'
-      }
-    } else {
-      console.log('dendryUI or dendryEngine is not ready');
-    }
-  }, 1000);  // 1000 ms = 1 second
-})();
-
 
         window.updateSidebar();
 
@@ -153,23 +137,6 @@ if (!Q._initialized) {
         if (Q.advisor_action_timer > 0 && Q.day % 30 == 0) {
             Q.advisor_action_timer -= 1;
         }
-
-(function() {
-  // Assuming visit is a function that takes the scene ID and switches to that scene
-  const visitPostEvent = setInterval(() => {
-    if (window.dendryUI && window.dendryUI.dendryEngine) {
-      const currentScene = window.dendryUI.dendryEngine.state.sceneId;
-      
-      if (currentScene !== 'post_event') {
-        console.log('Visiting post_event');
-        visit('post_event');  // Trigger visit to 'post_event'
-      }
-    } else {
-      console.log('dendryUI or dendryEngine is not ready');
-    }
-  }, 1000);  // 1000 ms = 1 second
-})();
-
 
 
         window.updateSidebar();
