@@ -143,11 +143,18 @@ if (!Q._initialized) {
         }
 
 
-    if (this.game?.scenes?.['main.events_choice']) {
-        var scene = this.game.scenes['main.events_choice'];
-        var choices = this._compileChoices(scene);
-        Q.has_event = (choices && choices[0]?.title !== "Continue...") ? 1 : 0;
+if (this.game?.scenes?.['main.events_choice']) {
+    const scene = this.game.scenes['main.events_choice'];
+    const choices = this._compileChoices?.(scene);
+
+    if (choices && choices.length && choices[0]?.title !== "Continue...") {
+        Q.has_event = 1;
+    } else {
+        Q.has_event = 0;
     }
+} else {
+    Q.has_event = 0; // fallback when scene isn't ready yet
+}
 
 
     }, 1000); // 1000ms = 1 second
