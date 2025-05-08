@@ -54,6 +54,34 @@ if (!Q._initialized) {
             Q.advisor_action_timer -= 1;
         }
 
+const interval = setInterval(function () {
+    // Accessing the correct global object
+    const game = window.dendryUI?.dendryEngine?.game;
+    if (!game || !game.scenes) {
+        console.log('Scene not defined yet');
+        return;
+    }
+
+    const scene = game.scenes['main.events_choice'];
+    if (!scene) {
+        console.log('Scene "main.events_choice" not defined yet');
+        return;
+    }
+
+    const choices = Q._compileChoices?.(scene);
+    console.log('Current Scene:', Q.current_scene);
+    console.log('Choices:', choices);
+
+    const hasRealEvent = choices && choices.length && choices[0].title !== "Continue...";
+    Q.has_event = hasRealEvent ? 1 : 0;
+
+    if (hasRealEvent && Q.current_scene === 'main') {
+        console.log('Triggering visit to main.events_choice');
+        visit('main.events_choice');
+    }
+}, 1000);
+
+
 
         window.updateSidebar();
 
@@ -138,10 +166,35 @@ if (!Q._initialized) {
             Q.advisor_action_timer -= 1;
         }
 
+    const interval = setInterval(function () {
+    // Accessing the correct global object
+    const game = window.dendryUI?.dendryEngine?.game;
+    if (!game || !game.scenes) {
+        console.log('Scene not defined yet');
+        return;
+    }
+
+    const scene = game.scenes['main.events_choice'];
+    if (!scene) {
+        console.log('Scene "main.events_choice" not defined yet');
+        return;
+    }
+
+    const choices = Q._compileChoices?.(scene);
+    console.log('Current Scene:', Q.current_scene);
+    console.log('Choices:', choices);
+
+    const hasRealEvent = choices && choices.length && choices[0].title !== "Continue...";
+    Q.has_event = hasRealEvent ? 1 : 0;
+
+    if (hasRealEvent && Q.current_scene === 'main') {
+        console.log('Triggering visit to main.events_choice');
+        visit('main.events_choice');
+    }
+}, 1000);
+
 
         window.updateSidebar();
-
-
 
     }, 1000); // 1000ms = 1 second
 }
