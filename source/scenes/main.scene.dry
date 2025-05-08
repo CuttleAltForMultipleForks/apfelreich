@@ -58,7 +58,7 @@ if (!Q._initialized) {
                 console.log('Calling post_event scene logic');
                 engine._runActions(postEventScene.onArrival);
                 if (Q.has_event) {
-                    engine.__changeScene('post_event.events_choice');
+                    engine.__changeScene('post_event');
                 }
             }
 
@@ -153,7 +153,7 @@ if (!Q._initialized) {
                 console.log('Calling post_event scene logic');
                 engine._runActions(postEventScene.onArrival);
                 if (Q.has_event) {
-                    engine.__changeScene('post_event.events_choice');
+                    engine.__changeScene('post_event');
                 }
             }
 
