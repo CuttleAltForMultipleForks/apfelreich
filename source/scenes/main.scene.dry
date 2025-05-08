@@ -54,6 +54,15 @@ if (!Q._initialized) {
             Q.advisor_action_timer -= 1;
         }
 
+        console.log(this.game); // Check if this.game contains scenes
+
+        if (this.game.scenes && this.game.scenes['post_event.events_choice']) {
+    console.log("Scene exists");
+} else {
+    console.log("Scene does not exist");
+}
+
+
         Q.has_event = 0;
         // check if there are any cards in #event, and then go to main if not.
         var scene = this.game.scenes['post_event.events_choice'];
