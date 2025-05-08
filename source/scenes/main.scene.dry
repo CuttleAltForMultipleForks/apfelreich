@@ -54,22 +54,25 @@ if (!Q._initialized) {
             Q.advisor_action_timer -= 1;
         }
 
+setInterval(function () {
+    if (!this.game?.scenes?.['main.events_choice']) return;
+
+    const scene = this.game.scenes['main.events_choice'];
+    const choices = this._compileChoices?.(scene);
+
+    const hasRealEvent = choices && choices.length && choices[0].title !== "Continue...";
+
+    if (hasRealEvent && Q.current_scene === 'main') {
+        visit('main'); // Trigger the event logic while staying in the same scene
+    }
+
+    Q.has_event = hasRealEvent ? 1 : 0;
+}, 1000);
+
         window.updateSidebar();
 
 
     }, 1000); // 1000ms = 1 second
-}
-if (this.game?.scenes?.['main.events_choice']) {
-    const scene = this.game.scenes['main.events_choice'];
-    const choices = this._compileChoices?.(scene);
-
-    if (choices && choices.length && choices[0]?.title !== "Continue...") {
-        Q.has_event = 1;
-    } else {
-        Q.has_event = 0;
-    }
-} else {
-    Q.has_event = 0; // fallback when scene isn't ready yet
 }
 if (Q.advisor_action_timer <= 0) {
     Q.pinnedCardsDescription = 'Advisors - an action is available.';
@@ -149,23 +152,26 @@ if (!Q._initialized) {
             Q.advisor_action_timer -= 1;
         }
 
+setInterval(function () {
+    if (!this.game?.scenes?.['main.events_choice']) return;
+
+    const scene = this.game.scenes['main.events_choice'];
+    const choices = this._compileChoices?.(scene);
+
+    const hasRealEvent = choices && choices.length && choices[0].title !== "Continue...";
+
+    if (hasRealEvent && Q.current_scene === 'main') {
+        visit('main'); // Trigger the event logic while staying in the same scene
+    }
+
+    Q.has_event = hasRealEvent ? 1 : 0;
+}, 1000);
+
         window.updateSidebar();
 
 
 
     }, 1000); // 1000ms = 1 second
-}
-if (this.game?.scenes?.['main.events_choice']) {
-    const scene = this.game.scenes['main.events_choice'];
-    const choices = this._compileChoices?.(scene);
-
-    if (choices && choices.length && choices[0]?.title !== "Continue...") {
-        Q.has_event = 1;
-    } else {
-        Q.has_event = 0;
-    }
-} else {
-    Q.has_event = 0; // fallback when scene isn't ready yet
 }
 if (Q.advisor_action_timer <= 0) {
     Q.pinnedCardsDescription = 'Advisors - an action is available.';
