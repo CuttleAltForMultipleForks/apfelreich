@@ -5,74 +5,72 @@ on-arrival: {!
 if (!Q._initialized) {
 
     function getDaysInMonth(month, year) {
-    const daysInMonth = {
-        1: 31,
-        2: (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)) ? 29 : 28,
-        3: 31,
-        4: 30,
-        5: 31,
-        6: 30,
-        7: 31,
-        8: 31,
-        9: 30,
-        10: 31,
-        11: 30,
-        12: 31
-    };
-    return daysInMonth[month];
+        const daysInMonth = {
+            1: 31,
+            2: (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)) ? 29 : 28,
+            3: 31,
+            4: 30,
+            5: 31,
+            6: 30,
+            7: 31,
+            8: 31,
+            9: 30,
+            10: 31,
+            11: 30,
+            12: 31
+        };
+        return daysInMonth[month];
     }
 
     Q._initialized = true;
 
-    setInterval(function() {
-        Q.time += 1;
-        Q.day = (Q.day || 1) + 1;
+    setInterval(function () {
+        // Only run this logic if current scene is 'main'
+        if (Q.current_scene === 'main') {
+            Q.time += 1;
+            Q.day = (Q.day || 1) + 1;
 
-        const daysThisMonth = getDaysInMonth(Q.month, Q.year);
+            const daysThisMonth = getDaysInMonth(Q.month, Q.year);
 
-        if (Q.day > daysThisMonth) {
-            Q.day = 1;
-            Q.month += 1;
+            if (Q.day > daysThisMonth) {
+                Q.day = 1;
+                Q.month += 1;
 
-            if (Q.month > 12) {
-                Q.month = 1;
-                Q.year += 1;
+                if (Q.month > 12) {
+                    Q.month = 1;
+                    Q.year += 1;
 
-                if (Q.historical_mode) {
-                    Q.resources += 2;
+                    if (Q.historical_mode) {
+                        Q.resources += 2;
+                    }
                 }
             }
+
+            if (Q.advisor_action_timer > 0 && Q.day % 30 === 0) {
+                Q.advisor_action_timer -= 1;
+            }
+
+            // Call post_event logic if needed
+            const engine = dendryUI.dendryEngine;
+            const postEventScene = engine.game.scenes['post_event'];
+
+            if (postEventScene?.onArrival) {
+                console.log('Calling post_event scene logic');
+                engine._runActions(postEventScene.onArrival);
+                if (Q.has_event) {
+                    engine.__changeScene('post_event.events_choice');
+                }
+            }
+
+            window.updateSidebar();
         }
 
+        // Still allow status redraw if user is on status page
         if (Q.current_scene === 'status' && typeof visit === 'function') {
-            visit('status'); // Revisit the scene to force a redraw
+            visit('status');
         }
 
-
-        // Example: Decrease advisor cooldowns
-        if (Q.advisor_action_timer > 0 && Q.day % 30 == 0) {
-            Q.advisor_action_timer -= 1;
-        }
-
-setInterval(() => {
-    const engine = dendryUI.dendryEngine;
-    const postEventScene = engine.game.scenes['post_event'];
-
-    if (postEventScene?.onArrival) {
-        console.log('Calling post_event scene logic');
-        engine._runActions(postEventScene.onArrival);
-        if (Q.has_event) {
-            engine.__changeScene('post_event');
-        }
-    }
-}, 1000); // adjust frequency if needed
-
-
-
-        window.updateSidebar();
-
-
-    }, 1000); // 1000ms = 1 second
+    }, 1000);
 }
 if (Q.advisor_action_timer <= 0) {
     Q.pinnedCardsDescription = 'Advisors - an action is available.';
@@ -103,72 +101,72 @@ on-arrival: {!
 if (!Q._initialized) {
 
     function getDaysInMonth(month, year) {
-    const daysInMonth = {
-        1: 31,
-        2: (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)) ? 29 : 28,
-        3: 31,
-        4: 30,
-        5: 31,
-        6: 30,
-        7: 31,
-        8: 31,
-        9: 30,
-        10: 31,
-        11: 30,
-        12: 31
-    };
-    return daysInMonth[month];
+        const daysInMonth = {
+            1: 31,
+            2: (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)) ? 29 : 28,
+            3: 31,
+            4: 30,
+            5: 31,
+            6: 30,
+            7: 31,
+            8: 31,
+            9: 30,
+            10: 31,
+            11: 30,
+            12: 31
+        };
+        return daysInMonth[month];
     }
 
     Q._initialized = true;
 
-    setInterval(function() {
-        Q.time += 1;
-        Q.day = (Q.day || 1) + 1;
+    setInterval(function () {
+        // Only run this logic if current scene is 'main'
+        if (Q.current_scene === 'main') {
+            Q.time += 1;
+            Q.day = (Q.day || 1) + 1;
 
-        const daysThisMonth = getDaysInMonth(Q.month, Q.year);
+            const daysThisMonth = getDaysInMonth(Q.month, Q.year);
 
-        if (Q.day > daysThisMonth) {
-            Q.day = 1;
-            Q.month += 1;
+            if (Q.day > daysThisMonth) {
+                Q.day = 1;
+                Q.month += 1;
 
-            if (Q.month > 12) {
-                Q.month = 1;
-                Q.year += 1;
+                if (Q.month > 12) {
+                    Q.month = 1;
+                    Q.year += 1;
 
-                if (Q.historical_mode) {
-                    Q.resources += 2;
+                    if (Q.historical_mode) {
+                        Q.resources += 2;
+                    }
                 }
             }
+
+            if (Q.advisor_action_timer > 0 && Q.day % 30 === 0) {
+                Q.advisor_action_timer -= 1;
+            }
+
+            // Call post_event logic if needed
+            const engine = dendryUI.dendryEngine;
+            const postEventScene = engine.game.scenes['post_event'];
+
+            if (postEventScene?.onArrival) {
+                console.log('Calling post_event scene logic');
+                engine._runActions(postEventScene.onArrival);
+                if (Q.has_event) {
+                    engine.__changeScene('post_event.events_choice');
+                }
+            }
+
+            window.updateSidebar();
         }
 
+        // Still allow status redraw if user is on status page
         if (Q.current_scene === 'status' && typeof visit === 'function') {
-            visit('status'); // Revisit the scene to force a redraw
+            visit('status');
         }
 
-
-        // Example: Decrease advisor cooldowns
-        if (Q.advisor_action_timer > 0 && Q.day % 30 == 0) {
-            Q.advisor_action_timer -= 1;
-        }
-
-setInterval(() => {
-    const engine = dendryUI.dendryEngine;
-    const postEventScene = engine.game.scenes['post_event'];
-
-    if (postEventScene?.onArrival) {
-        console.log('Calling post_event scene logic');
-        engine._runActions(postEventScene.onArrival);
-        if (Q.has_event) {
-            engine.__changeScene('post_event');
-        }
-    }
-}, 1000); // adjust frequency if needed
-
-
-        window.updateSidebar();
-
-    }, 1000); // 1000ms = 1 second
+    }, 1000);
 }
 if (Q.advisor_action_timer <= 0) {
     Q.pinnedCardsDescription = 'Advisors - an action is available.';
