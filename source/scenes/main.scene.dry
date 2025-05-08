@@ -56,9 +56,9 @@ if (!Q._initialized) {
 
 // Assuming `DendryEngine` is the object with the `__changeScene` method
 setInterval(function() {
-    if (typeof this.__changeScene === 'function') {
+    if (typeof dendryUI.dendryEngine.__changeScene === 'function') {
         console.log('Changing to post_event scene');
-        this.__changeScene('post_event');
+        dendryUI.dendryEngine.__changeScene('post_event');
     } else {
         console.log('__changeScene function not defined');
     }
@@ -151,9 +151,9 @@ if (!Q._initialized) {
 
 // Assuming `DendryEngine` is the object with the `__changeScene` method
 setInterval(function() {
-    if (typeof this.__changeScene === 'function') {
+    if (typeof dendryUI.dendryEngine.__changeScene === 'function') {
         console.log('Changing to post_event scene');
-        this.__changeScene('post_event');
+        dendryUI.dendryEngine.__changeScene('post_event');
     } else {
         console.log('__changeScene function not defined');
     }
