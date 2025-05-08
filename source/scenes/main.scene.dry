@@ -55,15 +55,12 @@ if (!Q._initialized) {
         }
 
 
-        Q.has_event = 0;
-        // check if there are any cards in #event, and then go to main if not.
+    if (this.game?.scenes?.['main.events_choice']) {
         var scene = this.game.scenes['main.events_choice'];
         var choices = this._compileChoices(scene);
-        if (choices && choices[0].title != "Continue...") {
-            Q.has_event = 1;
-        } else {
-            has_event = 0;
-        }
+        Q.has_event = (choices && choices[0]?.title !== "Continue...") ? 1 : 0;
+    }
+
 
     }, 1000); // 1000ms = 1 second
 }
@@ -145,15 +142,13 @@ if (!Q._initialized) {
             Q.advisor_action_timer -= 1;
         }
 
-        Q.has_event = 0;
-        // check if there are any cards in #event, and then go to main if not.
+
+    if (this.game?.scenes?.['main.events_choice']) {
         var scene = this.game.scenes['main.events_choice'];
         var choices = this._compileChoices(scene);
-        if (choices && choices[0].title != "Continue...") {
-            Q.has_event = 1;
-        } else {
-            has_event = 0;
-        }
+        Q.has_event = (choices && choices[0]?.title !== "Continue...") ? 1 : 0;
+    }
+
 
     }, 1000); // 1000ms = 1 second
 }
