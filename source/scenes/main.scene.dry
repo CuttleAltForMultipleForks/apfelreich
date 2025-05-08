@@ -55,7 +55,7 @@ if (!Q._initialized) {
         }
 
 const interval = setInterval(function () {
-    // Accessing the correct global object
+    // Access the correct global object
     const game = window.dendryUI?.dendryEngine?.game;
     if (!game || !game.scenes) {
         console.log('Scene not defined yet');
@@ -69,15 +69,24 @@ const interval = setInterval(function () {
         return;
     }
 
+    // Initialize Q.current_scene if it's undefined
+    if (Q.current_scene === undefined) {
+        // Set Q.current_scene to the default scene, you might want to adjust this logic
+        Q.current_scene = 'main'; // Assuming 'main' is the default
+        console.log('Initializing Q.current_scene:', Q.current_scene);
+    }
+
     // Check if Q.current_scene exists
     console.log('Current Scene:', Q.current_scene);
     if (Q.current_scene === undefined) {
-        console.log('Q.current_scene is undefined');
+        console.log('Q.current_scene is still undefined');
+        return;
     }
 
     // Check if _compileChoices is defined
     if (typeof Q._compileChoices !== 'function') {
         console.log('_compileChoices function not defined');
+        // You may want to define it here if needed, or check if it's loaded from another source
         return;
     }
 
@@ -94,6 +103,7 @@ const interval = setInterval(function () {
         visit('main.events_choice');
     }
 }, 1000);
+
 
 
 
@@ -182,7 +192,7 @@ if (!Q._initialized) {
         }
 
 const interval = setInterval(function () {
-    // Accessing the correct global object
+    // Access the correct global object
     const game = window.dendryUI?.dendryEngine?.game;
     if (!game || !game.scenes) {
         console.log('Scene not defined yet');
@@ -196,15 +206,24 @@ const interval = setInterval(function () {
         return;
     }
 
+    // Initialize Q.current_scene if it's undefined
+    if (Q.current_scene === undefined) {
+        // Set Q.current_scene to the default scene, you might want to adjust this logic
+        Q.current_scene = 'main'; // Assuming 'main' is the default
+        console.log('Initializing Q.current_scene:', Q.current_scene);
+    }
+
     // Check if Q.current_scene exists
     console.log('Current Scene:', Q.current_scene);
     if (Q.current_scene === undefined) {
-        console.log('Q.current_scene is undefined');
+        console.log('Q.current_scene is still undefined');
+        return;
     }
 
     // Check if _compileChoices is defined
     if (typeof Q._compileChoices !== 'function') {
         console.log('_compileChoices function not defined');
+        // You may want to define it here if needed, or check if it's loaded from another source
         return;
     }
 
@@ -221,6 +240,7 @@ const interval = setInterval(function () {
         visit('main.events_choice');
     }
 }, 1000);
+
 
 
 
