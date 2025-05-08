@@ -73,6 +73,7 @@ set-bg: img/map_2.jpg
 is-hand: true
 on-arrival: {!
 if (!Q._initialized) {
+
     function getDaysInMonth(month, year) {
     const daysInMonth = {
         1: 31,
@@ -89,7 +90,8 @@ if (!Q._initialized) {
         12: 31
     };
     return daysInMonth[month];
-}
+    }
+
     Q._initialized = true;
 
     setInterval(function() {
@@ -98,7 +100,7 @@ if (!Q._initialized) {
 
         const daysThisMonth = getDaysInMonth(Q.month, Q.year);
 
-        if (Q.day > daysInMonth) {
+        if (Q.day > daysThisMonth) {
             Q.day = 1;
             Q.month += 1;
 

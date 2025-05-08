@@ -37,7 +37,7 @@ if (Q.economic_growth) {
 
 = Status
 
-[ + currentDateString +]
+[+ currentDateString +]
 
 Resources available: [+ resources +]
 
