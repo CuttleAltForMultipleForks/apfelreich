@@ -63,6 +63,7 @@ setInterval(function () {
     const hasRealEvent = choices && choices.length && choices[0].title !== "Continue...";
 
     if (hasRealEvent && Q.current_scene === 'main') {
+        Q.has_event = 1;
         visit('main'); // Trigger the event logic while staying in the same scene
     }
 
@@ -161,6 +162,7 @@ setInterval(function () {
     const hasRealEvent = choices && choices.length && choices[0].title !== "Continue...";
 
     if (hasRealEvent && Q.current_scene === 'main') {
+        Q.has_event = 1;
         visit('main'); // Trigger the event logic while staying in the same scene
     }
 
