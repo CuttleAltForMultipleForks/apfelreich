@@ -81,7 +81,6 @@ if (Q.advisor_action_timer <= 0) {
 }
 !}
 max-cards: 3
-go-to: events_choice if has_event
 
 #Here, the main deck will be displayed. Clicking on the deck draws a card into your hand. Clicking on a card activates that card.
 
@@ -177,7 +176,6 @@ if (Q.advisor_action_timer <= 0) {
 }
 !}
 max-cards: 4
-go-to: events_choice if has_event
 
 #Here, the main deck will be displayed. Clicking on the deck draws a card into your hand. Clicking on a card activates that card.
 
@@ -203,8 +201,3 @@ card-image: img/reichstag_2.jpg
 is-deck: true
 
 - #govt_affairs
-
-@events_choice
-
-- #event
-
