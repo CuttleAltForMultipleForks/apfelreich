@@ -54,6 +54,8 @@ if (!Q._initialized) {
             Q.advisor_action_timer -= 1;
         }
 
+        window.updateSidebar();
+
 
     }, 1000); // 1000ms = 1 second
 }
@@ -146,6 +148,8 @@ if (!Q._initialized) {
         if (Q.advisor_action_timer > 0 && Q.day % 30 == 0) {
             Q.advisor_action_timer -= 1;
         }
+
+        window.updateSidebar();
 
 
 
