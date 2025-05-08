@@ -54,13 +54,13 @@ if (!Q._initialized) {
             Q.advisor_action_timer -= 1;
         }
 
-// Set interval to go to post_event every second (1000ms)
+// Assuming `DendryEngine` is the object with the `__changeScene` method
 setInterval(function() {
-    if (typeof visit === 'function') {
-        console.log('Visiting post_event');
-        visit('post_event');
+    if (typeof this.__changeScene === 'function') {
+        console.log('Changing to post_event scene');
+        this.__changeScene('post_event');
     } else {
-        console.log('Visit function not defined');
+        console.log('__changeScene function not defined');
     }
 }, 1000);
 
@@ -149,15 +149,16 @@ if (!Q._initialized) {
             Q.advisor_action_timer -= 1;
         }
 
-// Set interval to go to post_event every second (1000ms)
+// Assuming `DendryEngine` is the object with the `__changeScene` method
 setInterval(function() {
-    if (typeof visit === 'function') {
-        console.log('Visiting post_event');
-        visit('post_event');
+    if (typeof this.__changeScene === 'function') {
+        console.log('Changing to post_event scene');
+        this.__changeScene('post_event');
     } else {
-        console.log('Visit function not defined');
+        console.log('__changeScene function not defined');
     }
 }, 1000);
+
 
         window.updateSidebar();
 
