@@ -54,15 +54,15 @@ if (!Q._initialized) {
             Q.advisor_action_timer -= 1;
         }
 
-// Assuming `DendryEngine` is the object with the `__changeScene` method
-setInterval(function() {
-    if (typeof dendryUI.dendryEngine.__changeScene === 'function') {
-        console.log('Changing to post_event scene');
-        dendryUI.dendryEngine.__changeScene('post_event');
-    } else {
-        console.log('__changeScene function not defined');
+setInterval(() => {
+    const engine = dendryUI.dendryEngine;
+    const postEventScene = engine.game.scenes['post_event'];
+
+    if (postEventScene?.onArrival) {
+        console.log('Calling post_event scene logic');
+        engine._runActions(postEventScene.onArrival);
     }
-}, 1000);
+}, 1000); // adjust frequency if needed
 
 
 
@@ -149,15 +149,15 @@ if (!Q._initialized) {
             Q.advisor_action_timer -= 1;
         }
 
-// Assuming `DendryEngine` is the object with the `__changeScene` method
-setInterval(function() {
-    if (typeof dendryUI.dendryEngine.__changeScene === 'function') {
-        console.log('Changing to post_event scene');
-        dendryUI.dendryEngine.__changeScene('post_event');
-    } else {
-        console.log('__changeScene function not defined');
+setInterval(() => {
+    const engine = dendryUI.dendryEngine;
+    const postEventScene = engine.game.scenes['post_event'];
+
+    if (postEventScene?.onArrival) {
+        console.log('Calling post_event scene logic');
+        engine._runActions(postEventScene.onArrival);
     }
-}, 1000);
+}, 1000); // adjust frequency if needed
 
 
         window.updateSidebar();
