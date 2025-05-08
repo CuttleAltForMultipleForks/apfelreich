@@ -54,30 +54,6 @@ if (!Q._initialized) {
             Q.advisor_action_timer -= 1;
         }
 
-setInterval(function () {
-    const game = window.game || Q.game; // or however your game object is exposed
-
-    if (!game?.scenes?.['main.events_choice']) {
-        console.log('Scene not defined');
-        return;
-    }
-
-    const scene = game.scenes['main.events_choice'];
-    const choices = Q._compileChoices?.(scene);
-
-    console.log('Current Scene:', Q.current_scene);
-    console.log('Choices:', choices);
-
-    const hasRealEvent = choices && choices.length && choices[0].title !== "Continue...";
-
-    Q.has_event = hasRealEvent ? 1 : 0;
-
-    if (hasRealEvent && Q.current_scene === 'main') {
-        console.log('Should trigger visit to main.events_choice.');
-        visit('main.events_choice');
-    }
-}, 1000);
-
 
         window.updateSidebar();
 
@@ -161,30 +137,6 @@ if (!Q._initialized) {
         if (Q.advisor_action_timer > 0 && Q.day % 30 == 0) {
             Q.advisor_action_timer -= 1;
         }
-
-setInterval(function () {
-    const game = window.game || Q.game; // or however your game object is exposed
-
-    if (!game?.scenes?.['main.events_choice']) {
-        console.log('Scene not defined');
-        return;
-    }
-
-    const scene = game.scenes['main.events_choice'];
-    const choices = Q._compileChoices?.(scene);
-
-    console.log('Current Scene:', Q.current_scene);
-    console.log('Choices:', choices);
-
-    const hasRealEvent = choices && choices.length && choices[0].title !== "Continue...";
-
-    Q.has_event = hasRealEvent ? 1 : 0;
-
-    if (hasRealEvent && Q.current_scene === 'main') {
-        console.log('Should trigger visit to main.events_choice.');
-        visit('main.events_choice');
-    }
-}, 1000);
 
 
         window.updateSidebar();
