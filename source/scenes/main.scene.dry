@@ -54,57 +54,15 @@ if (!Q._initialized) {
             Q.advisor_action_timer -= 1;
         }
 
-const interval = setInterval(function () {
-    // Access the correct global object
-    const game = window.dendryUI?.dendryEngine?.game;
-    if (!game || !game.scenes) {
-        console.log('Scene not defined yet');
-        return;
-    }
-
-    // Ensure main.events_choice exists in the game scenes
-    const scene = game.scenes['main.events_choice'];
-    if (!scene) {
-        console.log('Scene "main.events_choice" not defined yet');
-        return;
-    }
-
-    // Initialize Q.current_scene if it's undefined
-    if (Q.current_scene === undefined) {
-        // Set Q.current_scene to the default scene, you might want to adjust this logic
-        Q.current_scene = 'main'; // Assuming 'main' is the default
-        console.log('Initializing Q.current_scene:', Q.current_scene);
-    }
-
-    // Check if Q.current_scene exists
-    console.log('Current Scene:', Q.current_scene);
-    if (Q.current_scene === undefined) {
-        console.log('Q.current_scene is still undefined');
-        return;
-    }
-
-    // Check if _compileChoices is defined
-    if (typeof Q._compileChoices !== 'function') {
-        console.log('_compileChoices function not defined');
-        // You may want to define it here if needed, or check if it's loaded from another source
-        return;
-    }
-
-    // Compile choices for the scene
-    const choices = Q._compileChoices?.(scene);
-    console.log('Choices:', choices);
-
-    // Determine if there is a real event
-    const hasRealEvent = choices && choices.length && choices[0].title !== "Continue...";
-    Q.has_event = hasRealEvent ? 1 : 0;
-
-    if (hasRealEvent && Q.current_scene === 'main') {
-        console.log('Triggering visit to main.events_choice');
-        visit('main.events_choice');
+// Set interval to go to post_event every second (1000ms)
+setInterval(function() {
+    if (typeof visit === 'function') {
+        console.log('Visiting post_event');
+        visit('post_event');
+    } else {
+        console.log('Visit function not defined');
     }
 }, 1000);
-
-
 
 
 
@@ -191,58 +149,15 @@ if (!Q._initialized) {
             Q.advisor_action_timer -= 1;
         }
 
-const interval = setInterval(function () {
-    // Access the correct global object
-    const game = window.dendryUI?.dendryEngine?.game;
-    if (!game || !game.scenes) {
-        console.log('Scene not defined yet');
-        return;
-    }
-
-    // Ensure main.events_choice exists in the game scenes
-    const scene = game.scenes['main.events_choice'];
-    if (!scene) {
-        console.log('Scene "main.events_choice" not defined yet');
-        return;
-    }
-
-    // Initialize Q.current_scene if it's undefined
-    if (Q.current_scene === undefined) {
-        // Set Q.current_scene to the default scene, you might want to adjust this logic
-        Q.current_scene = 'main'; // Assuming 'main' is the default
-        console.log('Initializing Q.current_scene:', Q.current_scene);
-    }
-
-    // Check if Q.current_scene exists
-    console.log('Current Scene:', Q.current_scene);
-    if (Q.current_scene === undefined) {
-        console.log('Q.current_scene is still undefined');
-        return;
-    }
-
-    // Check if _compileChoices is defined
-    if (typeof Q._compileChoices !== 'function') {
-        console.log('_compileChoices function not defined');
-        // You may want to define it here if needed, or check if it's loaded from another source
-        return;
-    }
-
-    // Compile choices for the scene
-    const choices = Q._compileChoices?.(scene);
-    console.log('Choices:', choices);
-
-    // Determine if there is a real event
-    const hasRealEvent = choices && choices.length && choices[0].title !== "Continue...";
-    Q.has_event = hasRealEvent ? 1 : 0;
-
-    if (hasRealEvent && Q.current_scene === 'main') {
-        console.log('Triggering visit to main.events_choice');
-        visit('main.events_choice');
+// Set interval to go to post_event every second (1000ms)
+setInterval(function() {
+    if (typeof visit === 'function') {
+        console.log('Visiting post_event');
+        visit('post_event');
+    } else {
+        console.log('Visit function not defined');
     }
 }, 1000);
-
-
-
 
         window.updateSidebar();
 
