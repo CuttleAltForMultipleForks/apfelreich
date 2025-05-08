@@ -3,6 +3,7 @@ set-bg: img/map_2.jpg
 is-hand: true
 on-arrival: {!
 if (!Q._initialized) {
+
     function getDaysInMonth(month, year) {
     const daysInMonth = {
         1: 31,
@@ -19,7 +20,8 @@ if (!Q._initialized) {
         12: 31
     };
     return daysInMonth[month];
-}
+    }
+
     Q._initialized = true;
 
     setInterval(function() {
@@ -28,7 +30,7 @@ if (!Q._initialized) {
 
         const daysThisMonth = getDaysInMonth(Q.month, Q.year);
 
-        if (Q.day > daysInMonth) {
+        if (Q.day > daysThisMonth) {
             Q.day = 1;
             Q.month += 1;
 
@@ -42,10 +44,14 @@ if (!Q._initialized) {
             }
         }
 
+        Q.currentDateString = getMonthName(Q.month) + ' ' + Q.day + getOrdinalSuffix(Q.day) + ', ' + Q.year;
+
         // Example: Decrease advisor cooldowns
         if (Q.advisor_action_timer > 0 && Q.day % 30 == 0) {
             Q.advisor_action_timer -= 1;
         }
+
+        window.updateSidebar()
 
     }, 1000); // 1000ms = 1 second
 }
@@ -114,10 +120,14 @@ if (!Q._initialized) {
             }
         }
 
+        Q.currentDateString = getMonthName(Q.month) + ' ' + Q.day + getOrdinalSuffix(Q.day) + ', ' + Q.year;
+
         // Example: Decrease advisor cooldowns
         if (Q.advisor_action_timer > 0 && Q.day % 30 == 0) {
             Q.advisor_action_timer -= 1;
         }
+
+        window.updateSidebar()
 
     }, 1000); // 1000ms = 1 second
 }
