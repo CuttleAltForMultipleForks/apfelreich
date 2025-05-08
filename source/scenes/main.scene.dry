@@ -54,18 +54,10 @@ if (!Q._initialized) {
             Q.advisor_action_timer -= 1;
         }
 
-        console.log(this.game); // Check if this.game contains scenes
-
-        if (this.game.scenes && this.game.scenes['post_event.events_choice']) {
-    console.log("Scene exists");
-} else {
-    console.log("Scene does not exist");
-}
-
 
         Q.has_event = 0;
         // check if there are any cards in #event, and then go to main if not.
-        var scene = this.game.scenes['post_event.events_choice'];
+        var scene = this.game.scenes['main.events_choice'];
         var choices = this._compileChoices(scene);
         if (choices && choices[0].title != "Continue...") {
             Q.has_event = 1;
@@ -84,7 +76,11 @@ if (Q.advisor_action_timer <= 0) {
 }
 !}
 max-cards: 3
-go-to: post_event.events_choice if has_event
+go-to: events_choice if has_event; double_main1 if not has_event
+
+#Here, the main deck will be displayed. Clicking on the deck draws a card into your hand. Clicking on a card activates that card.
+
+@double_main1
 
 #Here, the main deck will be displayed. Clicking on the deck draws a card into your hand. Clicking on a card activates that card.
 
@@ -153,7 +149,7 @@ if (!Q._initialized) {
 
         Q.has_event = 0;
         // check if there are any cards in #event, and then go to main if not.
-        var scene = this.game.scenes['post_event.events_choice'];
+        var scene = this.game.scenes['main.events_choice'];
         var choices = this._compileChoices(scene);
         if (choices && choices[0].title != "Continue...") {
             Q.has_event = 1;
@@ -172,9 +168,11 @@ if (Q.advisor_action_timer <= 0) {
 }
 !}
 max-cards: 4
-go-to: post_event.events_choice if has_event
+go-to: events_choice if has_event; double_main if not has_event
 
 #Here, the main deck will be displayed. Clicking on the deck draws a card into your hand. Clicking on a card activates that card.
+
+@double_main
 
 [? if year = 1928 and month = 2 : The current bourgeois-right government has fallen. The next elections are slated for May of this year. ?]
 
@@ -198,3 +196,8 @@ card-image: img/reichstag_2.jpg
 is-deck: true
 
 - #govt_affairs
+
+@events_choice
+
+- #event
+
