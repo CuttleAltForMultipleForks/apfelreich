@@ -1,0 +1,27 @@
+title: News
+new-page: true
+is-special: true
+on-arrival: {!
+function addNewsHeadline(headline) {
+    const sidebar = document.getElementById('rightSidebar');
+    if (!sidebar) return;
+
+    const headlineEl = document.createElement('div');
+    headlineEl.className = 'news-headline';
+    headlineEl.textContent = headline;
+    sidebar.appendChild(headlineEl);
+}
+
+// Example of headlines being added
+addNewsHeadline("SPD and Z Party Begin Coalition Talks in Berlin.");
+addNewsHeadline("Unemployment Hits 12.4% Amid Global Economic Woes.");
+addNewsHeadline("Reichstag Debates New Public Works Initiative.");
+addNewsHeadline("Violence Erupts at KPD Rally in Leipzig.");
+addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
+!}
+
+= News
+
+This sidebar displays current headlines and major news events as they develop.
+
+All headlines here have appeared as part of recent updates and will scroll as new ones are added dynamically.
