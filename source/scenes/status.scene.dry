@@ -2,6 +2,27 @@ title: Status
 new-page: true
 is-special: true
 on-arrival: {!
+function getOrdinalSuffix(day) {
+    if (day >= 11 && day <= 13) return 'th';
+    switch (day % 10) {
+        case 1: return 'st';
+        case 2: return 'nd';
+        case 3: return 'rd';
+        default: return 'th';
+    }
+}
+
+function getMonthName(month) {
+    const monthNames = {
+        1: "January", 2: "February", 3: "March", 4: "April",
+        5: "May", 6: "June", 7: "July", 8: "August",
+        9: "September", 10: "October", 11: "November", 12: "December"
+    };
+    return monthNames[month];
+}
+
+Q.currentDateString = getMonthName(Q.month) + ' ' + Q.day + getOrdinalSuffix(Q.day) + ', ' + Q.year;
+
 if (Q.unemployed) {
     Q.unemployed_2 = Q.unemployed.toFixed(1);
 }
@@ -16,7 +37,7 @@ if (Q.economic_growth) {
 
 = Status
 
-[+ month : month +] [+ year +]
+[ + currentDateString +]
 
 Resources available: [+ resources +]
 

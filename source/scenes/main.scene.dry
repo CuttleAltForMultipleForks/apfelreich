@@ -2,6 +2,53 @@ title: Next month
 set-bg: img/map_2.jpg
 is-hand: true
 on-arrival: {!
+if (!Q._initialized) {
+    function getDaysInMonth(month, year) {
+    const daysInMonth = {
+        1: 31,
+        2: (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)) ? 29 : 28,
+        3: 31,
+        4: 30,
+        5: 31,
+        6: 30,
+        7: 31,
+        8: 31,
+        9: 30,
+        10: 31,
+        11: 30,
+        12: 31
+    };
+    return daysInMonth[month];
+}
+    Q._initialized = true;
+
+    setInterval(function() {
+        Q.time += 1;
+        Q.day = (Q.day || 1) + 1;
+
+        const daysThisMonth = getDaysInMonth(Q.month, Q.year);
+
+        if (Q.day > daysInMonth) {
+            Q.day = 1;
+            Q.month += 1;
+
+            if (Q.month > 12) {
+                Q.month = 1;
+                Q.year += 1;
+
+                if (Q.historical_mode) {
+                    Q.resources += 2;
+                }
+            }
+        }
+
+        // Example: Decrease advisor cooldowns
+        if (Q.advisor_action_timer > 0 && Q.day % 30 == 0) {
+            Q.advisor_action_timer -= 1;
+        }
+
+    }, 1000); // 1000ms = 1 second
+}
 if (Q.advisor_action_timer <= 0) {
     Q.pinnedCardsDescription = 'Advisors - an action is available.';
 } else if (Q.advisor_action_timer == 1) {
@@ -25,6 +72,53 @@ max-cards: 3
 set-bg: img/map_2.jpg
 is-hand: true
 on-arrival: {!
+if (!Q._initialized) {
+    function getDaysInMonth(month, year) {
+    const daysInMonth = {
+        1: 31,
+        2: (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)) ? 29 : 28,
+        3: 31,
+        4: 30,
+        5: 31,
+        6: 30,
+        7: 31,
+        8: 31,
+        9: 30,
+        10: 31,
+        11: 30,
+        12: 31
+    };
+    return daysInMonth[month];
+}
+    Q._initialized = true;
+
+    setInterval(function() {
+        Q.time += 1;
+        Q.day = (Q.day || 1) + 1;
+
+        const daysThisMonth = getDaysInMonth(Q.month, Q.year);
+
+        if (Q.day > daysInMonth) {
+            Q.day = 1;
+            Q.month += 1;
+
+            if (Q.month > 12) {
+                Q.month = 1;
+                Q.year += 1;
+
+                if (Q.historical_mode) {
+                    Q.resources += 2;
+                }
+            }
+        }
+
+        // Example: Decrease advisor cooldowns
+        if (Q.advisor_action_timer > 0 && Q.day % 30 == 0) {
+            Q.advisor_action_timer -= 1;
+        }
+
+    }, 1000); // 1000ms = 1 second
+}
 if (Q.advisor_action_timer <= 0) {
     Q.pinnedCardsDescription = 'Advisors - an action is available.';
 } else if (Q.advisor_action_timer == 1) {
