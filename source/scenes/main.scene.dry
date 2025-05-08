@@ -61,6 +61,9 @@ setInterval(() => {
     if (postEventScene?.onArrival) {
         console.log('Calling post_event scene logic');
         engine._runActions(postEventScene.onArrival);
+        if (Q.has_event) {
+            engine.__changeScene('post_event.events_choice');
+        }
     }
 }, 1000); // adjust frequency if needed
 
@@ -156,6 +159,9 @@ setInterval(() => {
     if (postEventScene?.onArrival) {
         console.log('Calling post_event scene logic');
         engine._runActions(postEventScene.onArrival);
+        if (Q.has_event) {
+            engine.__changeScene('post_event.events_choice');
+        }
     }
 }, 1000); // adjust frequency if needed
 
