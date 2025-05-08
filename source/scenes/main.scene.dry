@@ -55,17 +55,17 @@ if (!Q._initialized) {
         }
 
 setInterval(function () {
-    console.log('Current Scene:', Q.current_scene);
+    const game = window.game || Q.game; // or however your game object is exposed
 
-    if (!this.game?.scenes?.['main.events_choice']) {
+    if (!game?.scenes?.['main.events_choice']) {
         console.log('Scene not defined');
-        Q.has_event = 0;
         return;
     }
 
-    const scene = this.game.scenes['main.events_choice'];
-    const choices = this._compileChoices?.(scene);
+    const scene = game.scenes['main.events_choice'];
+    const choices = Q._compileChoices?.(scene);
 
+    console.log('Current Scene:', Q.current_scene);
     console.log('Choices:', choices);
 
     const hasRealEvent = choices && choices.length && choices[0].title !== "Continue...";
@@ -74,9 +74,10 @@ setInterval(function () {
 
     if (hasRealEvent && Q.current_scene === 'main') {
         console.log('Should trigger visit to main.events_choice.');
-        visit('main.events_choice'); // Switch to event scene
+        visit('main.events_choice');
     }
 }, 1000);
+
 
         window.updateSidebar();
 
@@ -162,20 +163,29 @@ if (!Q._initialized) {
         }
 
 setInterval(function () {
-    if (!this.game?.scenes?.['main.events_choice']) return;
+    const game = window.game || Q.game; // or however your game object is exposed
 
-    const scene = this.game.scenes['main.events_choice'];
-    const choices = this._compileChoices?.(scene);
+    if (!game?.scenes?.['main.events_choice']) {
+        console.log('Scene not defined');
+        return;
+    }
+
+    const scene = game.scenes['main.events_choice'];
+    const choices = Q._compileChoices?.(scene);
+
+    console.log('Current Scene:', Q.current_scene);
+    console.log('Choices:', choices);
 
     const hasRealEvent = choices && choices.length && choices[0].title !== "Continue...";
 
-    if (hasRealEvent && Q.current_scene === 'main') {
-        Q.has_event = 1;
-        visit('main.events_choice'); // Trigger the event logic while staying in the same scene
-    }
-
     Q.has_event = hasRealEvent ? 1 : 0;
+
+    if (hasRealEvent && Q.current_scene === 'main') {
+        console.log('Should trigger visit to main.events_choice.');
+        visit('main.events_choice');
+    }
 }, 1000);
+
 
         window.updateSidebar();
 
