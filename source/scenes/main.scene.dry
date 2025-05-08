@@ -55,6 +55,9 @@ if (!Q._initialized) {
         }
 
 setInterval(function () {
+    console.log('Current Scene:', Q.current_scene);
+    console.log('Choices:', choices);
+
     if (!this.game?.scenes?.['main.events_choice']) return;
 
     const scene = this.game.scenes['main.events_choice'];
@@ -64,6 +67,7 @@ setInterval(function () {
 
     if (hasRealEvent && Q.current_scene === 'main') {
         Q.has_event = 1;
+        console.log('Should trigger visit to main.');
         visit('main.events_choice'); // Trigger the event logic while staying in the same scene
     }
 
