@@ -44,7 +44,10 @@ if (!Q._initialized) {
             }
         }
 
-        Q.currentDateString = getMonthName(Q.month) + ' ' + Q.day + getOrdinalSuffix(Q.day) + ', ' + Q.year;
+        if (Q.current_scene === 'status' && typeof visit === 'function') {
+            visit('status'); // Revisit the scene to force a redraw
+        }
+
 
         // Example: Decrease advisor cooldowns
         if (Q.advisor_action_timer > 0 && Q.day % 30 == 0) {
@@ -119,8 +122,6 @@ if (!Q._initialized) {
                 }
             }
         }
-
-        Q.currentDateString = getMonthName(Q.month) + ' ' + Q.day + getOrdinalSuffix(Q.day) + ', ' + Q.year;
 
         // Example: Decrease advisor cooldowns
         if (Q.advisor_action_timer > 0 && Q.day % 30 == 0) {
