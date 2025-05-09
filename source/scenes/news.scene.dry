@@ -36,15 +36,15 @@ console.log('Rendering news items:', dendryUI.dendryEngine.state.qualities.news_
 on-display: {!
 const newsFeed = document.getElementById('news_feed');
 if (newsFeed) {
-    const newsItems = (dendryUI.dendryEngine.state.qualities.news_items || []).slice().reverse();
-
+    const newsItems = dendryUI.dendryEngine.state.qualities.news_items;
+    
     // Clear the feed only if you want to reset it every time
     // newsFeed.innerHTML = ''; // You could comment this out if not needed
 
+    // Display all items in the array
     newsItems.forEach(item => {
         window.addNewsItem(item.headline, item.subtext);
     });
 }
-!}
 
 !}
