@@ -25,6 +25,22 @@ function addNewsItem(headline, subtext) {
 // Example of headlines being added
 addNewsItem("SPD and Z Party Begin Coalition Talks in Berlin.", "Leaders from both parties express optimism after late-night meetings.");
 addNewsItem("Unemployment Hits 12.4%", "Analysts point to global supply chain disruptions and energy costs.");
+addNewsItem("Government Proposes New Tax on Luxury Goods", "Finance Ministry estimates it could generate 2 billion marks annually.");
+addNewsItem("Rising Rent Sparks Protests in Hamburg", "Tenants' unions demand nationwide rent caps and housing reform.");
+addNewsItem("Rail Strike Disrupts Travel Across Saxony", "Workers demand better wages and safer conditions.");
+addNewsItem("Influenza Cases Surge in Southern Regions", "Health officials urge vaccinations and issue public health warnings.");
+addNewsItem("Industrial Output Falls for Second Straight Month", "Economists warn of a potential manufacturing recession.");
+addNewsItem("University Reforms Stir Debate Among Students", "Proposed changes include tuition increases and curriculum overhaul.");
+addNewsItem("Police Break Up Illegal Demonstration in Munich", "Authorities report 32 arrests and several injuries.");
+addNewsItem("New Literature Bill Passes First Reading in Reichstag", "Critics say the bill threatens artistic freedom.");
+addNewsItem("Social Democratic Leader Calls for Expanded Welfare Programs", "Speech highlights unemployment and child poverty.");
+addNewsItem("Border Skirmish Reported Near Polish Frontier", "Military officials downplay threat of escalation.");
+addNewsItem("Surge in Bicycle Ownership in Urban Areas", "Seen as a sign of growing dissatisfaction with public transit.");
+addNewsItem("Berlin Opera Announces Ambitious Winter Season", "Performances will include Wagner, Mozart, and new contemporary works.");
+addNewsItem("Food Prices Continue Steady Climb", "Staples like bread, milk, and potatoes up by 15% since January.");
+addNewsItem("Foreign Investment in Ruhr Region Rises", "Dutch and American firms show interest in coal and steel sectors.");
+addNewsItem("KPD Launches New Worker Literacy Initiative", "Free evening classes offered at party offices and labor halls.");
+addNewsItem("School Reform Plan Criticized by Rural Delegates", "Concerns over resource distribution and teacher shortages.");
 
 !}
 on-display: {!
