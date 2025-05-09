@@ -63,6 +63,7 @@ if (!Q._initialized) {
             }
 
             window.updateSidebar();
+            window.updateNewsSidebar();
         }
 
         // Still allow status redraw if user is on status page
@@ -158,6 +159,7 @@ if (!Q._initialized) {
             }
 
             window.updateSidebar();
+            window.updateNewsSidebar();
         }
 
         // Still allow status redraw if user is on status page
