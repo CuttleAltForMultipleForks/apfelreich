@@ -49,13 +49,13 @@
     // Insert the new item at the top of the feed
     feed.insertBefore(itemContainer, feed.firstChild);
 
-    // Check if the item has been rendered before by looking for a `data-rendered` attribute
+    // Only apply the fade-in effect for newly inserted items
     if (!itemContainer.hasAttribute('data-rendered')) {
-        // Mark the item as rendered (so it won't animate again)
-        itemContainer.setAttribute('data-rendered', 'true');
-        
-        // Apply the fade-in animation class only for the first time
+        // Apply the fade-in animation only if it's the first render
         itemContainer.classList.add('new-item');
+
+        // Mark this item as rendered to prevent the animation on future renders
+        itemContainer.setAttribute('data-rendered', 'true');
     }
 
     // Ensure the array is updated
