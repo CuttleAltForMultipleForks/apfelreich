@@ -27,8 +27,13 @@
     const feed = document.getElementById('news_feed');
     if (!feed) return;
 
+    // Check if this item is already in the feed to avoid duplicates
+    const exists = feed.querySelector(`.news-item[data-headline="${headline}"]`);
+    if (exists) return; // Prevent adding the same item multiple times
+    
     const itemContainer = document.createElement('div');
     itemContainer.className = 'news-item';
+    itemContainer.dataset.headline = headline; // Use data attribute for uniqueness
 
     const headlineEl = document.createElement('div');
     headlineEl.className = 'news-headline';
@@ -42,13 +47,14 @@
     itemContainer.appendChild(subtextEl);
     feed.appendChild(itemContainer);
 
+    // Ensure the array is updated
     if (!dendryUI.dendryEngine.state.qualities.news_items) {
         dendryUI.dendryEngine.state.qualities.news_items = [];
     }
 
-    // Prevent duplicates (optional, remove if not needed)
-    const exists = dendryUI.dendryEngine.state.qualities.news_items.some(item => item.headline === headline && item.subtext === subtext);
-    if (!exists) {
+    // Prevent duplicates in the array (optional)
+    const itemExists = dendryUI.dendryEngine.state.qualities.news_items.some(item => item.headline === headline && item.subtext === subtext);
+    if (!itemExists) {
         dendryUI.dendryEngine.state.qualities.news_items.push({ headline, subtext });
     }
 };

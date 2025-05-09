@@ -36,13 +36,14 @@ if (newsFeed) {
     newsFeed.style.overflowY = 'auto';
 
     const newsItems = dendryUI.dendryEngine.state.qualities.news_items || [];
+    console.log('Rendering all news items:', newsItems); // Debugging: Log the full array
     
-    // Ensure all items are displayed
+    // Clear the feed only if you want to reset it every time
+    // newsFeed.innerHTML = ''; // You could comment this out if not needed
+
+    // Display all items in the array
     newsItems.forEach(item => {
-        // Check if the item is already in the DOM (optional, to prevent re-adding)
-        if (!document.querySelector(`.news-item[data-headline="${item.headline}"]`)) {
-            window.addNewsItem(item.headline, item.subtext);
-        }
+        window.addNewsItem(item.headline, item.subtext);
     });
 }
 
