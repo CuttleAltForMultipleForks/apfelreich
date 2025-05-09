@@ -34,7 +34,7 @@ if (newsFeed) {
 
     const newsItems = dendryUI.dendryEngine.state.qualities.news_items || [];
     newsItems.forEach(item => {
-        addNewsItem(item.headline, item.subtext);
+        window.addNewsItem(item.headline, item.subtext);
     });
 }
 
