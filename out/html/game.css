@@ -184,6 +184,11 @@ blockquote + blockquote.attribution {
   float: right;
   right: 0.4em;
 }
+.news-headline {
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+  font-size: 0.95em;
+}
 #qualities {
   text-indent: 0;
   line-height: 1.3em;

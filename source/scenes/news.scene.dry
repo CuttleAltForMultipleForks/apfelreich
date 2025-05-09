@@ -3,13 +3,13 @@ new-page: true
 is-special: true
 on-arrival: {!
 function addNewsHeadline(headline) {
-    const sidebar = document.getElementById('rightSidebar');
-    if (!sidebar) return;
+    const feed = document.getElementById('news_feed');
+    if (!feed) return;
 
     const headlineEl = document.createElement('div');
     headlineEl.className = 'news-headline';
     headlineEl.textContent = headline;
-    sidebar.appendChild(headlineEl);
+    feed.appendChild(headlineEl);
 }
 
 // Example of headlines being added
@@ -20,10 +20,9 @@ addNewsHeadline("Violence Erupts at KPD Rally in Leipzig.");
 addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
 !}
 on-display: {!
-
 const newsFeed = document.getElementById('news_feed');
 if (newsFeed) {
-    newsFeed.style.maxHeight = '400px'; // or whatever height fits your layout
+    newsFeed.style.maxHeight = '400px';
     newsFeed.style.overflowY = 'auto';
 }
 !}
