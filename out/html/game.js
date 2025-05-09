@@ -52,8 +52,11 @@
         dendryUI.dendryEngine.state.qualities.news_items = [];
     }
 
-    dendryUI.dendryEngine.state.qualities.news_items.push({ headline, subtext });
-    
+    // Prevent duplicates in the array (optional)
+    const itemExists = dendryUI.dendryEngine.state.qualities.news_items.some(item => item.headline === headline && item.subtext === subtext);
+    if (!itemExists) {
+        dendryUI.dendryEngine.state.qualities.news_items.push({ headline, subtext });
+    }
 };
 
   window.showStats = function() {

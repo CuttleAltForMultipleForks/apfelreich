@@ -26,6 +26,10 @@ addNewsItem("Foreign Investment in Ruhr Region Rises", "Dutch and American firms
 addNewsItem("KPD Launches New Worker Literacy Initiative", "Free evening classes offered at party offices and labor halls.");
 addNewsItem("School Reform Plan Criticized by Rural Delegates", "Concerns over resource distribution and teacher shortages.");
 
+for (var item of Q.news_items || []) {
+    addNewsItem(item.headline, item.subtext);
+}
+
 console.log('Rendering news items:', dendryUI.dendryEngine.state.qualities.news_items);
 
 !}
