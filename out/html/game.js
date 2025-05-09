@@ -23,17 +23,20 @@
   window.loadMod = function(url) {
   };
 
-  window.addNewsItem = function(headline, subtext) {
+// Initialize the global tracker once
+window.renderedNewsHeadlines = window.renderedNewsHeadlines || new Set();
+
+window.addNewsItem = function(headline, subtext) {
     const feed = document.getElementById('news_feed');
     if (!feed) return;
 
-    // Check if this item is already in the feed to avoid duplicates
+    // Prevent duplicates in DOM
     const exists = feed.querySelector(`.news-item[data-headline="${headline}"]`);
-    if (exists) return; // Prevent adding the same item multiple times
-    
+    if (exists) return;
+
     const itemContainer = document.createElement('div');
     itemContainer.className = 'news-item';
-    itemContainer.dataset.headline = headline; // Use data attribute for uniqueness
+    itemContainer.dataset.headline = headline;
 
     const headlineEl = document.createElement('div');
     headlineEl.className = 'news-headline';
@@ -45,35 +48,28 @@
 
     itemContainer.appendChild(headlineEl);
     itemContainer.appendChild(subtextEl);
-
-    // Insert the new item at the top of the feed
     feed.insertBefore(itemContainer, feed.firstChild);
 
-    // Apply fade-in effect only if it's the first render of this item
-    if (!itemContainer.hasAttribute('data-rendered')) {
-        // Add the class to trigger the fade-in effect
+    // Fade in only if it's the first time this headline has been added
+    if (!window.renderedNewsHeadlines.has(headline)) {
         itemContainer.classList.add('new-item');
-
-        // Mark this item as rendered to prevent re-triggering the animation on subsequent renders
-        itemContainer.setAttribute('data-rendered', 'true');
-
-        // Ensure opacity is set to 1 after the fade-in effect completes
-        itemContainer.addEventListener('animationend', function () {
+        itemContainer.addEventListener('animationend', () => {
             itemContainer.classList.remove('new-item');
-            itemContainer.style.opacity = '1'; // Make sure opacity stays 1
+            itemContainer.style.opacity = '1';
         });
+        window.renderedNewsHeadlines.add(headline);
     } else {
-        // For already rendered items, make sure opacity is 1 to avoid them staying hidden
         itemContainer.style.opacity = '1';
     }
 
-    // Ensure the array is updated
+    // Update the news_items array if needed
     if (!dendryUI.dendryEngine.state.qualities.news_items) {
         dendryUI.dendryEngine.state.qualities.news_items = [];
     }
 
-    // Prevent duplicates in the array (optional)
-    const itemExists = dendryUI.dendryEngine.state.qualities.news_items.some(item => item.headline === headline && item.subtext === subtext);
+    const itemExists = dendryUI.dendryEngine.state.qualities.news_items.some(
+        item => item.headline === headline && item.subtext === subtext
+    );
     if (!itemExists) {
         dendryUI.dendryEngine.state.qualities.news_items.push({ headline, subtext });
     }
