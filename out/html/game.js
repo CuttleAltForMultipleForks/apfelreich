@@ -23,7 +23,7 @@
   window.loadMod = function(url) {
   };
 
-  window.addNewsItem(headline, subtext) {
+  window.addNewsItem = function(headline, subtext) {
     const feed = document.getElementById('news_feed');
     if (!feed) return;
 
