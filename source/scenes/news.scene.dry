@@ -23,22 +23,9 @@ function addNewsItem(headline, subtext) {
 }
 
 // Example of headlines being added
-addNewsHeadline("SPD and Z Party Begin Coalition Talks in Berlin.");
-addNewsHeadline("Unemployment Hits 12.4% Amid Global Economic Woes.");
-addNewsHeadline("Reichstag Debates New Public Works Initiative.");
-addNewsHeadline("Violence Erupts at KPD Rally in Leipzig.");
-addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
-addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
-addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
-addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
-addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
-addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
-addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
-addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
-addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
-addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
-addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
-addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
+addNewsItem("SPD and Z Party Begin Coalition Talks in Berlin.", "Leaders from both parties express optimism after late-night meetings.");
+addNewsItem("Unemployment Hits 12.4%", "Analysts point to global supply chain disruptions and energy costs.");
+
 !}
 on-display: {!
 const newsFeed = document.getElementById('news_feed');
