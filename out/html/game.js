@@ -57,6 +57,8 @@
     if (!itemExists) {
         dendryUI.dendryEngine.state.qualities.news_items.push({ headline, subtext });
     }
+
+    window.updateNewsSidebar();
 };
 
   window.showStats = function() {
