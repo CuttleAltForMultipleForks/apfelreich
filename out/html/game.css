@@ -192,10 +192,12 @@ blockquote + blockquote.attribution {
 .news-headline {
   font-size: 0.9em;
   font-weight: bold;
+  line-height: 1.1;
   margin-bottom: 4px;
 }
 
 .news-subtext {
+  line-height: 1.1;
   font-size: 0.6em;
   color: #666;
 }
