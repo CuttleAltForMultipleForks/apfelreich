@@ -45,7 +45,12 @@
 
     itemContainer.appendChild(headlineEl);
     itemContainer.appendChild(subtextEl);
+
+    // Insert the new item at the top of the feed
     feed.insertBefore(itemContainer, feed.firstChild);
+
+    // Check if it's a new item, if so, apply the fade-in effect
+    itemContainer.classList.add('new-item');
 
     // Ensure the array is updated
     if (!dendryUI.dendryEngine.state.qualities.news_items) {
