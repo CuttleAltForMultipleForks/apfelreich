@@ -19,9 +19,15 @@ addNewsHeadline("Reichstag Debates New Public Works Initiative.");
 addNewsHeadline("Violence Erupts at KPD Rally in Leipzig.");
 addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
 !}
+on-display: {!
+
+const newsFeed = document.getElementById('news_feed');
+if (newsFeed) {
+    newsFeed.style.maxHeight = '400px'; // or whatever height fits your layout
+    newsFeed.style.overflowY = 'auto';
+}
+!}
 
 = News
 
-This sidebar displays current headlines and major news events as they develop.
-
-All headlines here have appeared as part of recent updates and will scroll as new ones are added dynamically.
+News
