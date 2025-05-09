@@ -26,7 +26,15 @@ addNewsItem("School Reform Plan Criticized by Rural Delegates", "Concerns over r
 
 !}
 on-display: {!
+const newsFeed = document.getElementById('news_feed');
+if (newsFeed) {
+    newsFeed.style.maxHeight = '400px';
+    newsFeed.style.overflowY = 'auto';
 
-window.updateNewsFeed();
+    const newsItems = dendryUI.dendryEngine.state.qualities.news_items || [];
+    newsItems.forEach(item => {
+        window.addNewsItem(item.headline, item.subtext);
+    });
+}
 
 !}
