@@ -155,6 +155,18 @@
      $('#news_feed').append(dendryUI.contentToHTML.convert(displayContent));
    };
 
+   window.changeNewsTab = function(newTab, tabId) {
+     var tabButton = document.getElementById(tabId);
+     var tabButtons = document.getElementsByClassName('news_tab_button');
+     for (var i = 0; i < tabButtons.length; i++) {
+       tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+     }
+     tabButton.className += ' active';
+     window.newsTab = newTab;
+     window.updateNewsSidebar();
+    };
+
+
 
   window.changeTab = function(newTab, tabId) {
       if (tabId == 'poll_tab' && dendryUI.dendryEngine.state.qualities.historical_mode) {
