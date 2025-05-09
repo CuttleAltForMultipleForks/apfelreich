@@ -30,6 +30,7 @@ const newsFeed = document.getElementById('news_feed');
 if (newsFeed) {
     newsFeed.style.maxHeight = '400px';
     newsFeed.style.overflowY = 'auto';
+    newsFeed.innerHTML = ''; // Clear first
 
     const newsItems = dendryUI.dendryEngine.state.qualities.news_items || [];
     newsItems.forEach(item => {
