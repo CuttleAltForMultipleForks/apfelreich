@@ -49,16 +49,16 @@
     // Insert the new item at the top of the feed
     feed.insertBefore(itemContainer, feed.firstChild);
 
-    // Only apply the fade-in effect for newly inserted items
+    // Apply fade-in effect only if it's the first render of this item
     if (!itemContainer.hasAttribute('data-rendered')) {
-        // Apply the fade-in animation only if it's the first render
+        // Add the class to trigger the fade-in effect
         itemContainer.classList.add('new-item');
-        
-        // Mark the item as rendered to prevent the animation on future renders
+
+        // Mark this item as rendered to prevent re-triggering the animation on subsequent renders
         itemContainer.setAttribute('data-rendered', 'true');
-        
-        // Remove the `new-item` class after the fade-in is complete (to prevent it from being re-applied)
-        itemContainer.addEventListener('animationend', () => {
+
+        // Remove the `new-item` class after the fade-in completes
+        itemContainer.addEventListener('animationend', function () {
             itemContainer.classList.remove('new-item');
         });
     }
