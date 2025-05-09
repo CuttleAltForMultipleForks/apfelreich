@@ -189,6 +189,10 @@ blockquote + blockquote.attribution {
   border-bottom: 1px solid #ccc;
   font-size: 0.95em;
 }
+#news_feed {
+  height: 400px;
+  overflow-y: scroll;
+}
 #qualities {
   text-indent: 0;
   line-height: 1.3em;
