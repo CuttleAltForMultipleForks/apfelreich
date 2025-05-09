@@ -42,14 +42,14 @@
     itemContainer.appendChild(subtextEl);
     feed.appendChild(itemContainer);
 
-    if (!Q.news_items) {
-        Q.news_items = [];
+    if (!dendryUI.dendryEngine.state.qualities.news_items) {
+        dendryUI.dendryEngine.state.qualities.news_items = [];
     }
 
     // Prevent duplicates (optional, remove if not needed)
-    const exists = Q.news_items.some(item => item.headline === headline && item.subtext === subtext);
+    const exists = dendryUI.dendryEngine.state.qualities.news_items.some(item => item.headline === headline && item.subtext === subtext);
     if (!exists) {
-        Q.news_items.push({ headline, subtext });
+        dendryUI.dendryEngine.state.qualities.news_items.push({ headline, subtext });
     }
 }
 
