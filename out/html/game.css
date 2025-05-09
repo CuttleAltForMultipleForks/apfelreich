@@ -189,11 +189,12 @@ blockquote + blockquote.attribution {
   padding: 6px;
   border-bottom: 1px solid #ccc;
   opacity: 0;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform: translateY(-10px); /* Start slightly upward */
+  transition: transform 0.6s ease, opacity 0.6s ease;
 }
 
 .news-item.new-item {
-  animation: fadeInSlideDown 0.3s ease forwards;
+  animation: fadeIn 1s ease forwards;
 }
 
 @keyframes fadeInSlideDown {
