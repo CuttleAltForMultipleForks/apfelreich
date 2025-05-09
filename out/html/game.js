@@ -23,6 +23,36 @@
   window.loadMod = function(url) {
   };
 
+  window.addNewsItem(headline, subtext) {
+    const feed = document.getElementById('news_feed');
+    if (!feed) return;
+
+    const itemContainer = document.createElement('div');
+    itemContainer.className = 'news-item';
+
+    const headlineEl = document.createElement('div');
+    headlineEl.className = 'news-headline';
+    headlineEl.textContent = headline;
+
+    const subtextEl = document.createElement('div');
+    subtextEl.className = 'news-subtext';
+    subtextEl.textContent = subtext;
+
+    itemContainer.appendChild(headlineEl);
+    itemContainer.appendChild(subtextEl);
+    feed.appendChild(itemContainer);
+
+    if (!Q.news_items) {
+        Q.news_items = [];
+    }
+
+    // Prevent duplicates (optional, remove if not needed)
+    const exists = Q.news_items.some(item => item.headline === headline && item.subtext === subtext);
+    if (!exists) {
+        Q.news_items.push({ headline, subtext });
+    }
+}
+
   window.showStats = function() {
     if (window.dendryUI.dendryEngine.state.sceneId.startsWith('library')) {
         window.dendryUI.dendryEngine.goToScene('backSpecialScene');
