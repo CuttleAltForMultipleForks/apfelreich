@@ -53,20 +53,6 @@
     }
 };
 
-window.updateNewsFeed = function() {
-    const newsFeed = document.getElementById('news_feed');
-    if (!newsFeed || !window.addNewsItem) return;
-
-    newsFeed.style.maxHeight = '400px';
-    newsFeed.style.overflowY = 'auto';
-    newsFeed.innerHTML = '';
-
-    const newsItems = dendryUI.dendryEngine.state.qualities.news_items || [];
-    newsItems.forEach(item => {
-        window.addNewsItem(item.headline, item.subtext);
-    });
-};
-
   window.showStats = function() {
     if (window.dendryUI.dendryEngine.state.sceneId.startsWith('library')) {
         window.dendryUI.dendryEngine.goToScene('backSpecialScene');
