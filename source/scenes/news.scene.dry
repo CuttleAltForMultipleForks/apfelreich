@@ -3,7 +3,7 @@ new-page: true
 is-special: true
 on-arrival: {!
 
-window.addNewsItem(headline, subtext) {
+function addNewsItem(headline, subtext) {
     const feed = document.getElementById('news_feed');
     if (!feed) return;
 

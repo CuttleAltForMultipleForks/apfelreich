@@ -103,6 +103,10 @@ if (Q.rb_militancy < 0) {
     Q.rb_militancy = 0;
 }
 
+if (Q.spd_votes >= 30) {
+    addNewsItem("SPD Surges!", "Landslide victory to come?");
+}
+
 // re-calculate dissent.
 var total_strength = Q.left_strength + Q.center_strength + Q.labor_strength + Q.reformist_strength + Q.neorevisionist_strength;
 
