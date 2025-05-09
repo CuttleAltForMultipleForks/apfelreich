@@ -45,5 +45,6 @@ if (newsFeed) {
         window.addNewsItem(item.headline, item.subtext);
     });
 }
+!}
 
 !}

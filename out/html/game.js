@@ -55,7 +55,7 @@
     // Prevent duplicates in the array (optional)
     const itemExists = dendryUI.dendryEngine.state.qualities.news_items.some(item => item.headline === headline && item.subtext === subtext);
     if (!itemExists) {
-        dendryUI.dendryEngine.state.qualities.news_items.push({ headline, subtext });
+        dendryUI.dendryEngine.state.qualities.news_items.unshift({ headline, subtext });
     }
 };
 
