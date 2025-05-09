@@ -49,8 +49,14 @@
     // Insert the new item at the top of the feed
     feed.insertBefore(itemContainer, feed.firstChild);
 
-    // Check if it's a new item, if so, apply the fade-in effect
-    itemContainer.classList.add('new-item');
+    // Check if the item has been rendered before by looking for a `data-rendered` attribute
+    if (!itemContainer.hasAttribute('data-rendered')) {
+        // Mark the item as rendered (so it won't animate again)
+        itemContainer.setAttribute('data-rendered', 'true');
+        
+        // Apply the fade-in animation class only for the first time
+        itemContainer.classList.add('new-item');
+    }
 
     // Ensure the array is updated
     if (!dendryUI.dendryEngine.state.qualities.news_items) {
