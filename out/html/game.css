@@ -189,7 +189,7 @@ blockquote + blockquote.attribution {
   padding: 6px;
   border-bottom: 1px solid #ccc;
   opacity: 0;
-  transition: transform 0.6s ease, opacity 0.6s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .news-item.new-item {
