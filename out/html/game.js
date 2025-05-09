@@ -53,9 +53,14 @@
     if (!itemContainer.hasAttribute('data-rendered')) {
         // Apply the fade-in animation only if it's the first render
         itemContainer.classList.add('new-item');
-
-        // Mark this item as rendered to prevent the animation on future renders
+        
+        // Mark the item as rendered to prevent the animation on future renders
         itemContainer.setAttribute('data-rendered', 'true');
+        
+        // Remove the `new-item` class after the fade-in is complete (to prevent it from being re-applied)
+        itemContainer.addEventListener('animationend', () => {
+            itemContainer.classList.remove('new-item');
+        });
     }
 
     // Ensure the array is updated
