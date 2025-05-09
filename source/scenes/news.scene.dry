@@ -32,11 +32,7 @@ console.log('Rendering news items:', dendryUI.dendryEngine.state.qualities.news_
 on-display: {!
 const newsFeed = document.getElementById('news_feed');
 if (newsFeed) {
-    newsFeed.style.maxHeight = '400px';
-    newsFeed.style.overflowY = 'auto';
-
-    const newsItems = dendryUI.dendryEngine.state.qualities.news_items || [];
-    console.log('Rendering all news items:', newsItems); // Debugging: Log the full array
+    const newsItems = dendryUI.dendryEngine.state.qualities.news_items;
     
     // Clear the feed only if you want to reset it every time
     // newsFeed.innerHTML = ''; // You could comment this out if not needed
