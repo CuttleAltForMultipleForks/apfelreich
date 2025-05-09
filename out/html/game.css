@@ -185,12 +185,12 @@ blockquote + blockquote.attribution {
   right: 0.4em;
 }
 .news-item {
-  padding: 8px;
+  padding: 6px;
   border-bottom: 1px solid #ccc;
 }
 
 .news-headline {
-  font-size: 0.9em
+  font-size: 0.9em;
   font-weight: bold;
   margin-bottom: 4px;
 }
