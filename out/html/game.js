@@ -57,10 +57,14 @@
         // Mark this item as rendered to prevent re-triggering the animation on subsequent renders
         itemContainer.setAttribute('data-rendered', 'true');
 
-        // Remove the `new-item` class after the fade-in completes
+        // Ensure opacity is set to 1 after the fade-in effect completes
         itemContainer.addEventListener('animationend', function () {
             itemContainer.classList.remove('new-item');
+            itemContainer.style.opacity = '1'; // Make sure opacity stays 1
         });
+    } else {
+        // For already rendered items, make sure opacity is 1 to avoid them staying hidden
+        itemContainer.style.opacity = '1';
     }
 
     // Ensure the array is updated
