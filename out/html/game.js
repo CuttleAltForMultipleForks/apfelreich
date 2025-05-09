@@ -45,7 +45,7 @@
 
     itemContainer.appendChild(headlineEl);
     itemContainer.appendChild(subtextEl);
-    feed.appendChild(itemContainer);
+    feed.insertBefore(itemContainer, feed.firstChild);
 
     // Ensure the array is updated
     if (!dendryUI.dendryEngine.state.qualities.news_items) {
@@ -55,7 +55,7 @@
     // Prevent duplicates in the array (optional)
     const itemExists = dendryUI.dendryEngine.state.qualities.news_items.some(item => item.headline === headline && item.subtext === subtext);
     if (!itemExists) {
-        dendryUI.dendryEngine.state.qualities.news_items.unshift({ headline, subtext });
+        dendryUI.dendryEngine.state.qualities.news_items.push({ headline, subtext });
     }
 };
 
