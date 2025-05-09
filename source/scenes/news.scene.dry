@@ -4,7 +4,6 @@ is-special: true
 on-arrival: {!
 
 // Example of headlines being added
-if (!Q.news_items || Q.news_items.length === 0) {
 
 addNewsItem("SPD and Z Party Begin Coalition Talks in Berlin.", "Leaders from both parties express optimism after late-night meetings.");
 addNewsItem("Unemployment Hits 12.4%", "Analysts point to global supply chain disruptions and energy costs.");
@@ -24,7 +23,6 @@ addNewsItem("Food Prices Continue Steady Climb", "Staples like bread, milk, and 
 addNewsItem("Foreign Investment in Ruhr Region Rises", "Dutch and American firms show interest in coal and steel sectors.");
 addNewsItem("KPD Launches New Worker Literacy Initiative", "Free evening classes offered at party offices and labor halls.");
 addNewsItem("School Reform Plan Criticized by Rural Delegates", "Concerns over resource distribution and teacher shortages.");
-}
 
 !}
 on-display: {!
@@ -34,7 +32,7 @@ if (newsFeed) {
     newsFeed.style.overflowY = 'auto';
     newsFeed.innerHTML = ''; // Clear first
 
-    const newsItems = Q.news_items || [];
+    const newsItems = dendryUI.dendryEngine.state.qualities.news_items || [];
     newsItems.forEach(item => {
         addNewsItem(item.headline, item.subtext);
     });
