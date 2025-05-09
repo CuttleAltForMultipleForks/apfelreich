@@ -190,12 +190,13 @@ blockquote + blockquote.attribution {
 }
 
 .news-headline {
+  font-size: 0.9em
   font-weight: bold;
   margin-bottom: 4px;
 }
 
 .news-subtext {
-  font-size: 0.9em;
+  font-size: 0.6em;
   color: #666;
 }
 #news_feed {
