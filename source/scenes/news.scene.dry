@@ -5,6 +5,8 @@ on-arrival: {!
 
 // Example of headlines being added
 
+console.log('Rendering news items:', dendryUI.dendryEngine.state.qualities.news_items);
+
 addNewsItem("SPD and Z Party Begin Coalition Talks in Berlin.", "Leaders from both parties express optimism after late-night meetings.");
 addNewsItem("Unemployment Hits 12.4%", "Analysts point to global supply chain disruptions and energy costs.");
 addNewsItem("Government Proposes New Tax on Luxury Goods", "Finance Ministry estimates it could generate 2 billion marks annually.");
@@ -23,6 +25,8 @@ addNewsItem("Food Prices Continue Steady Climb", "Staples like bread, milk, and 
 addNewsItem("Foreign Investment in Ruhr Region Rises", "Dutch and American firms show interest in coal and steel sectors.");
 addNewsItem("KPD Launches New Worker Literacy Initiative", "Free evening classes offered at party offices and labor halls.");
 addNewsItem("School Reform Plan Criticized by Rural Delegates", "Concerns over resource distribution and teacher shortages.");
+
+console.log('Rendering news items:', dendryUI.dendryEngine.state.qualities.news_items);
 
 !}
 on-display: {!
