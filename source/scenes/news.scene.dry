@@ -18,6 +18,17 @@ addNewsHeadline("Unemployment Hits 12.4% Amid Global Economic Woes.");
 addNewsHeadline("Reichstag Debates New Public Works Initiative.");
 addNewsHeadline("Violence Erupts at KPD Rally in Leipzig.");
 addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
+addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
+addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
+addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
+addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
+addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
+addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
+addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
+addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
+addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
+addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
+addNewsHeadline("Foreign Minister Pursues New Trade Agreements in Paris.");
 !}
 on-display: {!
 const newsFeed = document.getElementById('news_feed');
