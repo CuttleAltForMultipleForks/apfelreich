@@ -184,10 +184,19 @@ blockquote + blockquote.attribution {
   float: right;
   right: 0.4em;
 }
-.news-headline {
+.news-item {
   padding: 8px;
   border-bottom: 1px solid #ccc;
-  font-size: 0.95em;
+}
+
+.news-headline {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.news-subtext {
+  font-size: 0.9em;
+  color: #666;
 }
 #news_feed {
   height: 400px;

@@ -2,14 +2,24 @@ title: News
 new-page: true
 is-special: true
 on-arrival: {!
-function addNewsHeadline(headline) {
+function addNewsItem(headline, subtext) {
     const feed = document.getElementById('news_feed');
     if (!feed) return;
+
+    const itemContainer = document.createElement('div');
+    itemContainer.className = 'news-item';
 
     const headlineEl = document.createElement('div');
     headlineEl.className = 'news-headline';
     headlineEl.textContent = headline;
-    feed.appendChild(headlineEl);
+
+    const subtextEl = document.createElement('div');
+    subtextEl.className = 'news-subtext';
+    subtextEl.textContent = subtext;
+
+    itemContainer.appendChild(headlineEl);
+    itemContainer.appendChild(subtextEl);
+    feed.appendChild(itemContainer);
 }
 
 // Example of headlines being added
@@ -37,7 +47,3 @@ if (newsFeed) {
     newsFeed.style.overflowY = 'auto';
 }
 !}
-
-= News
-
-News
