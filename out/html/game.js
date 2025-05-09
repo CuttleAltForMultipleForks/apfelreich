@@ -147,6 +147,15 @@
       $('#qualities').append(dendryUI.contentToHTML.convert(displayContent));
   };
 
+  window.updateNewsSidebar = function() {
+     $('#news').empty();
+     var scene = dendryUI.game.scenes[window.newsTab];
+     dendryUI.dendryEngine._runActions(scene.onArrival);
+     var displayContent = dendryUI.dendryEngine._makeDisplayContent(scene.content, true);
+     $('#news').append(dendryUI.contentToHTML.convert(displayContent));
+   };
+
+
   window.changeTab = function(newTab, tabId) {
       if (tabId == 'poll_tab' && dendryUI.dendryEngine.state.qualities.historical_mode) {
           window.alert('Polls are not available in historical mode.');
@@ -200,6 +209,7 @@
 
   window.justLoaded = true;
   window.statusTab = "status";
+  window.newsTab = "news";
   window.dendryModifyUI = main;
   console.log("Modifying stats: see dendryUI.dendryEngine.state.qualities");
 
