@@ -44,46 +44,136 @@ on-arrival: {!
 // election threshold constitutional reform
 // banning parties
 var new_party_sum = 0;
-for (var party of Q.parties) {
-    Q['old_' + party + '_r'] = Q[party + '_r'];
-    if (Q.constitutional_reform > 0) {
-        if (Q[party + '_votes'] < Q.electoral_threshold || (Q.electoral_threshold > 1 && party == 'other') || (Q[party + '_banned'] == 1)) {
-            Q[party + '_r'] = 0;
+if (Q.proportional) {
+    for (var party of Q.parties) {
+        Q['old_' + party + '_r'] = Q[party + '_r'];
+
+        if (Q.constitutional_reform > 0) {
+            if (Q[party + '_votes'] < Q.electoral_threshold || (Q.electoral_threshold > 1 && party == 'other') || (Q[party + '_banned'] == 1)) {
+                Q[party + '_r'] = 0;
+            } else {
+                Q[party + '_r'] = Q[party + '_votes'];
+            }
+            new_party_sum += Q[party + '_r'];
         } else {
             Q[party + '_r'] = Q[party + '_votes'];
         }
-        new_party_sum += Q[party + '_r'];
-    } else {
-        Q[party + '_r'] = Q[party + '_votes'];
+
+        // Decimal formatting
+        if (Q.use_decimals) {
+            Q[party + '_r_disp'] = Q[party + '_r'].toFixed(1);
+        } else {
+            Q[party + '_r_disp'] = Q[party + '_r'];
+        }
+
+        // Change calculation
+        Q['change_' + party + '_r'] = Q[party + '_r'] - Q['old_' + party + '_r'];
+        var sign = Q['change_' + party + '_r'] > 0 ? '+' : '';
+        Q['str_change_' + party] = sign + Q['change_' + party + '_r'];
     }
-        // if we use decimals, then we might want to truncate the numbers
-    if (Q.use_decimals) {
-        Q[party + '_r_disp'] = Q[party+'_r'].toFixed(1);
-    }  else {
-            Q[party + '_r_disp'] = Q[party+'_r'];
-    }
-    Q['change_' + party + '_r'] = Q[party + '_r'] - Q['old_' + party + '_r'];
-    var sign = Q['change_' + party + '_r'] > 0 ? '+'  : '';
-    Q['str_change_' + party] = sign + Q['change_' + party + '_r'];//.toFixed(1);
 }
-// calculate new party sum if electoral reform
+
+if (!Q.proportional) {
+    for (var block of Q.constituency_blocks) {
+        var support = {};
+        var total_support = 0;
+
+        // 1. Calculate support for each party in this block
+        for (var party of Q.parties) {
+            var party_support = 0;
+            for (var demo of Q.demographics) {
+                let weight = Q[block + '_' + demo] || 0;
+                party_support += weight * Q[demo + '_' + party + '_normalized'] * Q[party + '_turnout'];
+            }
+            support[party] = party_support;
+            total_support += party_support;
+        }
+
+        // 2. Normalize
+        let normalized = {};
+        for (var party of Q.parties) {
+            normalized[party] = support[party] / total_support;
+        }
+
+        // 3. Check for first-round winner
+        let sorted_parties = [...Q.parties].sort((a, b) => normalized[b] - normalized[a]);
+        let top = sorted_parties[0];
+        let second = sorted_parties[1];
+
+        if (normalized[top] >= 0.6) {
+            Q[top + '_seats'] += Q[block + '_votes'];
+            Q['winner_' + block] = top;
+        } else {
+            // 4. Two-round logic
+            let top_leftist = Q[top + '_leftist'];
+            let second_leftist = Q[second + '_leftist'];
+
+            let is_second_more_left = second_leftist < top_leftist;
+
+            for (var party of Q.parties) {
+                let p_leftist = Q[party + '_leftist'];
+
+                if (is_second_more_left && p_leftist < top_leftist) {
+                    normalized[second] += normalized[party];
+                    normalized[party] = 0;
+                } else if (!is_second_more_left && p_leftist > top_leftist) {
+                    normalized[second] += normalized[party];
+                    normalized[party] = 0;
+                }
+            }
+
+            sorted_parties = [...Q.parties].sort((a, b) => normalized[b] - normalized[a]);
+            top = sorted_parties[0];
+
+            Q[top + '_seats'] += Q[block + '_votes'];
+            Q['winner_' + block] = top;
+        }
+    }
+
+    // **New Line to Set Q[party + '_r'] to Percentage of Total Seats**
+    var total_seats = Q.total_seats || 100; // Assuming `Q.total_seats` holds the total seat count. If not, set this to your desired value.
+    for (var party of Q.parties) {
+        if (Q[party + '_seats'] > 0) {
+            Q[party + '_r'] = (Q[party + '_seats'] / total_seats) * 100; // Calculate percentage of total seats
+        } else {
+            Q[party + '_r'] = 0; // Set to 0 if no seats
+        }
+
+        // Decimal formatting
+        if (Q.use_decimals) {
+            Q[party + '_r_disp'] = Q[party + '_r'].toFixed(1);
+        } else {
+            Q[party + '_r_disp'] = Q[party + '_r'];
+        }
+
+         // Change calculation
+        Q['change_' + party + '_r'] = Q[party + '_r'] - Q['old_' + party + '_r'];
+        var sign = Q['change_' + party + '_r'] > 0 ? '+' : '';
+        Q['str_change_' + party] = sign + Q['change_' + party + '_r'];
+}
+
+// Electoral Reform Adjustment
 if (Q.electoral_threshold && Q.electoral_threshold > 0 || Q.party_bans) {
     for (var party of Q.parties) {
         if (Q[party + '_r'] > 0) {
             if (Q.use_decimals) {
-                Q[party + '_r'] = Math.round(Q[party + '_r']*1000/new_party_sum)/10;
+                Q[party + '_r'] = Math.round(Q[party + '_r'] * 1000 / new_party_sum) / 10;
             } else {
-                Q[party + '_r'] = Math.round(Q[party + '_r']*100/new_party_sum);
+                Q[party + '_r'] = Math.round(Q[party + '_r'] * 100 / new_party_sum);
             }
         }
+
+        // Decimal formatting
         if (Q.use_decimals) {
-            Q[party + '_r_disp'] = Q[party+'_r'].toFixed(1);
+            Q[party + '_r_disp'] = Q[party + '_r'].toFixed(1);
         } else {
-            Q[party + '_r_disp'] = Q[party+'_r'];
+            Q[party + '_r_disp'] = Q[party + '_r'];
         }
+
+        // Change calculation
         Q['change_' + party + '_r'] = Q[party + '_r'] - Q['old_' + party + '_r'];
-        var sign = Q['change_' + party + '_r'] > 0 ? '+'  : '';
-        Q['str_change_' + party] = sign + Q['change_' + party + '_r'];//.toFixed(1);
+        var sign = Q['change_' + party + '_r'] > 0 ? '+' : '';
+        Q['str_change_' + party] = sign + Q['change_' + party + '_r'];
     }
 }
 
