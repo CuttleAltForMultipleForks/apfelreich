@@ -227,6 +227,9 @@ Q.hanoverian = 3;
 Q.bavarian = 2;
 Q.french = 3;
 
+Q.men = 50;
+Q.women = 50;
+
 // unemployment: 1929 - 13.3, 1930 - 22.7, 1931 - 34.3, 1932 - 43.8 (same source as above)
 
 // income for industrial workers in reichsmarks/year - 1928 = 1600 Reichsmarks/year; 1931 = 1440 Reichsmarks/year; 1933 = 1138 Reichsmarks/year - source: https://babel.hathitrust.org/cgi/pt?id=uiug.30112104147985&seq=50
