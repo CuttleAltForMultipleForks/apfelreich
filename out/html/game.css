@@ -571,7 +571,7 @@ table {
 .seat.kpd {
     fill: #8B0000;
 }
-.seat.sapd {
+.seat.uspd {
     fill: #C40000;
 }
 .seat.spd {
@@ -579,11 +579,20 @@ table {
     stroke: #000;
     stroke-width: 1.5px;
 }
-.seat.aspd {
-  fill: #FF6F61;
+.seat.pp {
+  fill: #d49797;
+}
+.seat.elp {
+  fill: #01064e;
+}
+.seat.dhp {
+  fill: #9eff62;
+}
+.seat.fvp {
+    fill: #ffe30c;
 }
 .seat.ddp {
-    fill: #DCCA4A;
+  fill: #DCCA4A;
 }
 .seat.bb {
   fill: #38C538;
@@ -593,6 +602,18 @@ table {
 }
 .seat.bvp {
     fill: #69A2BE;
+}
+.seat.nlp {
+  fill: #a3c304;
+}
+.seat.fkp {
+  fill: #2acdff;
+}
+.seat.fkp {
+  fill: #0079c9;
+}
+.seat.antisemite {
+  fill: #954B00;
 }
 .seat.dvp {
     fill: #D5AC27;
