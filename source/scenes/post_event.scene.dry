@@ -30,54 +30,79 @@ if (Q.pro_republic >= 100) {
 }
 // re-calculate party support
 // calculate normalized class voting for the achievements
-for (var c of Q.classes) {
-    var class_votes = 0;
-    for (var party of Q.parties) {
-        if (Q[c+'_'+party] < 0) {
-            Q[c+'_'+party] = 0;
+// Loop through each demographic
+for (var demographic of Q.demographics) {
+    // Loop through each unit within the demographic (e.g., workers, men, german, etc.)
+    for (var unit of Q[demographic]) {
+        var unit_votes = 0;
+
+        // Loop through each party and calculate the unit's total votes
+        for (var party of Q.parties) {
+            // Ensure the unit-party value is not negative
+            if (Q[unit + '_' + party] < 0) {
+                Q[unit + '_' + party] = 0;
+            }
+            unit_votes += (Q[unit + '_' + party] * Q[party+'_turnout']);
         }
-        class_votes += Q[c+'_'+party];
-    }
-    for (var party of Q.parties) {
-        Q[c + '_' + party + '_normalized'] = 100*Q[c+'_'+party]/class_votes;
-        Q[c + '_' + party + '_display'] = Math.round(100*Q[c+'_'+party]/class_votes);
-    }
-    for (var party of Q.parties) {
-        if (class_votes >= 150) {
-            if (class_votes >= 200) {
-                Q[c+'_'+party] *= 0.99;
-                if (class_votes >= 250) {
-                    Q[c+'_'+party] *= 0.98;
-                    if (class_votes >= 300) {
-                        Q[c+'_'+party] *= 0.96;
+
+        // Normalize the unit's votes for each party
+        for (var party of Q.parties) {
+            Q[unit + '_' + party + '_normalized'] = 100 * (Q[unit + '_' + party]*Q[party+'_turnout']) / unit_votes;
+            Q[unit + '_' + party + '_display'] = Math.round(100 * (Q[unit + '_' + party]*Q[party+'_turnout']) / unit_votes);
+        }
+
+        // Apply adjustments based on unit votes (similar to your logic)
+        for (var party of Q.parties) {
+            if (unit_votes >= 150) {
+                if (unit_votes >= 200) {
+                    Q[unit + '_' + party] *= 0.99;
+                    if (unit_votes >= 250) {
+                        Q[unit + '_' + party] *= 0.98;
+                        if (unit_votes >= 300) {
+                            Q[unit + '_' + party] *= 0.96;
+                        }
                     }
                 }
-            }
-            if (Q.year >= 1934) {
-                Q[c+'_'+party] *= 0.98;
+                if (Q.year >= 1934) {
+                    Q[unit + '_' + party] *= 0.98;
+                }
             }
         }
     }
 }
-// calculate support for each of the parties
-var total_support = 0; 
+// Initialize total support for parties
+var total_support = 0;
+
+// Loop through each party
 for (var party of Q.parties) {
     var party_support = 0;
-    for (var c of Q.classes) {
-        if (Q.old_demographics) { 
-            party_support += Q[c]*Q[c+'_'+party];
-        } else  { 
-            party_support += Q[c]*Q[c+'_'+party+'_normalized'];
-        } 
+
+    // Loop through each demographic (class, sex, religion, culture)
+    for (var demographic of Q.demographics) {
+        // Get the current demographic units (e.g., classes, sexes, etc.)
+        var units = Q[demographic];
+
+        // Loop through each unit within the demographic
+        for (var unit of units) {
+            // Calculate the party's score for this unit
+            var unit_score = Q[unit] * Q[unit + '_' + party + '_normalized'];
+
+            // Multiply the unit score by the weight of the demographic (e.g., weight of class, sex, religion, etc.)
+            var demographic_weight = Q[demographic + '_weight']; // Assuming each demographic has a weight
+            party_support += unit_score * demographic_weight;
+        }
     }
+
+    // Store the party's total support
     Q[party + '_support'] = party_support;
-    total_support += party_support; 
+    total_support += party_support;
 }
-// 2. normalize support (fraction)
+
+// 2. Normalize the support (fraction)
 for (var party of Q.parties) {
-    Q[party+'_normalized'] = Q[party + '_support']/total_support;
-    Q[party+'_votes'] = Math.round(Q[party+'_normalized']*100);
-    Q[party+'_votes_display'] = Math.round(Q[party+'_normalized']*100);
+    Q[party + '_normalized'] = Q[party + '_support'] / total_support;
+    Q[party + '_votes'] = Math.round(Q[party + '_normalized'] * 100);
+    Q[party + '_votes_display'] = Math.round(Q[party + '_normalized'] * 100);
 }
 
 
