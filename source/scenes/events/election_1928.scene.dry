@@ -177,6 +177,8 @@ if (Q.electoral_threshold && Q.electoral_threshold > 0 || Q.party_bans) {
     }
 }
 
+}
+
 // get change arrows and signs
 
 
