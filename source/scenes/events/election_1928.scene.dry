@@ -87,13 +87,19 @@ if (!Q.proportional) {
 
             console.log(`  Party: ${party}`);
             
-            // Loop through demographics
-            for (var demo of Q.demographics) {
-                let weight = Q[block + '_' + demo] || 0;
-                let normalized_support = Q[demo + '_' + party + '_normalized'] * Q[party + '_turnout'];
-                party_support += weight * normalized_support;
+            // Loop through demographics (which is now an array of arrays)
+            for (var demoArray of Q.demographics) {
+                let weight = Q[block + '_' + demoArray[0]] || 0;  // Demo weight for the block
+                let normalized_support = 0;
 
-                console.log(`    Demo: ${demo}, Weight: ${weight}, Normalized: ${Q[demo + '_' + party + '_normalized']}, Support: ${normalized_support}`);
+                // Loop through each demographic within demoArray
+                for (var demo of demoArray) {
+                    normalized_support += Q[demo + '_' + party + '_normalized'] * Q[party + '_turnout'];  // Accumulate normalized support
+                    console.log(`    Demo: ${demo}, Normalized: ${Q[demo + '_' + party + '_normalized']}, Turnout: ${Q[party + '_turnout']}`);
+                }
+
+                party_support += weight * normalized_support;
+                console.log(`    Weight: ${weight}, Party Support: ${party_support}`);
             }
 
             support[party] = party_support;
@@ -159,10 +165,7 @@ if (!Q.proportional) {
     }
 
     // **New Line to Set Q[party + '_r'] to Percentage of Total Seats**
-    var total_seats = 0;
-    for (var party of Q.parties) {
-        total_seats += Q[party+'_seats'];
-    }
+    var total_seats = Q.total_seats || 100; // Assuming `Q.total_seats` holds the total seat count. If not, set this to your desired value.
     console.log(`\nCalculating seat percentages... Total seats: ${total_seats}`);
     
     for (var party of Q.parties) {
