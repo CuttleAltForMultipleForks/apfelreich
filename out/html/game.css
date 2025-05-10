@@ -192,7 +192,7 @@ blockquote + blockquote.attribution {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* New item fade and slide in */
+/* Animate only new items */
 .news-item.new-item {
   animation: fadeInSlideDown 0.6s ease forwards;
 }
@@ -208,9 +208,9 @@ blockquote + blockquote.attribution {
   }
 }
 
-/* Shift existing items smoothly downward */
+/* When shifted by a new incoming item */
 .news-item.shifted {
-  transform: translateY(20px);  /* push down */
+  transform: translateY(-10px);
 }
 
 .news-headline {
