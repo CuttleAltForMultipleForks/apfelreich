@@ -137,32 +137,66 @@ if (!Q.proportional) {
             Q['winner_' + block] = top;
             console.log(`  First-round winner: ${top}`);
         } else {
-            // Two-round runoff logic
-            let top_leftist = Q[top + '_leftist'];
-            let second_leftist = Q[second + '_leftist'];
-            let is_second_more_left = second_leftist < top_leftist;
+    // Symmetric consolidation
+    let top_leftist = Q[top + '_leftist'];
+    let second_leftist = Q[second + '_leftist'];
 
-            for (var party of Q.parties) {
-                let p_leftist = Q[party + '_leftist'];
+    let more_leftist = top_leftist < second_leftist ? top : second;
+    let more_rightist = top_leftist > second_leftist ? top : second;
 
-                if (is_second_more_left && p_leftist < top_leftist) {
-                    normalized[second] += normalized[party];
-                    normalized[party] = 0;
-                } else if (!is_second_more_left && p_leftist > top_leftist) {
-                    normalized[second] += normalized[party];
-                    normalized[party] = 0;
-                }
-            }
+    for (let party of Q.parties) {
+        if (party === top || party === second) continue;
 
-            sorted_parties = [...Q.parties].sort((a, b) => normalized[b] - normalized[a]);
-            top = sorted_parties[0];
+        let p_leftist = Q[party + '_leftist'];
+        let more_leftist_score = Q[more_leftist + '_leftist'];
+        let more_rightist_score = Q[more_rightist + '_leftist'];
 
-            Q[top + '_seats'] += Q[block + '_votes'];
-            Q['winner_' + block] = top;
+        if (p_leftist < more_leftist_score) {
+            // Left of more leftist: full support to more_leftist
+            normalized[more_leftist] += normalized[party];
+            normalized[party] = 0;
+        } else if (p_leftist > more_rightist_score) {
+            // Right of more rightist: full support to more_rightist
+            normalized[more_rightist] += normalized[party];
+            normalized[party] = 0;
+        } else if (p_leftist < 0 && more_rightist_score > p_leftist) {
+            // Centrist (<0) and more rightist is further right: give half to rightist
+            normalized[more_rightist] += 0.5 * normalized[party];
+            normalized[party] *= 0.5; // Keep half
+        }
+        // Other parties in between are untouched (stay neutral)
+    }
 
-            console.log(`  Runoff winner: ${top}`);
+    // Seat splitting using reinforcement logic
+    let support = {};
+    let total_support = 0;
+
+    for (let party of Q.parties) {
+        support[party] = normalized[party];
+        total_support += support[party];
+    }
+
+    for (let i = 0; i < 2; i++) {
+        for (let party of Q.parties) {
+            total_support -= support[party];
+            support[party] *= (1 + support[party]);
+            total_support += support[party];
+        }
+        for (let party of Q.parties) {
+            normalized[party] = support[party] / total_support;
         }
     }
+
+    Q[block + '_split'] = 1; // Flag for debugging/UI
+
+    for (let party of Q.parties) {
+        let seats = normalized[party] * Q[block + '_votes'];
+        Q[party + '_seats'] += seats;
+        console.log(`Block ${block}: ${party} gets ${seats.toFixed(1)} seats (reinforced share ${normalized[party].toFixed(3)})`);
+    }
+
+    Q['winner_' + block] = sorted_parties[0]; // Symbolic winner
+}
 
     // Set Q[party + '_r'] to be % of total seats
     let total_seats = Q.constituency_blocks.reduce((sum, b) => sum + (Q[b + '_votes'] || 0), 0);
