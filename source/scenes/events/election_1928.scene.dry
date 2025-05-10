@@ -185,170 +185,20 @@ Q.election_records.push(election_result);
 !}
 on-departure: nazi_urgency = 1 if (nazi_urgency == 0 and nsdap_r >= 15)
 on-display: {!
-if (Q.sapd_formed == 1) {
-    data = [
-        {    "id": "kpd",
-            "legend": "KPD",
-            "name": "KPD",
-            "seats": Q.kpd_r*5,
-        },
-        {
-            "id": "sapd",
-            "legend": "SAPD",
-            "name": "SAPD",
-            "seats": Q.sapd_r*5,
-        },
-        {
-            "id": "spd",
-            "legend": "SPD",
-            "name": "SPD",
-            "seats": Q.spd_r*5,
-        },
-];
-        if (Q.vonc_r && Q.vonc_formed) {
-            data.push({
-                "id": "vonc",
-                "legend": "VONC",
-                "name": "VONC",
-                "seats": Q.vonc_r*5,
-            });
-        }
+data = Q.parties
+    .filter(party => Q[party + '_r']) // Only include parties with seat data
+    .map(party => ({
+        id: party,
+        legend: party.toUpperCase(),
+        name: party.toUpperCase(),
+        seats: Math.round(Q[party + '_r'] * 5),
+        leftist: Q[party + '_leftist'] || 0 // default to 0 if undefined
+    }))
+    .sort((a, b) => b.leftist - a.leftist) // sort from most to least left-wing
+    .map(({ leftist, ...rest }) => rest); // remove `leftist` from final output
 
-    data = data.concat([
-        {
-            "id": "ddp",
-            "legend": Q.ddp_name,
-            "name": Q.ddp_name,
-            "seats": Q.ddp_r*5,
-        },
-        {
-            "id": "z",
-            "legend": "Center",
-            "name": "Center",
-            "seats": (Q.z_r - 3)*5,
-        },
-        {
-            "id": "bvp",
-            "legend": "BVP",
-            "name": "BVP",
-            "seats": 3*5,
-        },
-        {
-            "id": "dvp",
-            "legend": "DVP",
-            "name": "DVP",
-            "seats": Q.dvp_r*5,
-        },
-        {
-            "id": "other",
-            "legend": "Other",
-            "name": "Other",
-            "seats": Q.other_r*5,
-        },
-        {
-            "id": "dnvp",
-            "legend": "DNVP",
-            "name": "DNVP",
-            "seats": Q.dnvp_r*5,
-        },
-    ]);
-        if (Q.dne_r && Q.dne_formed) {
-            data.push({
-                "id": "dne",
-                "legend": "DNE",
-                "name": "DNE",
-                "seats": Q.dne_r*5,
-            });
-        }
+// `data` now contains the full party display list, ordered ideologically.
 
-    data = data.concat([
-        {
-            "id": "nsdap",
-            "legend": "NSDAP",
-            "name": "NSDAP",
-            "seats": Q.nsdap_r*5,
-        },
-    ]);
-}
-else {
-    data = [
-        {   "id": "kpd",
-            "legend": "KPD",
-            "name": "KPD",
-            "seats": Q.kpd_r*5,
-        },
-        {
-            "id": "spd",
-            "legend": "SPD",
-            "name": "SPD",
-            "seats": Q.spd_r*5,
-        },
-];
-        if (Q.vonc_r && Q.vonc_formed) {
-            data.push({
-                "id": "vonc",
-                "legend": "VONC",
-                "name": "VONC",
-                "seats": Q.vonc_r*5,
-            });
-        }
-    
-    data = data.concat([
-        {
-            "id": "ddp",
-            "legend": Q.ddp_name,
-            "name": Q.ddp_name,
-            "seats": Q.ddp_r*5,
-        },
-        {
-            "id": "z",
-            "legend": "Center",
-            "name": "Center",
-            "seats": (Q.z_r - 3)*5,
-        },
-        {
-            "id": "bvp",
-            "legend": "BVP",
-            "name": "BVP",
-            "seats": 3*5,
-        },
-        {
-            "id": "dvp",
-            "legend": "DVP",
-            "name": "DVP",
-            "seats": Q.dvp_r*5,
-        },
-        {
-            "id": "other",
-            "legend": "Other",
-            "name": "Other",
-            "seats": Q.other_r*5,
-        },
-        {
-            "id": "dnvp",
-            "legend": "DNVP",
-            "name": "DNVP",
-            "seats": Q.dnvp_r*5,
-        },
-    ]);
-        if (Q.dne_r && Q.dne_formed) {
-            data.push({
-                "id": "dne",
-                "legend": "DNE",
-                "name": "DNE",
-                "seats": Q.dne_r*5,
-            });
-        }
-
-    data = data.concat([
-        {
-            "id": "nsdap",
-            "legend": "NSDAP",
-            "name": "NSDAP",
-            "seats": Q.nsdap_r*5,
-        },
-    ]);
-}
 if (window && d3) {
     var width = 500; 
     var height = 500;
