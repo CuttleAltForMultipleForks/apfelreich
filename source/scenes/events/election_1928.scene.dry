@@ -92,7 +92,7 @@ if (!Q.proportional) {
                 let weight = Q[block + '_' + demoArray[0]] || 0;  // Demo weight for the block
                 let normalized_support = 0;
 
-                // Loop through each demographic within demoArray
+                // Loop through each demographic within demoArray (this should be the actual demographic keys)
                 for (var demo of demoArray) {
                     normalized_support += Q[demo + '_' + party + '_normalized'] * Q[party + '_turnout'];  // Accumulate normalized support
                     console.log(`    Demo: ${demo}, Normalized: ${Q[demo + '_' + party + '_normalized']}, Turnout: ${Q[party + '_turnout']}`);
