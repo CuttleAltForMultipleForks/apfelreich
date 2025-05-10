@@ -137,72 +137,95 @@ if (!Q.proportional) {
         let top = sorted_parties[0];
         let second = sorted_parties[1];
 
-        if (normalized[top] >= 0.6) {
+        // New threshold logic
+        if (normalized[top] >= 0.7) {
+            // Case 3: Party wins outright
             Q[top + '_seats'] += Q[block + '_votes'];
             Q['winner_' + block] = top;
-            console.log(`  First-round winner: ${top}`);
+            console.log(`  Winner (over 70%): ${top}`);
+        } else if (normalized[top] >= 0.6) {
+            // Case 2: Consolidation occurs, but no outright winner
+            console.log(`  Consolidation between top two parties (60% <= ${top} < 70%)`);
+
+            // Symmetric consolidation between top two
+            let top_leftist = Q[top + '_leftist'];
+            let second_leftist = Q[second + '_leftist'];
+
+            let more_leftist = top_leftist < second_leftist ? top : second;
+            let more_rightist = top_leftist > second_leftist ? top : second;
+
+            for (let party of Q.parties) {
+                if (party === top || party === second) continue;
+
+                let p_leftist = Q[party + '_leftist'];
+                let more_leftist_score = Q[more_leftist + '_leftist'];
+                let more_rightist_score = Q[more_rightist + '_leftist'];
+
+                if (p_leftist < more_leftist_score) {
+                    // Left of more leftist: full support to more_leftist
+                    normalized[more_leftist] += normalized[party];
+                    normalized[party] = 0;
+                } else if (p_leftist > more_rightist_score) {
+                    // Right of more rightist: full support to more_rightist
+                    normalized[more_rightist] += normalized[party];
+                    normalized[party] = 0;
+                } else if (p_leftist < 0 && more_rightist_score > p_leftist) {
+                    // Centrist (<0) and more rightist is further right: give half to rightist
+                    normalized[more_rightist] += 0.5 * normalized[party];
+                    normalized[party] *= 0.5; // Keep half
+                }
+                // Other parties in between are untouched (stay neutral)
+            }
+
+            // Seat splitting using reinforcement logic
+            let total_support = 0;
+
+            for (let party of Q.parties) {
+                total_support += normalized[party];
+            }
+
+            // Reinforce support
+            for (let i = 0; i < 2; i++) {
+                for (let party of Q.parties) {
+                    total_support -= normalized[party];
+                    normalized[party] *= (1 + normalized[party]);
+                    total_support += normalized[party];
+                }
+                for (let party of Q.parties) {
+                    normalized[party] = normalized[party] / total_support;
+                }
+            }
+
+            // Allocate seats based on reinforced share
+            Q[block + '_split'] = 1; // Flag for debugging/UI
+
+            for (let party of Q.parties) {
+                let seats = normalized[party] * Q[block + '_votes'];
+                Q[party + '_seats'] += seats;
+                console.log(`Block ${block}: ${party} gets ${seats.toFixed(1)} seats (reinforced share ${normalized[party].toFixed(3)})`);
+            }
+
+            Q['winner_' + block] = sorted_parties[0]; // Symbolic winner
         } else {
-    // Symmetric consolidation
-    let top_leftist = Q[top + '_leftist'];
-    let second_leftist = Q[second + '_leftist'];
+            // Case 1: No party over 60%, split state between all parties proportionally
+            console.log(`  No party over 60%, splitting state proportionally...`);
 
-    let more_leftist = top_leftist < second_leftist ? top : second;
-    let more_rightist = top_leftist > second_leftist ? top : second;
+            // Seat splitting
+            let total_support = 0;
+            for (let party of Q.parties) {
+                total_support += normalized[party];
+            }
 
-    for (let party of Q.parties) {
-        if (party === top || party === second) continue;
+            // Allocate seats based on proportional support
+            for (let party of Q.parties) {
+                let seats = normalized[party] * Q[block + '_votes'];
+                Q[party + '_seats'] += seats;
+                console.log(`Block ${block}: ${party} gets ${seats.toFixed(1)} seats (proportional share ${normalized[party].toFixed(3)})`);
+            }
 
-        let p_leftist = Q[party + '_leftist'];
-        let more_leftist_score = Q[more_leftist + '_leftist'];
-        let more_rightist_score = Q[more_rightist + '_leftist'];
-
-        if (p_leftist < more_leftist_score) {
-            // Left of more leftist: full support to more_leftist
-            normalized[more_leftist] += normalized[party];
-            normalized[party] = 0;
-        } else if (p_leftist > more_rightist_score) {
-            // Right of more rightist: full support to more_rightist
-            normalized[more_rightist] += normalized[party];
-            normalized[party] = 0;
-        } else if (p_leftist < 0 && more_rightist_score > p_leftist) {
-            // Centrist (<0) and more rightist is further right: give half to rightist
-            normalized[more_rightist] += 0.5 * normalized[party];
-            normalized[party] *= 0.5; // Keep half
-        }
-        // Other parties in between are untouched (stay neutral)
-    }
-
-    // Seat splitting using reinforcement logic
-    let support = {};
-    let total_support = 0;
-
-    for (let party of Q.parties) {
-        support[party] = normalized[party];
-        total_support += support[party];
-    }
-
-    for (let i = 0; i < 2; i++) {
-        for (let party of Q.parties) {
-            total_support -= support[party];
-            support[party] *= (1 + support[party]);
-            total_support += support[party];
-        }
-        for (let party of Q.parties) {
-            normalized[party] = support[party] / total_support;
+            Q['winner_' + block] = sorted_parties[0]; // Symbolic winner
         }
     }
-
-    Q[block + '_split'] = 1; // Flag for debugging/UI
-
-    for (let party of Q.parties) {
-        let seats = normalized[party] * Q[block + '_votes'];
-        Q[party + '_seats'] += seats;
-        console.log(`Block ${block}: ${party} gets ${seats.toFixed(1)} seats (reinforced share ${normalized[party].toFixed(3)})`);
-    }
-
-    Q['winner_' + block] = sorted_parties[0]; // Symbolic winner
-    }
-}
 
     // Set Q[party + '_r'] to be % of total seats
     let total_seats = Q.constituency_blocks.reduce((sum, b) => sum + (Q[b + '_votes'] || 0), 0);
@@ -221,7 +244,7 @@ if (!Q.proportional) {
         Q['change_' + party + '_r'] = Q[party + '_r'] - Q['old_' + party + '_r'];
         var sign = Q['change_' + party + '_r'] > 0 ? '+' : '';
         Q['str_change_' + party] = sign + Q['change_' + party + '_r'];
-        Q['change_'+party+'_voteshare'] = Q[party+'_voteshare'] - Q['old_'+party+'_voteshare'];
+        Q['change_' + party + '_voteshare'] = Q[party + '_voteshare'] - Q['old_' + party + '_voteshare'];
         var sign = Q['change_' + party + '_voteshare'] > 0 ? '+' : '';
         Q['stvoteshare_change_' + party] = sign + Q['change_' + party + '_voteshare'];
 
@@ -393,8 +416,30 @@ go-to: coalition_menu if not vonc_formed; coalition_vonc if vonc_formed
 
 {!<table>!} 
 {!<tr><td>Party</td><td>Vote share</td><td>% Change</td><td>Reichstag share</td><td>% Change</td></tr>!}
+[? if uspd_r : {!<tr><td><div class="box seat uspd"> </div> !} **USPD:** {!</td><td>!} **[+ uspd_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_uspd +]** {!</td><td>!} **[+ uspd_r_disp +]%** {!</td><td>!} **[+ str_change_uspd +]** {!</td><td>!}{!</tr>!} ?]
 
-{!<tr><td><div class="box" style='background-color:#E3000F; outline: 2px; outline-style: solid;'> </div> !} **SPD:** {!</td><td>!} **[+ spd_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_spd +]** {!</td><td>!} **[+ spd_r_disp +]** {!</td><td>!} **[+ str_change_spd +]** {!</td><td>!}
+{!<tr><td><div class="box seat spd"> </div> !} **SPD:** {!</td><td>!} **[+ spd_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_spd +]** {!</td><td>!} **[+ spd_r_disp +]%** {!</td><td>!} **[+ str_change_spd +]** {!</td><td>!}{!</tr>!}
+
+[? if bb_r : {!<tr><td><div class="box seat bb"> </div> !} **BB:** {!</td><td>!} **[+ bb_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_bb +]** {!</td><td>!} **[+ bb_r_disp +]%** {!</td><td>!} **[+ bb_change_kpd +]** {!</td><td>!}{!</tr>!} ?]
+
+[? if elp_r : {!<tr><td><div class="box seat elp"> </div> !} **ELP:** {!</td><td>!} **[+ elp_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_elp +]** {!</td><td>!} **[+ elp_r_disp +]%** {!</td><td>!} **[+ str_change_elp +]** {!</td><td>!}{!</tr>!} ?]
+
+[? if fvp_r : {!<tr><td><div class="box seat fvp"> </div> !} **FvP:** {!</td><td>!} **[+ fvp_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_fvp +]** {!</td><td>!} **[+ fvp_r_disp +]%** {!</td><td>!} **[+ str_change_fvp +]** {!</td><td>!}{!</tr>!} ?]
+
+[? if z_r : {!<tr><td><div class="box seat fvp"> </div> !} **Z:** {!</td><td>!} **[+ fvp_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_fvp +]** {!</td><td>!} **[+ fvp_r_disp +]%** {!</td><td>!} **[+ str_change_fvp +]** {!</td><td>!}{!</tr>!} ?]
+
+[? if pp_r : {!<tr><td><div class="box seat pp"> </div> !} **PP:** {!</td><td>!} **[+ pp_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_pp +]** {!</td><td>!} **[+ pp_r_disp +]%** {!</td><td>!} **[+ str_change_pp +]** {!</td><td>!}{!</tr>!} ?]
+
+[? if dhp_r : {!<tr><td><div class="box seat dhp"> </div> !} **DHP:** {!</td><td>!} **[+ dhp_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_dhp +]** {!</td><td>!} **[+ dhp_r_disp +]%** {!</td><td>!} **[+ str_change_dhp +]** {!</td><td>!}{!</tr>!} ?]
+
+[? if nlp_r : {!<tr><td><div class="box seat nlp"> </div> !} **NLP:** {!</td><td>!} **[+ nlp_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_nlp +]** {!</td><td>!} **[+ nlp_r_disp +]%** {!</td><td>!} **[+ str_change_nlp +]** {!</td><td>!}{!</tr>!} ?]
+
+[? if fkp_r : {!<tr><td><div class="box seat fkp"> </div> !} **FKP:** {!</td><td>!} **[+ fkp_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_fkp +]** {!</td><td>!} **[+ fkp_r_disp +]%** {!</td><td>!} **[+ str_change_fkp +]** {!</td><td>!}{!</tr>!} ?]
+
+[? if dkp_r : {!<tr><td><div class="box seat dkp"> </div> !} **DkP:** {!</td><td>!} **[+ dkp_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_dkp +]** {!</td><td>!} **[+ dkp_r_disp +]%** {!</td><td>!} **[+ str_change_dkp +]** {!</td><td>!}{!</tr>!} ?]
+
+[? if antisemite_r : {!<tr><td><div class="box seat antisemite"> </div> !} **Antisemites:** {!</td><td>!} **[+ antisemite_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_antisemite +]** {!</td><td>!} **[+ antisemite_r_disp +]%** {!</td><td>!} **[+ str_change_antisemite +]** {!</td><td>!}{!</tr>!} ?]
+
 {!</table>!}
 
 **Potential coalitions:**
