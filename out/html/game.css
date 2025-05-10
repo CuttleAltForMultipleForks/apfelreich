@@ -569,84 +569,110 @@ table {
 
 /* Styles for parties */
 .seat.kpd {
-    fill: #8B0000;
+  fill: #8B0000;
+  background-color: #8B0000;
 }
 .seat.uspd {
-    fill: #C40000;
+  fill: #C40000;
+  background-color: #C40000;
 }
 .seat.spd {
-    fill: #E3000F;
-    stroke: #000;
-    stroke-width: 1.5px;
+  fill: #E3000F;
+  background-color: #E3000F;
+  stroke: #000;
+  stroke-width: 1.5px;
 }
 .seat.pp {
   fill: #d49797;
+  background-color: #d49797;
 }
 .seat.elp {
   fill: #01064e;
+  background-color: #01064e;
 }
 .seat.dhp {
   fill: #9eff62;
+  background-color: #9eff62;
 }
 .seat.fvp {
-    fill: #ffe30c;
+  fill: #ffe30c;
+  background-color: #ffe30c;
 }
 .seat.ddp {
   fill: #DCCA4A;
+  background-color: #DCCA4A;
 }
 .seat.bb {
   fill: #38C538;
+  background-color: #38C538;
 }
 .seat.z {
-    fill: #000;
+  fill: #000;
+  background-color: #000;
 }
 .seat.bvp {
-    fill: #69A2BE;
+  fill: #69A2BE;
+  background-color: #69A2BE;
 }
 .seat.nlp {
   fill: #a3c304;
+  background-color: #a3c304;
 }
 .seat.fkp {
   fill: #2acdff;
+  background-color: #2acdff;
 }
 .seat.dkp {
   fill: #0079c9;
+  background-color: #0079c9;
 }
 .seat.antisemite {
   fill: #954B00;
+  background-color: #954B00;
 }
 .seat.dvp {
-    fill: #D5AC27;
+  fill: #D5AC27;
+  background-color: #D5AC27;
 }
 .seat.other {
-    fill: #909090;
+  fill: #909090;
+  background-color: #909090;
 }
 .seat.dnvp {
-    fill: #3F7BC1;
+  fill: #3F7BC1;
+  background-color: #3F7BC1;
 }
 .seat.dne {
   fill: #b81191;
+  background-color: #b81191;
 }
 .seat.nsdap {
-    fill: #954B00;
+  fill: #954B00;
+  background-color: #954B00;
 }
 .seat.vonc {
   fill: #ffffff00;
+  background-color: #ffffff00;
 }
 .seat.left {
   fill: #9c0000;
+  background-color: #9c0000;
 }
 .seat.center {
   fill: #e30000;
+  background-color: #e30000;
 }
 .seat.labor {
   fill: #ff681d;
+  background-color: #ff681d;
 }
 .seat.reformist {
   fill: #ff6ba9;
+  background-color: #ff6ba9;
 }
 .seat.neorevisionist {
   fill: #ff14a5;
+  background-color: #ff14a5;
 }
 
 .tooltip-text {

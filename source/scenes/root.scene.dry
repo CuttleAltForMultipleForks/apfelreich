@@ -366,17 +366,17 @@ Q.unemployed_antisemite = 5;
 
 // Demographics for catholics
 Q.catholics_uspd = 0;
-Q.catholics_spd = 20;
+Q.catholics_spd = 10;
 Q.catholics_pp = 5;
 Q.catholics_dhp = 0;
 Q.catholics_bb = 5;
 Q.catholics_elp = 0;
-Q.catholics_fvp = 4;
-Q.catholics_z = 70;
-Q.catholics_nlp = 4;
-Q.catholics_fkp = 5;
-Q.catholics_dkp = 10;
-Q.catholics_antisemite = 2;
+Q.catholics_fvp = 0;
+Q.catholics_z = 90;
+Q.catholics_nlp = 0;
+Q.catholics_fkp = 2;
+Q.catholics_dkp = 5;
+Q.catholics_antisemite = 0;
 
 // Demographics for men
 Q.men_uspd = 15;

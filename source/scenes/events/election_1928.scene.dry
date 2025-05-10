@@ -416,29 +416,29 @@ go-to: coalition_menu if not vonc_formed; coalition_vonc if vonc_formed
 
 {!<table>!} 
 {!<tr><td>Party</td><td>Vote share</td><td>% Change</td><td>Reichstag share</td><td>% Change</td></tr>!}
-[? if uspd_r : {!<tr><td><div class="box seat uspd"> </div> !} **USPD:** {!</td><td>!} **[+ uspd_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_uspd +]** {!</td><td>!} **[+ uspd_r_disp +]%** {!</td><td>!} **[+ str_change_uspd +]** {!</td><td>!}{!</tr>!} ?]
+[? if uspd_r : {!<tr><td><div class="box seat uspd"> </div> !} **USPD:** {!</td><td>!} [+ uspd_voteshare +]% {!</td><td>!} [+ stvoteshare_change_uspd +] {!</td><td>!} [+ uspd_r_disp +]% {!</td><td>!} [+ str_change_uspd +] {!</td><td>!}{!</tr>!} ?]
 
-{!<tr><td><div class="box seat spd"> </div> !} **SPD:** {!</td><td>!} **[+ spd_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_spd +]** {!</td><td>!} **[+ spd_r_disp +]%** {!</td><td>!} **[+ str_change_spd +]** {!</td><td>!}{!</tr>!}
+{!<tr><td><div class="box seat spd"> </div> !} **SPD:** {!</td><td>!} [+ spd_voteshare +]% {!</td><td>!} [+ stvoteshare_change_spd +] {!</td><td>!} [+ spd_r_disp +]% {!</td><td>!} [+ str_change_spd +] {!</td><td>!}{!</tr>!}
 
-[? if bb_r : {!<tr><td><div class="box seat bb"> </div> !} **BB:** {!</td><td>!} **[+ bb_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_bb +]** {!</td><td>!} **[+ bb_r_disp +]%** {!</td><td>!} **[+ bb_change_kpd +]** {!</td><td>!}{!</tr>!} ?]
+[? if bb_r : {!<tr><td><div class="box seat bb"> </div> !} **BB:** {!</td><td>!} [+ bb_voteshare +]% {!</td><td>!} [+ stvoteshare_change_bb +] {!</td><td>!} [+ bb_r_disp +]% {!</td><td>!} [+ bb_change_kpd +] {!</td><td>!}{!</tr>!} ?]
 
-[? if elp_r : {!<tr><td><div class="box seat elp"> </div> !} **ELP:** {!</td><td>!} **[+ elp_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_elp +]** {!</td><td>!} **[+ elp_r_disp +]%** {!</td><td>!} **[+ str_change_elp +]** {!</td><td>!}{!</tr>!} ?]
+[? if elp_r : {!<tr><td><div class="box seat elp"> </div> !} **ELP:** {!</td><td>!} [+ elp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_elp +] {!</td><td>!} [+ elp_r_disp +]% {!</td><td>!} [+ str_change_elp +] {!</td><td>!}{!</tr>!} ?]
 
-[? if fvp_r : {!<tr><td><div class="box seat fvp"> </div> !} **FvP:** {!</td><td>!} **[+ fvp_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_fvp +]** {!</td><td>!} **[+ fvp_r_disp +]%** {!</td><td>!} **[+ str_change_fvp +]** {!</td><td>!}{!</tr>!} ?]
+[? if fvp_r : {!<tr><td><div class="box seat fvp"> </div> !} **FvP:** {!</td><td>!} [+ fvp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_fvp +] {!</td><td>!} [+ fvp_r_disp +]% {!</td><td>!} [+ str_change_fvp +] {!</td><td>!}{!</tr>!} ?]
 
-[? if z_r : {!<tr><td><div class="box seat fvp"> </div> !} **Z:** {!</td><td>!} **[+ fvp_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_fvp +]** {!</td><td>!} **[+ fvp_r_disp +]%** {!</td><td>!} **[+ str_change_fvp +]** {!</td><td>!}{!</tr>!} ?]
+[? if z_r : {!<tr><td><div class="box seat fvp"> </div> !} **Z:** {!</td><td>!} [+ fvp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_fvp +] {!</td><td>!} [+ fvp_r_disp +]% {!</td><td>!} [+ str_change_fvp +] {!</td><td>!}{!</tr>!} ?]
 
-[? if pp_r : {!<tr><td><div class="box seat pp"> </div> !} **PP:** {!</td><td>!} **[+ pp_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_pp +]** {!</td><td>!} **[+ pp_r_disp +]%** {!</td><td>!} **[+ str_change_pp +]** {!</td><td>!}{!</tr>!} ?]
+[? if pp_r : {!<tr><td><div class="box seat pp"> </div> !} **PP:** {!</td><td>!} [+ pp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_pp +] {!</td><td>!} [+ pp_r_disp +]% {!</td><td>!} [+ str_change_pp +] {!</td><td>!}{!</tr>!} ?]
 
-[? if dhp_r : {!<tr><td><div class="box seat dhp"> </div> !} **DHP:** {!</td><td>!} **[+ dhp_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_dhp +]** {!</td><td>!} **[+ dhp_r_disp +]%** {!</td><td>!} **[+ str_change_dhp +]** {!</td><td>!}{!</tr>!} ?]
+[? if dhp_r : {!<tr><td><div class="box seat dhp"> </div> !} **DHP:** {!</td><td>!} [+ dhp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_dhp +] {!</td><td>!} [+ dhp_r_disp +]% {!</td><td>!} [+ str_change_dhp +] {!</td><td>!}{!</tr>!} ?]
 
-[? if nlp_r : {!<tr><td><div class="box seat nlp"> </div> !} **NLP:** {!</td><td>!} **[+ nlp_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_nlp +]** {!</td><td>!} **[+ nlp_r_disp +]%** {!</td><td>!} **[+ str_change_nlp +]** {!</td><td>!}{!</tr>!} ?]
+[? if nlp_r : {!<tr><td><div class="box seat nlp"> </div> !} **NLP:** {!</td><td>!} [+ nlp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_nlp +] {!</td><td>!} [+ nlp_r_disp +]% {!</td><td>!} [+ str_change_nlp +] {!</td><td>!}{!</tr>!} ?]
 
-[? if fkp_r : {!<tr><td><div class="box seat fkp"> </div> !} **FKP:** {!</td><td>!} **[+ fkp_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_fkp +]** {!</td><td>!} **[+ fkp_r_disp +]%** {!</td><td>!} **[+ str_change_fkp +]** {!</td><td>!}{!</tr>!} ?]
+[? if fkp_r : {!<tr><td><div class="box seat fkp"> </div> !} **FKP:** {!</td><td>!} [+ fkp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_fkp +] {!</td><td>!} [+ fkp_r_disp +]% {!</td><td>!} [+ str_change_fkp +] {!</td><td>!}{!</tr>!} ?]
 
-[? if dkp_r : {!<tr><td><div class="box seat dkp"> </div> !} **DkP:** {!</td><td>!} **[+ dkp_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_dkp +]** {!</td><td>!} **[+ dkp_r_disp +]%** {!</td><td>!} **[+ str_change_dkp +]** {!</td><td>!}{!</tr>!} ?]
+[? if dkp_r : {!<tr><td><div class="box seat dkp"> </div> !} **DkP:** {!</td><td>!} [+ dkp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_dkp +] {!</td><td>!} [+ dkp_r_disp +]% {!</td><td>!} [+ str_change_dkp +] {!</td><td>!}{!</tr>!} ?]
 
-[? if antisemite_r : {!<tr><td><div class="box seat antisemite"> </div> !} **Antisemites:** {!</td><td>!} **[+ antisemite_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_antisemite +]** {!</td><td>!} **[+ antisemite_r_disp +]%** {!</td><td>!} **[+ str_change_antisemite +]** {!</td><td>!}{!</tr>!} ?]
+[? if antisemite_r : {!<tr><td><div class="box seat antisemite"> </div> !} **DSRP:** {!</td><td>!} [+ antisemite_voteshare +]% {!</td><td>!} [+ stvoteshare_change_antisemite +] {!</td><td>!} [+ antisemite_r_disp +]% {!</td><td>!} [+ str_change_antisemite +] {!</td><td>!}{!</tr>!} ?]
 
 {!</table>!}
 
