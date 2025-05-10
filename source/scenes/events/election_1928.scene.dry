@@ -196,6 +196,7 @@ if (!Q.proportional) {
     }
 
     Q['winner_' + block] = sorted_parties[0]; // Symbolic winner
+    }
 }
 
     // Set Q[party + '_r'] to be % of total seats
