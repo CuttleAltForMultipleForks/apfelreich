@@ -260,10 +260,10 @@ Q.sexes = ['men'];
 Q.cultures = ['german', 'french', 'polish', 'hanoverian', 'bavarian'];
 Q.religions = ['protestants', 'catholics', 'jews', 'irreligious'];
 
-Q.class_weight = 0.4;
-Q.sex_weight = 0.1;
-Q.culture_weight = 0.2;
-Q.religion_weight = 0.3;
+Q.classes_weight = 0.4;
+Q.sexes_weight = 0.1;
+Q.cultures_weight = 0.2;
+Q.religions_weight = 0.3;
 
 Q.uspd_turnout = 1;
 Q.spd_turnout = 1;
