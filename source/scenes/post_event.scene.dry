@@ -135,13 +135,19 @@ if (Q.timestamp == "31.1.1919") {
 
 if (Q.timestamp == "4.2.1919") {
     setTimeout(() => {
-        addNewsItem("Communard Uprising!", "Paris turns red - a repeat of 1871?");
+        addNewsItem("Communard Uprising!", "Paris turns red as mutineers seize city - a repeat of 1871?");
     }, 0);
 }
 
 if (Q.timestamp == "13.2.1919") {
     setTimeout(() => {
-        addNewsItem("Portuguese Counterrevolution Crushed", "The 'Monarchy of the North' has fallen following uprising in Porto");
+        addNewsItem("The Republic Prevails", "The Portuguese 'Monarchy of the North' has fallen following uprising in Porto");
+    }, 0);
+}
+
+if (Q.timestamp == "17.2.1919") {
+    setTimeout(() => {
+        addNewsItem("General Strike Grips Britain!", "The 'Triple Alliance' of unions has called for a general strike!");
     }, 0);
 }
 
@@ -154,6 +160,42 @@ if (Q.timestamp == "21.2.1919") {
 if (Q.timestamp == "4.3.1919") {
     setTimeout(() => {
         addNewsItem("Birth of the Third International", "New 'Comintern' based in Russia promises to spearhead world revolution");
+    }, 0);
+}
+
+if (Q.timestamp == "8.3.1919") {
+    setTimeout(() => {
+        addNewsItem("Egyptian Revolution", "Egypt asserts independence as British Empire faces collapse");
+    }, 0);
+}
+
+if (Q.timestamp == "12.3.1919") {
+    setTimeout(() => {
+        addNewsItem("The 'Versailles Government'", "French interim government forms in Versailles to oversee peace talks");
+    }, 0);
+}
+
+if (Q.timestamp == "16.3.1919") {
+    setTimeout(() => {
+        addNewsItem("Lloyd George Resigns!", "British government collapses as police and soldiers join strike - revolution on the horizon?");
+    }, 0);
+}
+
+if (Q.timestamp == "25.3.1919") {
+    setTimeout(() => {
+        addNewsItem("Glasgow Soviet?", "As general strike leaves power vacuum, workers' and soldiers' council forms in Glasgow");
+    }, 0);
+}
+
+if (Q.timestamp == "4.4.1919") {
+    setTimeout(() => {
+        addNewsItem("April Battles", "Streetfighting in Paris escalates again as workers strike - the 'Sacred Union' is over");
+    }, 0);
+}
+
+if (Q.timestamp == "13.4.1919") {
+    setTimeout(() => {
+        addNewsItem("Armitsar Massacre", "Massacre in Armitsar by British garrison accelerates unrest as British Raj faces collapses");
     }, 0);
 }
 
