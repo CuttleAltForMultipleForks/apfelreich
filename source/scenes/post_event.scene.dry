@@ -74,35 +74,66 @@ for (var demographic of Q.demographics) {
 var total_support = 0;
 
 // Loop through each party
+var total_support = 0;
+
 for (var party of Q.parties) {
+    console.log('Calculating support for party:', party);
     var party_support = 0;
 
-    // Loop through each demographic (class, sex, religion, culture)
     for (var demographic of Q.demographics) {
-        // Get the current demographic units (e.g., classes, sexes, etc.)
+        console.log('  Demographic:', demographic);
         var units = Q[demographic];
+        var demographic_weight = Q[demographic + '_weight'];
+        console.log('  Units:', units);
+        console.log('  Demographic Weight:', demographic_weight);
 
-        // Loop through each unit within the demographic
+        if (demographic_weight === undefined) {
+            console.warn(`  WARNING: No weight defined for demographic "${demographic}"`);
+        }
+
         for (var unit of units) {
-            // Calculate the party's score for this unit
-            var unit_score = Q[unit] * Q[unit + '_' + party + '_normalized'];
+            console.log('    Unit:', unit);
 
-            // Multiply the unit score by the weight of the demographic (e.g., weight of class, sex, religion, etc.)
-            var demographic_weight = Q[demographic + '_weight']; // Assuming each demographic has a weight
-            party_support += unit_score * demographic_weight;
+            var unit_base = Q[unit];
+            var unit_normalized = Q[unit + '_' + party + '_normalized'];
+            console.log(`      Q[${unit}] =`, unit_base);
+            console.log(`      Q[${unit}_${party}_normalized] =`, unit_normalized);
+
+            if (unit_base === undefined) {
+                console.warn(`      WARNING: Q[${unit}] is undefined`);
+            }
+            if (unit_normalized === undefined) {
+                console.warn(`      WARNING: Q[${unit}_${party}_normalized] is undefined`);
+            }
+
+            var unit_score = unit_base * unit_normalized;
+            console.log('      Unit Score:', unit_score);
+
+            var weight_applied_score = unit_score * demographic_weight;
+            console.log('      Weight Applied Score:', weight_applied_score);
+
+            party_support += weight_applied_score;
         }
     }
 
-    // Store the party's total support
+    console.log('  Total Support for', party, '=', party_support);
     Q[party + '_support'] = party_support;
     total_support += party_support;
+    console.log('  Running Total Support:', total_support);
 }
 
-// 2. Normalize the support (fraction)
+console.log('--- Normalizing Total Support ---');
+console.log('Total Support:', total_support);
+
 for (var party of Q.parties) {
-    Q[party + '_normalized'] = Q[party + '_support'] / total_support;
-    Q[party + '_votes'] = Math.round(Q[party + '_normalized'] * 100);
-    Q[party + '_votes_display'] = Math.round(Q[party + '_normalized'] * 100);
+    var normalized = Q[party + '_support'] / total_support;
+    Q[party + '_normalized'] = normalized;
+    Q[party + '_votes'] = Math.round(normalized * 100);
+    Q[party + '_votes_display'] = Math.round(normalized * 100);
+
+    console.log(`Normalized for ${party}:`, normalized);
+    console.log(`Votes for ${party}:`, Q[party + '_votes']);
+    console.log(`Votes Display for ${party}:`, Q[party + '_votes_display']);
 }
 
 
