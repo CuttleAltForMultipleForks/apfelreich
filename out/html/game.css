@@ -210,7 +210,16 @@ blockquote + blockquote.attribution {
 
 /* When shifted by a new incoming item */
 .news-item.shifted {
-  transform: translateY(-10px);
+  animation: SlideDown 0.6s ease forwards;
+}
+
+@keyframes SlideDown {
+  from {
+    transform: translateY(-10px);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 .news-headline {
