@@ -110,37 +110,52 @@ if (Q.spd_votes >= 30) {
 }
 
 if (Q.timestamp == "7.1.1919") {
-    addNewsItem("Peace Talks Underway", "The Central Powers prepare their demands for the Entente");
+    setTimeout(() => {
+        addNewsItem("Peace Talks Underway", "The Central Powers prepare their demands for the Entente");
+    }, 0);
 }
 
 if (Q.timestamp == "15.1.1919") {
-    addNewsItem("Great Molasses Flood", "21 dead in Boston tragedy as storage tank explodes");
+    setTimeout(() => {
+        addNewsItem("Great Molasses Flood", "21 dead in Boston tragedy as storage tank explodes");
+    }, 0);
 }
 
 if (Q.timestamp == "19.1.1919") {
-    addNewsItem("Monarchy of the North", "Counterrevolutionary uprising in Portugal threatens republic");
+    setTimeout(() => {
+        addNewsItem("Monarchy of the North", "Counterrevolutionary uprising in Portugal threatens republic");
+    }, 0);
 }
 
 if (Q.timestamp == "31.1.1919") {
-    addNewsItem("Glasgow Mutiny", "Strikes and riots in Glasgow have turned to uprising as local soldiers mutiny");
+    setTimeout(() => {
+        addNewsItem("Glasgow Mutiny", "Strikes and riots in Glasgow have turned to uprising as local soldiers mutiny");
+    }, 0);
 }
 
 if (Q.timestamp == "4.2.1919") {
-    addNewsItem("Communard Uprising!", "Paris turns red - a repeat of 1871?");
+    setTimeout(() => {
+        addNewsItem("Communard Uprising!", "Paris turns red - a repeat of 1871?");
+    }, 0);
 }
 
 if (Q.timestamp == "13.2.1919") {
-    addNewsItem("Portuguese Counterrevolution Crushed", "The 'Monarchy of the North' has fallen following uprising in Porto");
+    setTimeout(() => {
+        addNewsItem("Portuguese Counterrevolution Crushed", "The 'Monarchy of the North' has fallen following uprising in Porto");
+    }, 0);
 }
 
 if (Q.timestamp == "21.2.1919") {
-    addNewsItem("Communards Crushed", "Paris placed under paramilitary occupation as insurrection suppressed");
+    setTimeout(() => {
+        addNewsItem("Communards Crushed", "Paris placed under paramilitary occupation as insurrection suppressed");
+    }, 0);
 }
 
 if (Q.timestamp == "4.3.1919") {
-    addNewsItem("Birth of the Third International", "New 'Comintern' based in Russia promises to spearhead world revolution");
+    setTimeout(() => {
+        addNewsItem("Birth of the Third International", "New 'Comintern' based in Russia promises to spearhead world revolution");
+    }, 0);
 }
-
 
 // re-calculate dissent.
 var total_strength = Q.left_strength + Q.center_strength + Q.labor_strength + Q.reformist_strength + Q.neorevisionist_strength;
