@@ -1,56 +1,65 @@
 title: Election
 on-arrival: {!
-// calculate normalized class voting amounts (0 to 100)
-for (var c of Q.classes) {
-    var class_votes = 0;
-    for (var party of Q.parties) {
-        if (Q[c+'_'+party] < 0) {
-            Q[c+'_'+party] = 0;
+// Normalize voting within each unit of every demographic
+for (var demographic of Q.demographics) {
+    var units = Q[demographic];
+    for (var unit of units) {
+        var total_votes = 0;
+        for (var party of Q.parties) {
+            if (Q[unit + '_' + party] < 0) {
+                Q[unit + '_' + party] = 0;
+            }
+            total_votes += Q[unit + '_' + party] * Q[party + '_turnout'];
         }
-        class_votes += Q[c+'_'+party];
-    }
-    for (var party of Q.parties) {
-        Q[c + '_' + party + '_normalized'] = 100*Q[c+'_'+party]/class_votes;
-        Q[c + '_' + party + '_display'] = Math.round(100*Q[c+'_'+party]/class_votes);
+        for (var party of Q.parties) {
+            if (total_votes > 0) {
+                Q[unit + '_' + party + '_normalized'] = 100 * Q[unit + '_' + party] * Q[party + '_turnout'] / total_votes;
+                Q[unit + '_' + party + '_display'] = Math.round(100 * Q[unit + '_' + party] * Q[party + '_turnout'] / total_votes);
+            } else {
+                Q[unit + '_' + party + '_normalized'] = 0;
+                Q[unit + '_' + party + '_display'] = 0;
+            }
+        }
     }
 }
 
-// 1. calculate support for each of the parties
+// Calculate party support from all demographics
 var total_support = 0;
 for (var party of Q.parties) {
     var party_support = 0;
-    for (var c of Q.classes) {
-        // but this version is somewhat more entertaining and allows for wilder swings in votes.
-        // the other option basically necessitates a multi-class strategy. while the first option allows for a working-class-only strategy.
-        if (Q.old_demographics) {
-            // okay i'm pretty sure this is wrong, and the hard version is correct
-            // basically this allows for "spillover" effects in other demographics.
-            // so you can campaign among say the workers and 
-            party_support += Q[c]*Q[c+'_'+party];
-            // However, there should be a cap on how much party support you can get in a certain demo.
-        } else  {
-            party_support += Q[c]*Q[c+'_'+party+'_normalized'];
+
+    for (var demographic of Q.demographics) {
+        var units = Q[demographic];
+        var weight = Q[demographic + '_weight'];
+
+        for (var unit of units) {
+            if (Q.old_demographics) {
+                // Unnormalized values with turnout, simulating "spillover"
+                party_support += Q[unit] * Q[unit + '_' + party] * Q[party + '_turnout'] * weight;
+            } else {
+                // Normalized values with turnout
+                party_support += Q[unit] * Q[unit + '_' + party + '_normalized'] * weight * Q[party + '_turnout'];
+            }
         }
     }
+
     Q[party + '_support'] = party_support;
     total_support += party_support;
 }
-// 2. normalize support (fraction)
-// 3. Round to integers
-// TODO: round to 1 decimal instead of rounding to integers
-// to do that, we multiply party_normalized*1000 and divide the rounded number by 10.
+
+// Normalize support to fractions and calculate votes
 for (var party of Q.parties) {
-    Q[party+'_normalized'] = Q[party + '_support']/total_support;
-    Q[party+'_votes_dec'] = Math.round(Q[party+'_normalized']*1000)/10;
+    Q[party + '_normalized'] = Q[party + '_support'] / total_support;
+
+    Q[party + '_votes_dec'] = Math.round(Q[party + '_normalized'] * 1000) / 10;
+
     if (Q.use_decimals) {
-        Q[party+'_votes'] = Q[party+'_votes_dec'];
-        Q[party + '_votes_disp'] = Q[party+'_votes'];
+        Q[party + '_votes'] = Q[party + '_votes_dec'];
+        Q[party + '_votes_disp'] = Q[party + '_votes'];
     } else {
-        Q[party+'_votes'] = Math.round(Q[party+'_normalized']*100);
-        Q[party + '_votes_disp'] = Q[party+'_votes_dec'].toFixed(1);
+        Q[party + '_votes'] = Math.round(Q[party + '_normalized'] * 100);
+        Q[party + '_votes_disp'] = Q[party + '_votes_dec'].toFixed(1);
     }
-    //Q[party+'_votes'] = Q[party+'_votes_dec'];
-    // display
 }
 
 Q.prussia_workers = Q.workers*1;
