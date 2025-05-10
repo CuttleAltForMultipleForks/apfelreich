@@ -45,6 +45,8 @@ on-arrival: {!
 // banning parties
 var new_party_sum = 0;
 for (var party of Q.parties) {
+    Q['old_'+party+'_voteshare'] = Q[party+'_voteshare'];
+    Q[party+'_voteshare'] = Q[party+'_votes'];
     if (!Q[party+'_seats']) {
         Q[party+'_seats'] = 0;
     }
@@ -75,6 +77,9 @@ if (Q.proportional) {
         Q['change_' + party + '_r'] = Q[party + '_r'] - Q['old_' + party + '_r'];
         var sign = Q['change_' + party + '_r'] > 0 ? '+' : '';
         Q['str_change_' + party] = sign + Q['change_' + party + '_r'];
+        Q['change_'+party+'_voteshare'] = Q[party+'_voteshare'] - Q['old_'+party+'_voteshare'];
+        var sign = Q['change_' + party + '_voteshare'] > 0 ? '+' : '';
+        Q['stvoteshare_change_' + party] = sign + Q['change_' + party + '_voteshare'];
     }
 }
 if (!Q.proportional) {
@@ -216,6 +221,9 @@ if (!Q.proportional) {
         Q['change_' + party + '_r'] = Q[party + '_r'] - Q['old_' + party + '_r'];
         var sign = Q['change_' + party + '_r'] > 0 ? '+' : '';
         Q['str_change_' + party] = sign + Q['change_' + party + '_r'];
+        Q['change_'+party+'_voteshare'] = Q[party+'_voteshare'] - Q['old_'+party+'_voteshare'];
+        var sign = Q['change_' + party + '_voteshare'] > 0 ? '+' : '';
+        Q['stvoteshare_change_' + party] = sign + Q['change_' + party + '_voteshare'];
 
         console.log(`  Party: ${party}, Seats: ${seats}, %: ${Q[party + '_r']}`);
     }
@@ -243,6 +251,9 @@ if (Q.electoral_threshold && Q.electoral_threshold > 0 || Q.party_bans) {
         Q['change_' + party + '_r'] = Q[party + '_r'] - Q['old_' + party + '_r'];
         var sign = Q['change_' + party + '_r'] > 0 ? '+' : '';
         Q['str_change_' + party] = sign + Q['change_' + party + '_r'];
+        Q['change_'+party+'_voteshare'] = Q[party+'_voteshare'] - Q['old_'+party+'_voteshare'];
+        var sign = Q['change_' + party + '_voteshare'] > 0 ? '+' : '';
+        Q['stvoteshare_change_' + party] = sign + Q['change_' + party + '_voteshare'];
     }
 }
 
@@ -258,7 +269,6 @@ if (Q.nsdap_r >= Q.spd_r && Q.nsdap_r >= Q.kpd_r) {
 if (Q.kpd_r >= Q.spd_r && Q.kpd_r >= Q.nsdap_r) {
     Q.largest_party = 'KPD';
 }
-Q.z_minus_bvp_r = Q.z_r - 3;
 // coalitions
 Q.weimar_coalition = Q.spd_r + Q.ddp_r + Q.z_r - 3;
 Q.grand_coalition = Q.spd_r + Q.ddp_r + Q.z_r + Q.dvp_r;
@@ -345,68 +355,62 @@ Q.election_records.push(election_result);
 on-departure: nazi_urgency = 1 if (nazi_urgency == 0 and nsdap_r >= 15)
 on-display: {!
 data = Q.parties
-    .filter(party => Q[party + '_r']) // Only include parties with seat data
+    .filter(party => Q[party + '_r'])
     .map(party => ({
         id: party,
         legend: party.toUpperCase(),
         name: party.toUpperCase(),
         seats: Math.round(Q[party + '_r'] * 5),
-        leftist: Q[party + '_leftist'] || 0 // default to 0 if undefined
+        leftist: Q[party + '_leftist'] || 0
     }))
-    .sort((a, b) => b.leftist - a.leftist) // sort from most to least left-wing
-    .map(({ leftist, ...rest }) => rest); // remove `leftist` from final output
+    .sort((a, b) => b.leftist - a.leftist)
+    .map(({ leftist, ...rest }) => rest);
 
-// `data` now contains the full party display list, ordered ideologically.
+// Delay DOM manipulation until next tick to ensure #chart is in DOM
+setTimeout(() => {
+    if (window && d3 && document.getElementById("chart")) {
+        // Clear previous SVG if it exists
+        d3.select("#chart").select("svg").remove();
 
-if (window && d3) {
-    var width = 500; 
-    var height = 500;
-    var screenWidth = document.getElementById('content').offsetWidth;
-    if (screenWidth < width - 50) {
-        width = screenWidth - 50; 
-        height = width;
-        document.getElementById("reichstag").style.height = screenWidth/2 + "px";
-    } 
+        var svg = d3.select("#chart")
+            .append("svg")
+            .attr("width", 500)
+            .attr("height", 300);
 
-    var parliament = d3.parliament();
-    parliament.width(width).height(height).innerRadiusCoef(0.4);
-    parliament.enter.fromCenter(true).smallToBig(true);
-    parliament.exit.toCenter(false).bigToSmall(true);
-    d3.select("#reichstag").datum(data).call(parliament);
-}
+        var x = d3.scaleBand()
+            .domain(data.map(d => d.name))
+            .range([0, 500])
+            .padding(0.1);
+
+        var y = d3.scaleLinear()
+            .domain([0, d3.max(data, d => d.seats)])
+            .nice()
+            .range([300, 0]);
+
+        svg.append("g")
+            .selectAll("rect")
+            .data(data)
+            .join("rect")
+            .attr("x", d => x(d.name))
+            .attr("y", d => y(d.seats))
+            .attr("height", d => 300 - y(d.seats))
+            .attr("width", x.bandwidth())
+            .attr("class", d => "seat " + d.id.toLowerCase()); // Use CSS for color
+
+        svg.append("g")
+            .attr("transform", "translate(0,300)")
+            .call(d3.axisBottom(x));
+
+        svg.append("g")
+            .call(d3.axisLeft(y));
+    }
+}, 0);
 !}
 go-to: coalition_menu if not vonc_formed; coalition_vonc if vonc_formed
 
 = Election results
 
-{!<svg id="reichstag" style="width: 500px; height: 250px;"> </svg>!}
-
-{!<table>!} 
-{!<tr><td>Party</td><td>Vote share</td><td>% Change</td></tr>!}
-{!<tr><td><div class="box" style='background-color:#E3000F; outline: 2px; outline-style: solid;'> </div> !} **SPD:** {!</td><td>!} **[+ spd_r +]%** {!</td><td>!} **[+ str_change_spd +]** {!</td></tr>!}
-
-[? if vonc_formed == 1 : {!<tr><td><div class="box" style='background-color:#ffffff00'> </div> !}Voncspartei: {!</td><td>!} [+ vonc_r +]% {!</td><td>!} [+ str_change_vonc +] {!</td></tr>!} ?]
-
-[? if sapd_formed == 1 : {!<tr><td><div class="box" style='background-color:#C40000'> </div> !}SAPD: {!</td><td>!} [+ sapd_r +]% {!</td><td>!} [+ str_change_sapd +] {!</td></tr>!} ?]
-
-{!<tr><td><div class="box" style='background-color:#8B0000'> </div> !}KPD: {!</td><td>!} [+ kpd_r +]% {!</td><td>!} [+ str_change_kpd +] {!</td></tr>!}
-
-{!<tr><td><div class="box" style='background-color:#DCCA4A'> </div> !} [+ ddp_name +]: {!</td><td>!} [+ ddp_r +]% {!</td><td>!} [+ str_change_ddp +] {!</td></tr>!}
-
-{!<tr><td><div class="box" style='background-color:#000'> </div> !} Z: {!</td><td>!} [+ z_minus_bvp_r +]% {!</td><td>!} [+ str_change_z +] {!</td></tr>!}
-
-{!<tr><td><div class="box" style='background-color:#69A2BE'> </div> !} [+ bvp_name +]: {!</td><td>!} 3% {!</td><td>!} 0 {!</td></tr>!}
-
-{!<tr><td><div class="box" style='background-color:#D5AC27'> </div> !} DVP: {!</td><td>!} [+ dvp_r +]% {!</td><td>!} [+ str_change_dvp +] {!</td></tr>!}
- 
-{!<tr><td><div class="box" style='background-color:#a0a0a0'> </div> !} Others: {!</td><td>!} [+ other_r +] % {!</td><td>!} [+ str_change_other +] {!</td></tr>!}
-
-{!<tr><td><div class="box" style='background-color:#3f7bc1'> </div> !} DNVP: {!</td><td>!} [+ dnvp_r +]% {!</td><td>!} [+ str_change_dnvp +] {!</td></tr>!}
-
-[? if dne_formed == 1 : {!<tr><td><div class="box" style='background-color:#b81191'> </div> !}DNE: {!</td><td>!} [+ dne_r +]% {!</td><td>!} [+ str_change_dne +] {!</td></tr>!} ?]
-
-{!<tr><td><div class="box" style='background-color:#954B00'> </div> !} NSDAP: {!</td><td>!} [+ nsdap_r +]% {!</td><td>!} [+ str_change_nsdap +] {!</td></tr>!}
-{!</table>!}
+<div id="chart"></div>
 
 **Potential coalitions:**
 
