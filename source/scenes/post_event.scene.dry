@@ -109,35 +109,35 @@ if (Q.spd_votes >= 30) {
     addNewsItem("SPD Surges!", "Landslide victory to come?");
 }
 
-if (Q.timestamp == 7.1.1919) {
+if (Q.timestamp == "7.1.1919") {
     addNewsItem("Peace Talks Underway", "The Central Powers prepare their demands for the Entente");
 }
 
-if (Q.timestamp == 15.1.1919) {
+if (Q.timestamp == "15.1.1919") {
     addNewsItem("Great Molasses Flood", "21 dead in Boston tragedy as storage tank explodes");
 }
 
-if (Q.timestamp == 19.1.1919) {
+if (Q.timestamp == "19.1.1919") {
     addNewsItem("Monarchy of the North", "Counterrevolutionary uprising in Portugal threatens republic");
 }
 
-if (Q.timestamp == 31.1.1919) {
+if (Q.timestamp == "31.1.1919") {
     addNewsItem("Glasgow Mutiny", "Strikes and riots in Glasgow have turned to uprising as local soldiers mutiny");
 }
 
-if (Q.timestamp == 4.2.1919) {
+if (Q.timestamp == "4.2.1919") {
     addNewsItem("Communard Uprising!", "Paris turns red - a repeat of 1871?");
 }
 
-if (Q.timestamp == 13.2.1919) {
+if (Q.timestamp == "13.2.1919") {
     addNewsItem("Portuguese Counterrevolution Crushed", "The 'Monarchy of the North' has fallen following uprising in Porto");
 }
 
-if (Q.timestamp == 21.2.1919) {
+if (Q.timestamp == "21.2.1919") {
     addNewsItem("Communards Crushed", "Paris placed under paramilitary occupation as insurrection suppressed");
 }
 
-if (Q.timestamp == 4.3.1919) {
+if (Q.timestamp == "4.3.1919") {
     addNewsItem("Birth of the Third International", "New 'Comintern' based in Russia promises to spearhead world revolution");
 }
 
