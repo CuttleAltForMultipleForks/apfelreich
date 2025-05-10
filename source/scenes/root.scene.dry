@@ -270,10 +270,10 @@ Q.religions_weight = 0.3;
 
 Q.uspd_leftist = 20;
 Q.spd_leftist = 10;
-Q.pp_leftist = 7;
-Q.dhp_leftist = 6;
-Q.bb_leftist = 5;
-Q.elp_leftist = 4;
+Q.pp_leftist = 2;
+Q.dhp_leftist = 2;
+Q.bb_leftist = 1;
+Q.elp_leftist = 2;
 Q.fvp_leftist = 3;
 Q.z_leftist = 0;
 Q.nlp_leftist = -2;
