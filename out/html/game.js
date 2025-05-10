@@ -30,22 +30,26 @@ window.addNewsItem = function(headline, subtext) {
     const feed = document.getElementById('news_feed');
     if (!feed) return;
 
+    // Initialize the tracker if needed
+    if (!window.renderedNewsHeadlines) {
+        window.renderedNewsHeadlines = new Set();
+    }
+
     // Prevent duplicates in DOM
     const exists = feed.querySelector(`.news-item[data-headline="${headline}"]`);
     if (exists) return;
 
-    // Shift all existing items
-    const existingItems = feed.querySelectorAll('.news-item');
-    existingItems.forEach(item => {
-        item.classList.add('shifted');
-    });
+    const isNew = !window.renderedNewsHeadlines.has(headline);
 
-    // Remove 'shifted' after transition so it's ready next time
-    setTimeout(() => {
-        existingItems.forEach(item => {
-            item.classList.remove('shifted');
-        });
-    }, 300); // Match the shift transition time
+    // Only shift existing items if this is a new headline
+    if (isNew) {
+        const existingItems = feed.querySelectorAll('.news-item');
+        existingItems.forEach(item => item.classList.add('shifted'));
+
+        setTimeout(() => {
+            existingItems.forEach(item => item.classList.remove('shifted'));
+        }, 300); // Match CSS transition time
+    }
 
     // Create new news item
     const itemContainer = document.createElement('div');
@@ -64,12 +68,8 @@ window.addNewsItem = function(headline, subtext) {
     itemContainer.appendChild(subtextEl);
     feed.insertBefore(itemContainer, feed.firstChild);
 
-    // Animate if it's newly rendered
-    if (!window.renderedNewsHeadlines) {
-        window.renderedNewsHeadlines = new Set();
-    }
-
-    if (!window.renderedNewsHeadlines.has(headline)) {
+    // Apply fade-in if truly new
+    if (isNew) {
         itemContainer.classList.add('new-item');
         itemContainer.addEventListener('animationend', () => {
             itemContainer.classList.remove('new-item');
