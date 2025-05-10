@@ -86,20 +86,25 @@ if (!Q.proportional) {
             var party_support = 0;
 
             console.log(`  Party: ${party}`);
-            
-            // Loop through demographics (which is now an array of arrays)
-            for (var demoArray of Q.demographics) {
-                let weight = Q[block + '_' + demoArray[0]] || 0;  // Demo weight for the block
-                let normalized_support = 0;
 
-                // Loop through each demographic within demoArray (this should be the actual demographic keys)
-                for (var demo of demoArray) {
-                    normalized_support += Q[demo + '_' + party + '_normalized'] * Q[party + '_turnout'];  // Accumulate normalized support
-                    console.log(`    Demo: ${demo}, Normalized: ${Q[demo + '_' + party + '_normalized']}, Turnout: ${Q[party + '_turnout']}`);
+            for (var demo of Q.demographics) {
+                let demo_weight = Q[demo + '_weight'] || 1;
+                let subgroups = Q[demo]; // e.g., Q.classes
+
+                for (var subgroup of subgroups) {
+                    let group_weight = Q[block + '_' + subgroup] || 0;
+                    let normalized = Q[subgroup + '_' + party + '_normalized'];
+                    let turnout = Q[party + '_turnout'];
+
+                    if (normalized === undefined) {
+                        console.warn(`Missing normalized value: ${subgroup + '_' + party + '_normalized'}`);
+                    }
+
+                    let contribution = demo_weight * group_weight * normalized * turnout;
+                    party_support += contribution;
+
+                    console.log(`    ${demo}.${subgroup}: group_weight=${group_weight}, normalized=${normalized}, turnout=${turnout}, contrib=${contribution}`);
                 }
-
-                party_support += weight * normalized_support;
-                console.log(`    Weight: ${weight}, Party Support: ${party_support}`);
             }
 
             support[party] = party_support;
@@ -110,7 +115,7 @@ if (!Q.proportional) {
 
         console.log(`  Total support for block ${block}: ${total_support}`);
 
-        // 2. Normalize support
+        // 2. Normalize
         let normalized = {};
         for (var party of Q.parties) {
             normalized[party] = support[party] / total_support;
@@ -122,33 +127,23 @@ if (!Q.proportional) {
         let top = sorted_parties[0];
         let second = sorted_parties[1];
 
-        console.log(`  Sorted parties: ${sorted_parties}`);
-        console.log(`  Top party: ${top}, Second party: ${second}`);
-
         if (normalized[top] >= 0.6) {
-            console.log(`  Clear winner: ${top}`);
             Q[top + '_seats'] += Q[block + '_votes'];
             Q['winner_' + block] = top;
+            console.log(`  First-round winner: ${top}`);
         } else {
-            // 4. Two-round logic
-            console.log(`  No clear winner. Running two-round logic...`);
+            // Two-round runoff logic
             let top_leftist = Q[top + '_leftist'];
             let second_leftist = Q[second + '_leftist'];
-
-            console.log(`  Top leftist: ${top_leftist}, Second leftist: ${second_leftist}`);
-
             let is_second_more_left = second_leftist < top_leftist;
-            console.log(`  Is second more left: ${is_second_more_left}`);
 
             for (var party of Q.parties) {
                 let p_leftist = Q[party + '_leftist'];
 
                 if (is_second_more_left && p_leftist < top_leftist) {
-                    console.log(`    Party ${party} merged with second: ${second}`);
                     normalized[second] += normalized[party];
                     normalized[party] = 0;
                 } else if (!is_second_more_left && p_leftist > top_leftist) {
-                    console.log(`    Party ${party} merged with second: ${second}`);
                     normalized[second] += normalized[party];
                     normalized[party] = 0;
                 }
@@ -157,41 +152,32 @@ if (!Q.proportional) {
             sorted_parties = [...Q.parties].sort((a, b) => normalized[b] - normalized[a]);
             top = sorted_parties[0];
 
-            console.log(`  New top after two-round logic: ${top}`);
-
             Q[top + '_seats'] += Q[block + '_votes'];
             Q['winner_' + block] = top;
+
+            console.log(`  Runoff winner: ${top}`);
         }
     }
 
-    // **New Line to Set Q[party + '_r'] to Percentage of Total Seats**
-    var total_seats = Q.total_seats || 100; // Assuming `Q.total_seats` holds the total seat count. If not, set this to your desired value.
+    // Set Q[party + '_r'] to be % of total seats
+    let total_seats = Q.constituency_blocks.reduce((sum, b) => sum + (Q[b + '_votes'] || 0), 0);
     console.log(`\nCalculating seat percentages... Total seats: ${total_seats}`);
-    
-    for (var party of Q.parties) {
-        if (Q[party + '_seats'] > 0) {
-            console.log(`  Party: ${party}, Seats: ${Q[party + '_seats']}`);
-            Q[party + '_r'] = (Q[party + '_seats'] / total_seats) * 100; // Calculate percentage of total seats
-            console.log(`    Percentage of total seats for ${party}: ${Q[party + '_r']}%`);
-        } else {
-            console.log(`  Party: ${party} won 0 seats.`);
-            Q[party + '_r'] = 0; // Set to 0 if no seats
-        }
 
-        // Decimal formatting
+    for (var party of Q.parties) {
+        let seats = Q[party + '_seats'] || 0;
+        Q[party + '_r'] = total_seats > 0 ? (seats / total_seats) * 100 : 0;
+
         if (Q.use_decimals) {
             Q[party + '_r_disp'] = Q[party + '_r'].toFixed(1);
-            console.log(`    Formatted value (decimal): ${Q[party + '_r_disp']}`);
         } else {
-            Q[party + '_r_disp'] = Q[party + '_r'];
-            console.log(`    Formatted value (integer): ${Q[party + '_r_disp']}`);
+            Q[party + '_r_disp'] = Math.round(Q[party + '_r']);
         }
 
-        // Change calculation
         Q['change_' + party + '_r'] = Q[party + '_r'] - Q['old_' + party + '_r'];
         var sign = Q['change_' + party + '_r'] > 0 ? '+' : '';
         Q['str_change_' + party] = sign + Q['change_' + party + '_r'];
-        console.log(`    Change in seats for ${party}: ${Q['change_' + party + '_r']}`);
+
+        console.log(`  Party: ${party}, Seats: ${seats}, %: ${Q[party + '_r']}`);
     }
 }
 
