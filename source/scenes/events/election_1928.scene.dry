@@ -355,62 +355,47 @@ Q.election_records.push(election_result);
 on-departure: nazi_urgency = 1 if (nazi_urgency == 0 and nsdap_r >= 15)
 on-display: {!
 data = Q.parties
-    .filter(party => Q[party + '_r'])
+    .filter(party => Q[party + '_r']) // Only include parties with seat data
     .map(party => ({
         id: party,
         legend: party.toUpperCase(),
         name: party.toUpperCase(),
         seats: Math.round(Q[party + '_r'] * 5),
-        leftist: Q[party + '_leftist'] || 0
+        leftist: Q[party + '_leftist'] || 0 // default to 0 if undefined
     }))
-    .sort((a, b) => b.leftist - a.leftist)
-    .map(({ leftist, ...rest }) => rest);
+    .sort((a, b) => b.leftist - a.leftist) // sort from most to least left-wing
+    .map(({ leftist, ...rest }) => rest); // remove `leftist` from final output
 
-// Delay DOM manipulation until next tick to ensure #chart is in DOM
-setTimeout(() => {
-    if (window && d3 && document.getElementById("chart")) {
-        // Clear previous SVG if it exists
-        d3.select("#chart").select("svg").remove();
+// `data` now contains the full party display list, ordered ideologically.
 
-        var svg = d3.select("#chart")
-            .append("svg")
-            .attr("width", 500)
-            .attr("height", 300);
+if (window && d3) {
+    var width = 500; 
+    var height = 500;
+    var screenWidth = document.getElementById('content').offsetWidth;
+    if (screenWidth < width - 50) {
+        width = screenWidth - 50; 
+        height = width;
+        document.getElementById("reichstag").style.height = screenWidth/2 + "px";
+    } 
 
-        var x = d3.scaleBand()
-            .domain(data.map(d => d.name))
-            .range([0, 500])
-            .padding(0.1);
-
-        var y = d3.scaleLinear()
-            .domain([0, d3.max(data, d => d.seats)])
-            .nice()
-            .range([300, 0]);
-
-        svg.append("g")
-            .selectAll("rect")
-            .data(data)
-            .join("rect")
-            .attr("x", d => x(d.name))
-            .attr("y", d => y(d.seats))
-            .attr("height", d => 300 - y(d.seats))
-            .attr("width", x.bandwidth())
-            .attr("class", d => "seat " + d.id.toLowerCase()); // Use CSS for color
-
-        svg.append("g")
-            .attr("transform", "translate(0,300)")
-            .call(d3.axisBottom(x));
-
-        svg.append("g")
-            .call(d3.axisLeft(y));
-    }
-}, 0);
+    var parliament = d3.parliament();
+    parliament.width(width).height(height).innerRadiusCoef(0.4);
+    parliament.enter.fromCenter(true).smallToBig(true);
+    parliament.exit.toCenter(false).bigToSmall(true);
+    d3.select("#reichstag").datum(data).call(parliament);
+}
 !}
 go-to: coalition_menu if not vonc_formed; coalition_vonc if vonc_formed
 
 = Election results
 
-<div id="chart"></div>
+{!<svg id="reichstag" style="width: 500px; height: 250px;"> </svg>!}
+
+{!<table>!} 
+{!<tr><td>Party</td><td>Vote share</td><td>% Change</td><td>Reichstag share</td><td>% Change</td></tr>!}
+
+{!<tr><td><div class="box" style='background-color:#E3000F; outline: 2px; outline-style: solid;'> </div> !} **SPD:** {!</td><td>!} **[+ spd_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_spd +]** {!</td><td>!} **[+ spd_r_disp +]** {!</td><td>!} **[+ str_change_spd +]** {!</td><td>!}
+{!</table>!}
 
 **Potential coalitions:**
 
