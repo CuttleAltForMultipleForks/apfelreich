@@ -34,6 +34,20 @@ window.addNewsItem = function(headline, subtext) {
     const exists = feed.querySelector(`.news-item[data-headline="${headline}"]`);
     if (exists) return;
 
+    // Shift all existing items
+    const existingItems = feed.querySelectorAll('.news-item');
+    existingItems.forEach(item => {
+        item.classList.add('shifted');
+    });
+
+    // Remove 'shifted' after transition so it's ready next time
+    setTimeout(() => {
+        existingItems.forEach(item => {
+            item.classList.remove('shifted');
+        });
+    }, 300); // Match the shift transition time
+
+    // Create new news item
     const itemContainer = document.createElement('div');
     itemContainer.className = 'news-item';
     itemContainer.dataset.headline = headline;
@@ -50,7 +64,11 @@ window.addNewsItem = function(headline, subtext) {
     itemContainer.appendChild(subtextEl);
     feed.insertBefore(itemContainer, feed.firstChild);
 
-    // Fade in only if it's the first time this headline has been added
+    // Animate if it's newly rendered
+    if (!window.renderedNewsHeadlines) {
+        window.renderedNewsHeadlines = new Set();
+    }
+
     if (!window.renderedNewsHeadlines.has(headline)) {
         itemContainer.classList.add('new-item');
         itemContainer.addEventListener('animationend', () => {

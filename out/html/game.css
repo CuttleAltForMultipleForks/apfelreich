@@ -192,6 +192,7 @@ blockquote + blockquote.attribution {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
+/* Animate only new items */
 .news-item.new-item {
   animation: fadeInSlideDown 0.6s ease forwards;
 }
@@ -205,6 +206,11 @@ blockquote + blockquote.attribution {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* When shifted by a new incoming item */
+.news-item.shifted {
+  transform: translateY(10px);
 }
 
 .news-headline {
