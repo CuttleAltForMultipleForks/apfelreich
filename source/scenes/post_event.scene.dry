@@ -224,6 +224,12 @@ if (Q.timestamp == "13.4.1919") {
     }, 0);
 }
 
+if (Q.timestamp == "21.4.1919") {
+    setTimeout(() => {
+        addNewsItem("Third Anglo-Afghan War", "Afghanistan invades collapsing Raj following massacre in Armitsar");
+    }, 0);
+}
+
 // re-calculate dissent.
 var total_strength = Q.left_strength + Q.center_strength + Q.labor_strength + Q.reformist_strength + Q.neorevisionist_strength;
 

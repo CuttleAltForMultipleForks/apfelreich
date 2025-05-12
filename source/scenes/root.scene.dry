@@ -757,17 +757,23 @@ Q.economic_records = [];
 
 
 // State of the government
-Q.president = "Hindenburg";
+Q.head_of_state = "Wilhelm II";
+Q.head_of_state_title = "Kaiser";
 // starting chancellor: Wilhelm Marx
-Q.chancellor = "Marx";
+Q.chancellor = "Hertling";
 Q.chancellor_party = 'Z';
+Q.uspd_in_government = 0;
 Q.spd_in_government = 0;
-Q.z_in_government = 1;
-Q.ddp_in_government = 0;
-Q.dvp_in_government = 1;
-Q.dnvp_in_government = 1;
-Q.kpd_in_government = 0;
-Q.nsdap_in_government = 0;
+Q.pp_in_government = 0;
+Q.dhp_in_government = 0;
+Q.bb_in_government = 0;
+Q.elp_in_government = 0;
+Q.fvp_in_government = 0;
+Q.z_in_government = 0;
+Q.nlp_in_government = 0;
+Q.fkp_in_government = 0;
+Q.dkp_in_government = 0;
+Q.antisemite_in_government = 0;
 
 Q.in_right_coalition = 0;
 // Weimar coalition = SPD + Z + DDP
@@ -987,6 +993,9 @@ Q.disarray_timer = 0;
 Q.dne_timer = 0;
 
 Q.fun_value = Math.floor(Math.random() * 100) + 1;
+
+Q.british_radicalism = Math.floor(Math.random() * 100) + 1;
+Q.british_reactionism = Math.floor(Math.random() * 100) + 1;
 
 Q.political_crisis_progress = 0;
 
