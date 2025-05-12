@@ -216,13 +216,6 @@ if (!Q.proportional) {
                 total_support += normalized[party];
             }
 
-            // Allocate seats based on proportional support
-            for (let party of Q.parties) {
-                let seats = normalized[party] * Q[block + '_votes'];
-                Q[party + '_seats'] += seats;
-                console.log(`Block ${block}: ${party} gets ${seats.toFixed(1)} seats (proportional share ${normalized[party].toFixed(3)})`);
-            }
-
             // Reinforce support
             for (let i = 0; i < 2; i++) {
                 for (let party of Q.parties) {
@@ -233,6 +226,13 @@ if (!Q.proportional) {
                 for (let party of Q.parties) {
                     normalized[party] = support[party] / total_support;
                 }
+            }
+
+            // Allocate seats based on proportional support
+            for (let party of Q.parties) {
+                let seats = normalized[party] * Q[block + '_votes'];
+                Q[party + '_seats'] += seats;
+                console.log(`Block ${block}: ${party} gets ${seats.toFixed(1)} seats (proportional share ${normalized[party].toFixed(3)})`);
             }
 
             Q['winner_' + block] = sorted_parties[0]; // Symbolic winner
