@@ -1,6 +1,6 @@
 title: Kiel Mutiny
 subtitle: Sailors in the port city of Kiel have mutinied, demanding demobilization
-view-if: timestamp >= 5.2.1919
+view-if: month == 2 and year == 1919 and day >= 5
 max-visits: 1
 new-page: true
 #tags: event
