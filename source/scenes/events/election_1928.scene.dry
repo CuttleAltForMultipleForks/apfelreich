@@ -137,13 +137,15 @@ if (!Q.proportional) {
         let top = sorted_parties[0];
         let second = sorted_parties[1];
 
-        if (normalized[top] >= 0.7) {
+        // New threshold logic
+        if (normalized[top] >= 0.75) {
             // Case 3: Party wins outright
             Q[top + '_seats'] += Q[block + '_votes'];
             Q['winner_' + block] = top;
             console.log(`  Winner (over 70%): ${top}`);
-        } else if ((normalized[top] - normalized[second]) >= 0.05) {
-            console.log(`  Top party is ahead by >=5% (${(normalized[top] - normalized[second]).toFixed(3)}). Consolidation begins...`);
+        } else if (normalized[top] >= 0.5) {
+            // Case 2: Consolidation occurs, but no outright winner
+            console.log(`  Consolidation between top two parties (60% <= ${top} < 70%)`);
 
             // Symmetric consolidation between top two
             let top_leftist = Q[top + '_leftist'];
@@ -159,37 +161,34 @@ if (!Q.proportional) {
                 let more_leftist_score = Q[more_leftist + '_leftist'];
                 let more_rightist_score = Q[more_rightist + '_leftist'];
 
-                // Consolidate small parties (<10% support)
-                if (normalized[party] < 0.1) {
-                    let toward = Math.abs(p_leftist - top_leftist) < Math.abs(p_leftist - second_leftist) ? top : second;
-                    normalized[toward] += normalized[party];
+                if (p_leftist < more_leftist_score) {
+                    // Left of more leftist: full support to more_leftist
+                    normalized[more_leftist] += normalized[party];
                     normalized[party] = 0;
-                } else {
-                    if (p_leftist < more_leftist_score) {
-                        normalized[more_leftist] += normalized[party];
-                        normalized[party] = 0;
-                    } else if (p_leftist > more_rightist_score) {
-                        normalized[more_rightist] += normalized[party];
-                        normalized[party] = 0;
-                    } else if (p_leftist < 0 && more_rightist_score > p_leftist) {
-                        normalized[more_rightist] += 0.5 * normalized[party];
-                        normalized[party] *= 0.5;
-                    }
-                    // Others stay neutral
+                } else if (p_leftist > more_rightist_score) {
+                    // Right of more rightist: full support to more_rightist
+                    normalized[more_rightist] += normalized[party];
+                    normalized[party] = 0;
+                } else if (p_leftist < 0 && more_rightist_score > p_leftist) {
+                    // Centrist (<0) and more rightist is further right: give half to rightist
+                    normalized[more_rightist] += 0.5 * normalized[party];
+                    normalized[party] *= 0.5; // Keep half
                 }
+                // Other parties in between are untouched (stay neutral)
+            }
+
+            // Seat splitting using reinforcement logic
+            let total_support = 0;
+
+            for (let party of Q.parties) {
+                total_support += normalized[party];
             }
 
             // Reinforce support
-            let total_support = 0;
-            for (let party of Q.parties) {
-                support[party] = normalized[party]; // sync support
-                total_support += support[party];
-            }
-
             for (let i = 0; i < 2; i++) {
                 for (let party of Q.parties) {
                     total_support -= support[party];
-                    support[party] = Math.pow(support[party], 1.5); // Stronger reinforcement
+                    support[party] = Math.pow(support[party], 1.5); // stronger than linear
                     total_support += support[party];
                 }
                 for (let party of Q.parties) {
@@ -197,41 +196,59 @@ if (!Q.proportional) {
                 }
             }
 
-            // Post-consolidation top/second
-            let post_sorted = [...Q.parties].sort((a, b) => normalized[b] - normalized[a]);
-            let post_top = post_sorted[0];
-            let post_second = post_sorted[1];
+            // Allocate seats based on reinforced share
+            Q[block + '_split'] = 1; // Flag for debugging/UI
 
-            if ((normalized[post_top] - normalized[post_second]) >= 0.10) {
-                Q[post_top + '_seats'] += Q[block + '_votes'];
-                Q['winner_' + block] = post_top;
-                console.log(`  Post-consolidation: ${post_top} wins entire state with ${(normalized[post_top] * 100).toFixed(1)}%`);
-            } else {
-                Q[block + '_split'] = 1;
-
-                for (let party of Q.parties) {
-                    let seats = normalized[party] * Q[block + '_votes'];
-                    Q[party + '_seats'] += seats;
-                    console.log(`Block ${block}: ${party} gets ${seats.toFixed(1)} seats (reinforced share ${normalized[party].toFixed(3)})`);
-                }
-
-                Q['winner_' + block] = post_top;
+            for (let party of Q.parties) {
+                let seats = normalized[party] * Q[block + '_votes'];
+                Q[party + '_seats'] += seats;
+                console.log(`Block ${block}: ${party} gets ${seats.toFixed(1)} seats (reinforced share ${normalized[party].toFixed(3)})`);
             }
+
+            Q['winner_' + block] = sorted_parties[0]; // Symbolic winner
         } else {
-            // Case 1: No party over 60%, split state between all parties proportionally
-            console.log(`  No party over 60%, splitting state proportionally...`);
-
-            // Reinforce support
-            let total_support = 0;
+            
+            // Case 1: No party over 50%, split state between all parties proportionally
+            console.log(`  No party over 50%, splitting state proportionally...`);
+            let leftiest = {};
             for (let party of Q.parties) {
-                support[party] = normalized[party];
-                total_support += support[party];
+                leftiest[party] = Q[party + '_leftist'];
             }
 
+            let low_parties = Q.parties.filter(p => normalized[p] < 0.05);
+            let high_parties = Q.parties.filter(p => normalized[p] >= 0.05);
+
+            // Consolidate low parties into the ideologically closest high party
+            for (let low of low_parties) {
+                let closest = null;
+                let min_distance = Infinity;
+
+                for (let high of high_parties) {
+                    let distance = Math.abs(leftiest[low] - leftiest[high]);
+                    if (distance < min_distance) {
+                        min_distance = distance;
+                        closest = high;
+                    }
+                }
+
+                if (closest) {
+                   console.log(`  Consolidating ${low} (${normalized[low].toFixed(3)}) into ${closest} (closest ideologically)`);
+                    normalized[closest] += normalized[low];
+                    normalized[low] = 0;
+                }
+            }
+
+            // Seat splitting
+            let total_support = 0;
+            for (let party of Q.parties) {
+                total_support += normalized[party];
+            }
+
+            // Reinforce support
             for (let i = 0; i < 2; i++) {
                 for (let party of Q.parties) {
                     total_support -= support[party];
-                    support[party] = Math.pow(support[party], 1.5);
+                    support[party] = Math.pow(support[party], 1.5); // stronger than linear
                     total_support += support[party];
                 }
                 for (let party of Q.parties) {
@@ -239,17 +256,18 @@ if (!Q.proportional) {
                 }
             }
 
+            // Allocate seats based on proportional support
             for (let party of Q.parties) {
                 let seats = normalized[party] * Q[block + '_votes'];
                 Q[party + '_seats'] += seats;
                 console.log(`Block ${block}: ${party} gets ${seats.toFixed(1)} seats (proportional share ${normalized[party].toFixed(3)})`);
             }
 
-            Q['winner_' + block] = sorted_parties[0];
+            Q['winner_' + block] = sorted_parties[0]; // Symbolic winner
         }
     }
 
-    // Calculate seat shares
+    // Set Q[party + '_r'] to be % of total seats
     let total_seats = Q.constituency_blocks.reduce((sum, b) => sum + (Q[b + '_votes'] || 0), 0);
     console.log(`\nCalculating seat percentages... Total seats: ${total_seats}`);
 
@@ -267,8 +285,8 @@ if (!Q.proportional) {
         var sign = Q['change_' + party + '_r'] > 0 ? '+' : '';
         Q['str_change_' + party] = sign + Q['change_' + party + '_r'];
         Q['change_' + party + '_voteshare'] = Q[party + '_voteshare'] - Q['old_' + party + '_voteshare'];
-        var sign2 = Q['change_' + party + '_voteshare'] > 0 ? '+' : '';
-        Q['stvoteshare_change_' + party] = sign2 + Q['change_' + party + '_voteshare'];
+        var sign = Q['change_' + party + '_voteshare'] > 0 ? '+' : '';
+        Q['stvoteshare_change_' + party] = sign + Q['change_' + party + '_voteshare'];
 
         console.log(`  Party: ${party}, Seats: ${seats}, %: ${Q[party + '_r']}`);
     }
