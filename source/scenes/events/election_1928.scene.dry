@@ -223,6 +223,18 @@ if (!Q.proportional) {
                 console.log(`Block ${block}: ${party} gets ${seats.toFixed(1)} seats (proportional share ${normalized[party].toFixed(3)})`);
             }
 
+            // Reinforce support
+            for (let i = 0; i < 2; i++) {
+                for (let party of Q.parties) {
+                    total_support -= support[party];
+                    support[party] = Math.pow(support[party], 1.5); // stronger than linear
+                    total_support += support[party];
+                }
+                for (let party of Q.parties) {
+                    normalized[party] = support[party] / total_support;
+                }
+            }
+
             Q['winner_' + block] = sorted_parties[0]; // Symbolic winner
         }
     }
