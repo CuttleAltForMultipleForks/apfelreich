@@ -280,6 +280,18 @@ Q.fkp_voteshare = 3;
 Q.dkp_voteshare = 8;
 Q.antisemite_voteshare = 1;
 
+Q.uspd_r = 1;
+Q.spd_r = 26;
+Q.pp_r = 3;
+Q.dhp_r = 2;
+Q.bb_r = 2;
+Q.elp_r = 2;
+Q.z_r = 20;
+Q.nlp_r = 13;
+Q.fkp_r = 3;
+Q.dkp_r = 12;
+Q.antisemite_r = 2;
+
 Q.uspd_leftist = 20;
 Q.spd_leftist = 10;
 Q.pp_leftist = -3;
