@@ -488,9 +488,9 @@ go-to: coalition_menu if not vonc_formed; coalition_vonc if vonc_formed
 
 [? if fkp_r : {!<tr><td><div class="box seat fkp"> </div> !} FKP: {!</td><td>!} [+ fkp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_fkp +] {!</td><td>!} [+ fkp_r_disp +]% {!</td><td>!} [+ str_change_fkp +] {!</td></tr>!} ?]
 
-[? if dvlp_r : {!<tr><td><div class="box seat dvlp"> </div> !} DVLP: {!</td><td>!} [+ dvlp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_dvlp +] {!</td><td>!} [+ dvlp_r_disp +]% {!</td><td>!} [+ str_change_dvlp +] {!</td></tr>!} ?]
-
 [? if dkp_r : {!<tr><td><div class="box seat dkp"> </div> !} DkP: {!</td><td>!} [+ dkp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_dkp +] {!</td><td>!} [+ dkp_r_disp +]% {!</td><td>!} [+ str_change_dkp +] {!</td></tr>!} ?]
+
+[? if dvlp_r : {!<tr><td><div class="box seat dvlp"> </div> !} DVLP: {!</td><td>!} [+ dvlp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_dvlp +] {!</td><td>!} [+ dvlp_r_disp +]% {!</td><td>!} [+ str_change_dvlp +] {!</td></tr>!} ?]
 
 [? if antisemite_r : {!<tr><td><div class="box seat antisemite"> </div> !} DSRP: {!</td><td>!} [+ antisemite_voteshare +]% {!</td><td>!} [+ stvoteshare_change_antisemite +] {!</td><td>!} [+ antisemite_r_disp +]% {!</td><td>!} [+ str_change_antisemite +] {!</td></tr>!} ?]
 {!</table>!}

@@ -263,25 +263,14 @@ if (Q.dissent < 0) {
 }
 
 // monopoly on violence
-Q.sa_force = Q.sa_strength*Q.sa_militancy;
-Q.sh_force = Q.sh_strength*Q.sh_militancy;
-Q.rb_force = Q.rb_strength*Q.rb_militancy;
-Q.rfb_force = Q.rfb_strength*Q.rfb_militancy;
-Q.army_force = Q.reichswehr_strength*Q.reichswehr_militancy;
-Q.prussia_force = Q.prussian_police_strength*Q.prussian_police_militancy;
-var total_force = (Q.sa_force+Q.sh_force+Q.rb_force+Q.rfb_force+Q.army_force+Q.prussia_force);
-
-Q.sa_force = Math.round((Q.sa_force/total_force)*100);
-Q.sh_force = Math.round((Q.sh_force/total_force)*100);
-Q.rb_force = Math.round((Q.rb_force/total_force)*100);
-Q.rfb_force = Math.round((Q.rfb_force/total_force)*100);
-Q.army_force = Math.round((Q.army_force/total_force)*100);
-Q.prussia_force = Math.round((Q.prussia_force/total_force)*100);
-
-// further
-Q.loyal_army = Q.army_force*Q.reichswehr_loyalty;
-Q.loyal_prussia = Q.prussian_police_loyalty*Q.prussia_force;
-
+var total_force = 0;
+for (var para of Q.paramilitaries) {
+    total_force += (Q[para+'_strength']*Q[para+'_militancy']);
+    Q[para+'_force'] += (Q[para+'_strength']*Q[para+'_militancy']);
+}
+for (var para of Q.paramilitaries) {
+    Q[para+'_force'] = Math.round((Q[para+'_force']/total_force)*100);
+}
 
 if (Q.sapd_formed == 1 && Q.sapd_consolidated != 1 && Q.centrists_resign == 1) {
     Q.labor_dissent += 5/12;
