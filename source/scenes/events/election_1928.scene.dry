@@ -458,7 +458,7 @@ go-to: coalition_menu if not vonc_formed; coalition_vonc if vonc_formed
 {!<tr><td>Party</td><td>Vote share</td><td>% Change</td><td>Reichstag share</td><td>% Change</td></tr>!}
 [? if uspd_r : {!<tr><td><div class="box seat uspd"> </div> !} USPD: {!</td><td>!} [+ uspd_voteshare +]% {!</td><td>!} [+ stvoteshare_change_uspd +] {!</td><td>!} [+ uspd_r_disp +]% {!</td><td>!} [+ str_change_uspd +] {!</td></tr>!} ?]
 
-{!<tr><td><div class="box" style='background-color:#E3000F; outline: 2px; outline-style: solid;'> </div> !} **SPD:** {!</td><td>!} **[+ stvoteshare_change_spd +]** {!</td><td>!} **[+ spd_r_disp +]%** {!</td><td>!} **[+ str_change_spd +]** {!</td></tr>!}
+{!<tr><td><div class="box" style='background-color:#E3000F; outline: 2px; outline-style: solid;'> </div> !} **SPD:** {!</td><td>!} **[+ spd_voteshare +]** {!</td><td>!} **[+ stvoteshare_change_spd +]%** {!</td><td>!} **[+ spd_r_disp +]** {!</td><td>!} **[+ str_change_spd +]** {!</td></tr>!}
 
 [? if bb_r : {!<tr><td><div class="box seat bb"> </div> !} BB: {!</td><td>!} [+ bb_voteshare +]% {!</td><td>!} [+ stvoteshare_change_bb +] {!</td><td>!} [+ bb_r_disp +]% {!</td><td>!} [+ str_change_bb +] {!</td></tr>!} ?]
 
