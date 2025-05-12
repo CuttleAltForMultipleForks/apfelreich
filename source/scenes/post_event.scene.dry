@@ -378,7 +378,9 @@ if (Q.chancellor_race) {
     Q.fehrenbach_points += Q.z_votes;
     Q.helfferich_points += Q.ohl_cohesion;
     Q.helfferich_points += Q.uspd_votes;
-    Q.helfferich_points += Q.kpd_votes;
+    if (Q.kpd_votes) {
+        Q.helfferich_points += Q.kpd_votes;
+    }
     Q.helfferich_points += Q.dvlp_votes;
     Q.helfferich_points += Q.dkp_votes;
     Q.helfferich_points += Q.fkp_votes;
