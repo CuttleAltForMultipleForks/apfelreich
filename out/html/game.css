@@ -590,6 +590,10 @@ table {
   fill: #01064e;
   background-color: #01064e;
 }
+.seat.dvlp {
+  fill: #4e25ca;
+  background-color: #4e25ca;
+}
 .seat.dhp {
   fill: #9eff62;
   background-color: #9eff62;

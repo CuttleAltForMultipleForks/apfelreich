@@ -1,0 +1,15 @@
+title: "Mittelafrika" Established
+subtitle: German forces have occupied Central Africa from the Entente
+view-if: timestamp >= 15.1.1919
+max-visits: 1
+new-page: true
+on-arrival: old_middle_dkp += 3; rural_dkp += 3
+tags: event
+
+= Mittelafrika Established
+
+Following the defeat of the Entente Powers, German forces have occupied the regions of Central Africa from France, Belgium and Britain and taken initial steps towards organizing those regions under the purview of a new colonial administration of "Mittelafrika". 
+
+It remains in the provisional hands of the OHL, but any longterm organization of it is likely to involve the Reichstag. 
+
+- @root: The **OHL** extends its tendrils into Africa.

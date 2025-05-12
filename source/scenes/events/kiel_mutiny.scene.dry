@@ -1,0 +1,12 @@
+title: Kiel Mutiny
+subtitle: Sailors in the port city of Kiel have mutinied, demanding demobilization
+view-if: timestamp >= 5.2.1919
+max-visits: 1
+new-page: true
+#tags: event
+
+# todo: decide firm timeline here.
+
+= Kiel Mutiny
+
+A mutiny has occurred in the port city of Kiel as German sailors demand to be demobilized now that the war has come to an end.

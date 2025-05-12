@@ -274,11 +274,13 @@ Q.pp_voteshare = 1;
 Q.dhp_voteshare = 1;
 Q.bb_voteshare = 2;
 Q.elp_voteshare = 1;
+Q.fvp_voteshare = 11;
 Q.z_voteshare = 16;
 Q.nlp_voteshare = 13;
 Q.fkp_voteshare = 3;
 Q.dkp_voteshare = 8;
 Q.antisemite_voteshare = 1;
+Q.dvlp_voteshare = 0;
 
 Q.uspd_r = 1;
 Q.spd_r = 26;
@@ -286,11 +288,13 @@ Q.pp_r = 3;
 Q.dhp_r = 2;
 Q.bb_r = 2;
 Q.elp_r = 2;
+Q.fvp_r = 9;
 Q.z_r = 20;
-Q.nlp_r = 13;
-Q.fkp_r = 3;
-Q.dkp_r = 12;
+Q.nlp_r = 11;
+Q.fkp_r = 2;
+Q.dkp_r = 10;
 Q.antisemite_r = 2;
+Q.dvlp_r = 6;
 
 Q.uspd_leftist = 20;
 Q.spd_leftist = 10;
@@ -304,6 +308,7 @@ Q.nlp_leftist = -4;
 Q.fkp_leftist = -5;
 Q.dkp_leftist = -10;
 Q.antisemite_leftist = -20;
+Q.dvlp_leftist = -20;
 
 Q.uspd_turnout = 1;
 Q.spd_turnout = 1;
@@ -317,8 +322,9 @@ Q.nlp_turnout = 1;
 Q.fkp_turnout = 1;
 Q.dkp_turnout = 1;
 Q.antisemite_turnout = 1;
+Q.dvlp_turnout = 1;
 
-Q.parties = ['uspd', 'spd', 'pp', 'dhp', 'bb', 'elp', 'fvp', 'z', 'nlp', 'fkp', 'dkp', 'antisemite'];
+Q.parties = ['uspd', 'spd', 'pp', 'dhp', 'bb', 'elp', 'fvp', 'z', 'nlp', 'fkp', 'dkp', 'dvlp', 'antisemite'];
 Q.states = ['prussia', 'bavaria', 'thuringia', 'saxony', 'schaumburg_lippe', 'hamburg', 'wurttemberg'];
 
 // Support for party by social group
@@ -329,12 +335,13 @@ Q.workers_pp = 2;
 Q.workers_dhp = 0;
 Q.workers_bb = 0;
 Q.workers_elp = 2;
-Q.workers_fvp = 10;
+Q.workers_fvp = 8;
 Q.workers_z = 15;
 Q.workers_nlp = 5;
 Q.workers_fkp = 0;
 Q.workers_dkp = 0;
 Q.workers_antisemite = 0;
+Q.workers_dvlp = 2;
 
 Q.old_middle_uspd = 0;
 Q.old_middle_spd = 3;
@@ -342,12 +349,13 @@ Q.old_middle_pp = 3;
 Q.old_middle_dhp = 1;
 Q.old_middle_bb = 4;
 Q.old_middle_elp = 3;
-Q.old_middle_fvp = 15;
+Q.old_middle_fvp = 12;
 Q.old_middle_z = 15;
-Q.old_middle_nlp = 40;
-Q.old_middle_fkp = 7;
-Q.old_middle_dkp = 15;
-Q.old_middle_antisemite = 4;
+Q.old_middle_nlp = 37;
+Q.old_middle_fkp = 6;
+Q.old_middle_dkp = 14;
+Q.old_middle_antisemite = 3;
+Q.old_middle_dvlp = 8;
 
 Q.new_middle_uspd = 2;
 Q.new_middle_spd = 8;
@@ -355,12 +363,13 @@ Q.new_middle_pp = 2;
 Q.new_middle_dhp = 1;
 Q.new_middle_bb = 0;
 Q.new_middle_elp = 3;
-Q.new_middle_fvp = 30;
+Q.new_middle_fvp = 26;
 Q.new_middle_z = 15;
-Q.new_middle_nlp = 20;
+Q.new_middle_nlp = 18;
 Q.new_middle_fkp = 0;
-Q.new_middle_dkp = 10;
-Q.new_middle_antisemite = 2;
+Q.new_middle_dkp = 9;
+Q.new_middle_antisemite = 1;
+Q.new_middle_dvlp = 8;
 
 Q.rural_uspd = 0;
 Q.rural_spd = 5;
@@ -368,12 +377,13 @@ Q.rural_pp = 3;
 Q.rural_dhp = 1;
 Q.rural_bb = 10;
 Q.rural_elp = 3;
-Q.rural_fvp = 10;
+Q.rural_fvp = 6;
 Q.rural_z = 15;
-Q.rural_nlp = 18;
-Q.rural_fkp = 20;
-Q.rural_dkp = 32;
-Q.rural_antisemite = 4;
+Q.rural_nlp = 15;
+Q.rural_fkp = 18;
+Q.rural_dkp = 30;
+Q.rural_antisemite = 3;
+Q.rural_dvlp = 12;
 
 Q.unemployed_uspd = 25;
 Q.unemployed_spd = 45;
@@ -386,7 +396,8 @@ Q.unemployed_z = 12;
 Q.unemployed_nlp = 5;
 Q.unemployed_fkp = 0;
 Q.unemployed_dkp = 0;
-Q.unemployed_antisemite = 2;
+Q.unemployed_antisemite = 1;
+Q.unemployed_dvlp = 1;
 
 // Demographics for catholics
 Q.catholics_uspd = 0;
@@ -401,6 +412,7 @@ Q.catholics_nlp = 0;
 Q.catholics_fkp = 0;
 Q.catholics_dkp = 0;
 Q.catholics_antisemite = 0;
+Q.catholics_dvlp = 0;
 
 // Demographics for men
 Q.men_uspd = 10;
@@ -409,12 +421,13 @@ Q.men_pp = 1;
 Q.men_dhp = 1;
 Q.men_bb = 1;
 Q.men_elp = 1;
-Q.men_fvp = 15;
+Q.men_fvp = 12;
 Q.men_z = 15;
-Q.men_nlp = 20;
-Q.men_fkp = 2;
-Q.men_dkp = 8;
-Q.men_antisemite = 2;
+Q.men_nlp = 17;
+Q.men_fkp = 1;
+Q.men_dkp = 6;
+Q.men_antisemite = 1;
+Q.men_dvlp = 9;
 
 // Demographics for women
 Q.women_uspd = 5;
@@ -423,12 +436,13 @@ Q.women_pp = 2;
 Q.women_dhp = 1;
 Q.women_bb = 2;
 Q.women_elp = 1;
-Q.women_fvp = 10;
+Q.women_fvp = 6;
 Q.women_z = 30;
-Q.women_nlp = 10;
-Q.women_fkp = 10;
-Q.women_dkp = 30;
+Q.women_nlp = 8;
+Q.women_fkp = 9;
+Q.women_dkp = 27;
 Q.women_antisemite = 1;
+Q.women_dvlp = 10;
 
 // Demographics for german culture
 Q.german_uspd = 5;
@@ -437,12 +451,13 @@ Q.german_pp = 0;
 Q.german_dhp = 0;
 Q.german_bb = 0;
 Q.german_elp = 0;
-Q.german_fvp = 10;
+Q.german_fvp = 8;
 Q.german_z = 15;
-Q.german_nlp = 15;
-Q.german_fkp = 5;
-Q.german_dkp = 10;
-Q.german_antisemite = 2;
+Q.german_nlp = 13;
+Q.german_fkp = 4;
+Q.german_dkp = 8;
+Q.german_antisemite = 1;
+Q.german_dvlp = 8;
 
 // Demographics for french culture
 Q.french_uspd = 0;
@@ -457,6 +472,7 @@ Q.french_nlp = 5;
 Q.french_fkp = 0;
 Q.french_dkp = 0;
 Q.french_antisemite = 0;
+Q.french_dvlp = 0;
 
 // Demographics for polish culture
 Q.polish_uspd = 0;
@@ -471,6 +487,7 @@ Q.polish_nlp = 5;
 Q.polish_fkp = 0;
 Q.polish_dkp = 0;
 Q.polish_antisemite = 0;
+Q.polish_dvlp = 0;
 
 // Demographics for hanoverian culture
 Q.hanoverian_uspd = 5;
@@ -483,8 +500,9 @@ Q.hanoverian_fvp = 10;
 Q.hanoverian_z = 5;
 Q.hanoverian_nlp = 10;
 Q.hanoverian_fkp = 0;
-Q.hanoverian_dkp = 5;
+Q.hanoverian_dkp = 4;
 Q.hanoverian_antisemite = 0;
+Q.hanoverian_dvlp = 1;
 
 // Demographics for bavarian culture
 Q.bavarian_uspd = 5;
@@ -498,7 +516,8 @@ Q.bavarian_z = 15;
 Q.bavarian_nlp = 5;
 Q.bavarian_fkp = 0;
 Q.bavarian_dkp = 5;
-Q.bavarian_antisemite = 2;
+Q.bavarian_antisemite = 1;
+Q.bavarian_dvlp = 1;
 
 // Demographics for protestants
 Q.protestants_uspd = 2;
@@ -507,12 +526,13 @@ Q.protestants_pp = 1;
 Q.protestants_dhp = 1;
 Q.protestants_bb = 1;
 Q.protestants_elp = 1;
-Q.protestants_fvp = 10;
+Q.protestants_fvp = 8;
 Q.protestants_z = 0;
-Q.protestants_nlp = 10;
-Q.protestants_fkp = 5;
-Q.protestants_dkp = 20;
-Q.protestants_antisemite = 4;
+Q.protestants_nlp = 9;
+Q.protestants_fkp = 4;
+Q.protestants_dkp = 17;
+Q.protestants_antisemite = 2;
+Q.protestants_dvlp = 9;
 
 // Demographics for jews
 Q.jews_uspd = 5;
@@ -527,6 +547,7 @@ Q.jews_nlp = 0;
 Q.jews_fkp = 0;
 Q.jews_dkp = 2;
 Q.jews_antisemite = 0;
+Q.jews_dvlp = 0;
 
 // Demographics for irreligious
 Q.irreligious_uspd = 10;
@@ -541,6 +562,7 @@ Q.irreligious_nlp = 15;
 Q.irreligious_fkp = 0;
 Q.irreligious_dkp = 0;
 Q.irreligious_antisemite = 1;
+Q.irreligious_dvlp = 0;
 
 Q.constituency_blocks = ['block1', 'block2', 'block3', 'block4', 'block5', 'block6', 'block7', 'block8']; // each block is a group of similar constituencies
 Q.block1_votes = 100;; // urban worker
@@ -774,6 +796,7 @@ Q.nlp_in_government = 0;
 Q.fkp_in_government = 0;
 Q.dkp_in_government = 0;
 Q.antisemite_in_government = 0;
+Q.dvlp_in_government = 0;
 
 Q.in_right_coalition = 0;
 // Weimar coalition = SPD + Z + DDP
@@ -1319,19 +1342,11 @@ subtitle: Enable or disable various features.
 
 For other, non-difficulty related tweaks.
 
-- @disable_end: Disable end in 1934.
-- @enable_end: Enable end in 1934.
-- @enable_normalize: Enable experimental support changes (Not Recommended)
-- @disable_normalize: Disable experimental support changes.
-- @enable_hyperinflation: Enable hyperinflation (janky)
-- @disable_hyperinflation: Disable hyperinflation
 - @enable_landtags: Enable WIP landtags (WIP).
 - @disable_landtags: Disable WIP landtags (WIP).
 - @enable_legislature: Enable legislative rework
 - @disable_legislature: Disable legislative rework
-- @1930: Begin the game in 1930.
 - @1919: Begin the game in 1919.
-- @1925: Begin the game in 1925 (fairly WIP)
 - @menu: Back.
 
 @disable_end
@@ -1424,19 +1439,8 @@ go-to: start_menu_2
 
 @menu
 
-- @1925_easy: Begin (easy difficulty)
-- @1925_main: Begin (normal difficulty)
-- @1925_hard: Begin (hard difficulty)
-- @1925_historical: Begin (historical mode)
-- @1919_easy: Begin (easy difficulty)
 - @1919_main: Begin (normal difficulty)
-- @1919_hard: Begin (hard difficulty)
-- @1919_historical: Begin (historical mode)
-- @1930_easy: Begin (easy difficulty)
-- @1930_main: Begin (normal difficulty)
-- @1930_hard: Begin (hard difficulty)
-- @1930_historical: Begin (historical mode)
-- @settings: Modify game.
+#- @settings: Modify game.
 
 @1919_main
 view-if: year == 1919
@@ -1446,9 +1450,7 @@ go-to: main if difficulty >= 0; main.main_easy if difficulty < 0
 
 = 1919
 
-It is a bright time for German democracy. After a period of struggle, inflation is finally under control, and the economy is expanding steadily. In foreign policy, we have reached agreements with the Western powers and the Soviet Union that might make genuine peace a reality. 
-
-Now, the task of Social Democracy is to prepare for the next election. The bourgeois-right government of Wilhelm Marx is unpopular, and we stand to gain. Perhaps the next government will have a socialist majority.
+The war is over, and Germany has won. As the country prepares to make its demands to the defeated Entente Powers, Germany itself faces internal upheaval. Throughout the war, the OHL became the dominant force of German politics. Now it will be the task of Social Democracy to fight against military dictatorship, and ensure the bourgeoisie uphold their part of the deal that was *Burgfriedenpolitik*.
 
 @1930_main
 view-if: year == 1930
