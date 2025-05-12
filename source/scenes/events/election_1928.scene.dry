@@ -45,6 +45,7 @@ on-arrival: {!
 // banning parties
 var new_party_sum = 0;
 for (var party of Q.parties) {
+    Q['old_'+party+'_r'] = Q[party+'_r'];
     Q['old_'+party+'_voteshare'] = Q[party+'_voteshare'];
     Q[party+'_voteshare'] = Q[party+'_votes'];
     Q[party+'_seats'] = 0;
@@ -486,6 +487,8 @@ go-to: coalition_menu if not vonc_formed; coalition_vonc if vonc_formed
 [? if nlp_r : {!<tr><td><div class="box seat nlp"> </div> !} NLP: {!</td><td>!} [+ nlp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_nlp +] {!</td><td>!} [+ nlp_r_disp +]% {!</td><td>!} [+ str_change_nlp +] {!</td></tr>!} ?]
 
 [? if fkp_r : {!<tr><td><div class="box seat fkp"> </div> !} FKP: {!</td><td>!} [+ fkp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_fkp +] {!</td><td>!} [+ fkp_r_disp +]% {!</td><td>!} [+ str_change_fkp +] {!</td></tr>!} ?]
+
+[? if dvlp_r : {!<tr><td><div class="box seat dvlp"> </div> !} DVLP: {!</td><td>!} [+ dvlp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_dvlp +] {!</td><td>!} [+ dvlp_r_disp +]% {!</td><td>!} [+ str_change_dvlp +] {!</td></tr>!} ?]
 
 [? if dkp_r : {!<tr><td><div class="box seat dkp"> </div> !} DkP: {!</td><td>!} [+ dkp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_dkp +] {!</td><td>!} [+ dkp_r_disp +]% {!</td><td>!} [+ str_change_dkp +] {!</td></tr>!} ?]
 
