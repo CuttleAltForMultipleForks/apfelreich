@@ -221,11 +221,11 @@ Q.protestants = 50;
 Q.jews = 1;
 Q.irreligious = 19;
 
-Q.german = 87;
-Q.polish = 5;
-Q.hanoverian = 3;
+Q.german = 92;
+Q.polish = 2;
+Q.hanoverian = 2;
 Q.bavarian = 2;
-Q.french = 3;
+Q.french = 2;
 
 Q.men = 50;
 Q.women = 50;
@@ -528,6 +528,11 @@ Q.block6_votes = 15; // alsace lorraine
 Q.block7_votes = 20; // poland
 Q.block8_votes = 50; // rhine
 
+Q.block1_classes = 1;
+Q.block1_sexes = 1;
+Q.block1_cultures = 1;
+Q.block1_religions = 1;
+
 Q.block1_workers = 1.05;
 Q.block1_new_middle = 1;
 Q.block1_old_middle = 0.75;
@@ -544,6 +549,11 @@ Q.block1_bavarian = 0.05;
 Q.block1_protestants = 0.95;
 Q.block1_jews = 1;
 Q.block1_irreligious = 1.05;
+
+Q.block2_classes = 1;
+Q.block2_sexes = 1;
+Q.block2_cultures = 1;
+Q.block2_religions = 1;
 
 Q.block2_workers = 0.2;
 Q.block2_new_middle = 1.5;
@@ -562,6 +572,11 @@ Q.block2_protestants = 0.95;
 Q.block2_jews = 1.3;
 Q.block2_irreligious = 1.1;
 
+Q.block3_classes = 1;
+Q.block3_sexes = 1;
+Q.block3_cultures = 1;
+Q.block3_religions = 1;
+
 Q.block3_workers = 0.02;
 Q.block3_new_middle = 0;
 Q.block3_old_middle = 1.25;
@@ -578,6 +593,11 @@ Q.block3_bavarian = 0.2;
 Q.block3_protestants = 1.4;
 Q.block3_jews = 0.5;
 Q.block3_irreligious = 0.05;
+
+Q.block4_classes = 0.95;
+Q.block4_sexes = 1;
+Q.block4_cultures = 1.05;
+Q.block4_religions = 1;
 
 Q.block4_workers = 0.4;
 Q.block4_new_middle = 0.9;
@@ -596,6 +616,11 @@ Q.block4_protestants = 1;
 Q.block4_jews = 1;
 Q.block4_irreligious = 1;
 
+Q.block5_classes = 0.9;
+Q.block5_sexes = 1;
+Q.block5_cultures = 1.05;
+Q.block5_religions = 1.2;
+
 Q.block5_workers = 0.2;
 Q.block5_new_middle = 0.7;
 Q.block5_old_middle = 1.1;
@@ -612,6 +637,11 @@ Q.block5_bavarian = 10;
 Q.block5_protestants = 0.3;
 Q.block5_jews = 0.5;
 Q.block5_irreligious = 0.3;
+
+Q.block6_classes = 0.9;
+Q.block6_sexes = 0.9;
+Q.block6_cultures = 1.5;
+Q.block6_religions = 1;
 
 Q.block6_workers = 0.7;
 Q.block6_new_middle = 0.9;
@@ -630,6 +660,11 @@ Q.block6_protestants = 0.4;
 Q.block6_jews = 0.9;
 Q.block6_irreligious = 1;
 
+Q.block7_classes = 0.9;
+Q.block7_sexes = 0.9;
+Q.block7_cultures = 1.5;
+Q.block7_religions = 1;
+
 Q.block7_workers = 0.3;
 Q.block7_new_middle = 0.6;
 Q.block7_old_middle = 0.9;
@@ -646,6 +681,11 @@ Q.block7_bavarian = 0;
 Q.block7_protestants = 0.3;
 Q.block7_jews = 1;
 Q.block7_irreligious = 0.5;
+
+Q.block8_classes = 1;
+Q.block8_sexes = 0.95;
+Q.block8_cultures = 0.95;
+Q.block8_religions = 1.2;
 
 Q.block8_workers = 1;
 Q.block8_new_middle = 0.8;
