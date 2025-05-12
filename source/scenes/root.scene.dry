@@ -788,6 +788,9 @@ Q.dkp_in_government = 0;
 Q.antisemite_in_government = 0;
 Q.dvlp_in_government = 0;
 
+Q.ifa_cohesion = 50;
+Q.ohl_cohesion = 60;
+
 Q.in_right_coalition = 0;
 // Weimar coalition = SPD + Z + DDP
 Q.in_weimar_coalition = 0;

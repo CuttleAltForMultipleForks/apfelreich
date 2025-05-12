@@ -1,0 +1,41 @@
+title: A New Chancellor
+subtitle: Kaiser Wilhelm II has settled on a new chancellor
+view-if: chancellor_race and (fehrenbach_points >= 250 or helfferich_points >= 250)
+new-page: true
+max-visits: 1
+tags: event
+on-arrival: chancellor_race = 0
+
+= A New Chancellor
+
+After some deliberation and maneuvering on both sides, Kaiser Wilhelm II has decided on who to appoint as the next chancellor of Germany.
+
+- @fehrenbach: Konstantin Fehrenbach of the Center Party.
+- @helfferich: Karl Helfferich of the right.
+- @solf: Wilhelm Solf, a compromise candidate.
+
+@fehrenbach
+choose-if: (fehrenbach_points >= helfferich_points*1.25)
+unavailable-subtitle: The OHL has won out in this dispute.
+on-arrival: chancellor = "Fehrenbach"; chancellor_party = "Z"; ohl_cohesion += 5; reichswehr_loyalty -= 0.1; coup_progress += 5; ifa_cohesion -= 5
+
+The appointment of Fehrenbach as chancellor represents a step towards the democratization and parliamentarization of the Reich, as Fehrenbach seeks to work with the IFA, which holds a majority in the Reichstag, to enact policy. At the same time however, without substantial pressure on the streets, the same pressure which may convince the OHL that a firm hand is necessary, actual institutionalization of Reichstag supremacy is unlikely to take place.
+
+With Fehrenbach's appointment, the Reichstag presidency has become vacant. The likely outcome is that another member of the Center Party assumes the office, though perhaps we may finally weasel our way into the position?
+
+@helfferich
+choose-if: (helfferich_points >= fehrenbach_points*1.25)
+unavailable-subtitle: The Reichstag has won out in this dispute.
+on-arrival: chancellor = "Helfferich"; chancellor_party = "I"; ohl_cohesion -= 5; ifa_cohesion += 5
+
+The appointment of Helfferich as chancellor is a worrying reminder that Germany remains increasingly at the whims of the OHL, even now with the war over and its position supposedly obsolete. Though Wilhelm II is likely to try and dismantle the OHL, any attempt to do so would be strictly in his own interests, seeking more power for himself. And, without the backing of Germany's masses expressed through the empowerment of the Reichstag, it is unlikely that he will succeed.
+
+If nothing else, Helfferich's appointment has helped revitalize the IFA, reminding our allies of the pressing need to continue the fight of the Reichstag against the OHL, even in victory against the Entente.
+
+@solf
+view-if: not (fehrenbach_points >= helfferich_points*1.25) and not (helfferich_points >= fehrenbach_points*1.25)
+on-arrival: chancellor = "Solf"; chancellor_party = "I"; ifa_cohesion -= 5; ohl_cohesion -= 5; coup_progress += 2
+
+The appointment of Solf as chancellor shows that the Kaiser is being careful not to antagonize any party too greatly. In a sense, Solf's appointment represents a victory against the OHL, but without firm action to curtail the powers of the OHL and expand those of the Reichstag no true victory has been won, and Solf's time limited as eventually the generals will conspire for his removal.
+
+Nonetheless, Solf himself still represents a more liberal course than previously, with him having been among those to convince the Kaiser to promise, though not actually follow up on, democratization, alongside former Chancellor Hollweg, though at the same time his undivided loyalty lies with the Kaiser.

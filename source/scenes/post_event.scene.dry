@@ -371,6 +371,23 @@ for (var state of Q.states) {
     }
 }
 
+if (Q.chancellor_race) {
+    Q.fehrenbach_points += Q.ifa_cohesion;
+    Q.fehrenbach_points += Q.spd_votes*(Q.reformist_strength/100);
+    Q.fehrenbach_points += Q.fvp_votes;
+    Q.fehrenbach_points += Q.z_votes;
+    Q.helfferich_points += Q.ohl_cohesion;
+    Q.helfferich_points += Q.uspd_votes;
+    Q.helfferich_points += Q.kpd_votes;
+    Q.helfferich_points += Q.dvlp_votes;
+    Q.helfferich_points += Q.dkp_votes;
+    Q.helfferich_points += Q.fkp_votes;
+    if ((Q.fehrenbach_points/Q.helferrich_points) < 1.2 && (Q.fehrenbach_points/Q.helferrich_points) > 0.8) {
+        Q.fehrenbach_points *= 0.95;
+        Q.helfferich_points *= 0.95;
+    }
+}
+
 if (Q.month > Q.old_month) {
     Q.old_month = Q.month;
     Q.month_actions = 0;
