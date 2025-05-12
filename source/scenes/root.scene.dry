@@ -268,6 +268,18 @@ Q.sexes_weight = 0.1;
 Q.cultures_weight = 0.2;
 Q.religions_weight = 0.3;
 
+Q.uspd_voteshare = 0;
+Q.spd_voteshare = 34;
+Q.pp_voteshare = 1;
+Q.dhp_voteshare = 1;
+Q.bb_voteshare = 2;
+Q.elp_voteshare = 1;
+Q.z_voteshare = 16;
+Q.nlp_voteshare = 13;
+Q.fkp_voteshare = 3;
+Q.dkp_voteshare = 8;
+Q.antisemite_voteshare = 1;
+
 Q.uspd_leftist = 20;
 Q.spd_leftist = 10;
 Q.pp_leftist = -3;
@@ -308,8 +320,8 @@ Q.workers_elp = 2;
 Q.workers_fvp = 10;
 Q.workers_z = 15;
 Q.workers_nlp = 5;
-Q.workers_fkp = 2;
-Q.workers_dkp = 3;
+Q.workers_fkp = 0;
+Q.workers_dkp = 1;
 Q.workers_antisemite = 0;
 
 Q.old_middle_uspd = 0;
@@ -318,11 +330,11 @@ Q.old_middle_pp = 3;
 Q.old_middle_dhp = 1;
 Q.old_middle_bb = 4;
 Q.old_middle_elp = 3;
-Q.old_middle_fvp = 10;
+Q.old_middle_fvp = 15;
 Q.old_middle_z = 15;
-Q.old_middle_nlp = 35;
-Q.old_middle_fkp = 10;
-Q.old_middle_dkp = 25;
+Q.old_middle_nlp = 45;
+Q.old_middle_fkp = 5;
+Q.old_middle_dkp = 15;
 Q.old_middle_antisemite = 7;
 
 Q.new_middle_uspd = 2;
@@ -333,8 +345,8 @@ Q.new_middle_bb = 0;
 Q.new_middle_elp = 3;
 Q.new_middle_fvp = 30;
 Q.new_middle_z = 15;
-Q.new_middle_nlp = 15;
-Q.new_middle_fkp = 5;
+Q.new_middle_nlp = 20;
+Q.new_middle_fkp = 0;
 Q.new_middle_dkp = 10;
 Q.new_middle_antisemite = 4;
 
@@ -345,11 +357,11 @@ Q.rural_dhp = 1;
 Q.rural_bb = 10;
 Q.rural_elp = 3;
 Q.rural_fvp = 10;
-Q.rural_z = 10;
-Q.rural_nlp = 15;
-Q.rural_fkp = 25;
+Q.rural_z = 15;
+Q.rural_nlp = 20;
+Q.rural_fkp = 15;
 Q.rural_dkp = 35;
-Q.rural_antisemite = 10;
+Q.rural_antisemite = 5;
 
 Q.unemployed_uspd = 25;
 Q.unemployed_spd = 45;
@@ -387,9 +399,9 @@ Q.men_bb = 1;
 Q.men_elp = 1;
 Q.men_fvp = 15;
 Q.men_z = 15;
-Q.men_nlp = 15;
-Q.men_fkp = 10;
-Q.men_dkp = 15;
+Q.men_nlp = 20;
+Q.men_fkp = 0;
+Q.men_dkp = 10;
 Q.men_antisemite = 3;
 
 // Demographics for women
@@ -400,10 +412,10 @@ Q.women_dhp = 1;
 Q.women_bb = 2;
 Q.women_elp = 1;
 Q.women_fvp = 10;
-Q.women_z = 25;
+Q.women_z = 30;
 Q.women_nlp = 10;
-Q.women_fkp = 20;
-Q.women_dkp = 35;
+Q.women_fkp = 10;
+Q.women_dkp = 30;
 Q.women_antisemite = 1;
 
 // Demographics for german culture
@@ -415,10 +427,10 @@ Q.german_bb = 0;
 Q.german_elp = 0;
 Q.german_fvp = 10;
 Q.german_z = 15;
-Q.german_nlp = 10;
-Q.german_fkp = 5;
+Q.german_nlp = 15;
+Q.german_fkp = 3;
 Q.german_dkp = 15;
-Q.german_antisemite = 4;
+Q.german_antisemite = 2;
 
 // Demographics for french culture
 Q.french_uspd = 0;
@@ -458,7 +470,7 @@ Q.hanoverian_elp = 0;
 Q.hanoverian_fvp = 10;
 Q.hanoverian_z = 5;
 Q.hanoverian_nlp = 10;
-Q.hanoverian_fkp = 5;
+Q.hanoverian_fkp = 0;
 Q.hanoverian_dkp = 5;
 Q.hanoverian_antisemite = 0;
 
@@ -472,7 +484,7 @@ Q.bavarian_elp = 0;
 Q.bavarian_fvp = 5;
 Q.bavarian_z = 15;
 Q.bavarian_nlp = 5;
-Q.bavarian_fkp = 5;
+Q.bavarian_fkp = 0;
 Q.bavarian_dkp = 5;
 Q.bavarian_antisemite = 2;
 
@@ -572,15 +584,15 @@ Q.block2_protestants = 0.95;
 Q.block2_jews = 1.3;
 Q.block2_irreligious = 1.1;
 
-Q.block3_classes = 1;
+Q.block3_classes = 0.95;
 Q.block3_sexes = 1;
-Q.block3_cultures = 1;
-Q.block3_religions = 1;
+Q.block3_cultures = 1.05;
+Q.block3_religions = 1.05;
 
-Q.block3_workers = 0.02;
+Q.block3_workers = 0.01;
 Q.block3_new_middle = 0;
-Q.block3_old_middle = 1.25;
-Q.block3_rural = 4;
+Q.block3_old_middle = 1.5;
+Q.block3_rural = 5;
 Q.block3_unemployed = 0.1;
 Q.block3_catholics = 0.15;
 Q.block3_men = 0.95;

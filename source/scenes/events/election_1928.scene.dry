@@ -328,9 +328,9 @@ for (var party of Q.parties) {
         Q['change_'+party+'_r'] = Math.round(Q['change_'+party+'_r']);
         Q['change_'+party+'_voteshare'] = Math.round(Q['change_'+party+'_voteshare']);
     }
-    var sign = Q['change_' + party + '_r'] > 0 ? '+' : '';
+    var sign = Q['change_' + party + '_voteshare'] > 0 ? '+' : '';
     Q['stvoteshare_change_' + party] = sign + Q['change_' + party + '_voteshare'];
-    sign = Q['change_' + party + '_voteshare'] > 0 ? '+' : '';
+    sign = Q['change_' + party + '_r'] > 0 ? '+' : '';
     Q['str_change_' + party] = sign + Q['change_' + party + '_r'];
 }
 
