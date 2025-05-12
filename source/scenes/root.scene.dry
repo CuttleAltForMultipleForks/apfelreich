@@ -321,7 +321,7 @@ Q.workers_fvp = 10;
 Q.workers_z = 15;
 Q.workers_nlp = 5;
 Q.workers_fkp = 0;
-Q.workers_dkp = 1;
+Q.workers_dkp = 0;
 Q.workers_antisemite = 0;
 
 Q.old_middle_uspd = 0;
@@ -332,10 +332,10 @@ Q.old_middle_bb = 4;
 Q.old_middle_elp = 3;
 Q.old_middle_fvp = 15;
 Q.old_middle_z = 15;
-Q.old_middle_nlp = 45;
-Q.old_middle_fkp = 5;
+Q.old_middle_nlp = 40;
+Q.old_middle_fkp = 7;
 Q.old_middle_dkp = 15;
-Q.old_middle_antisemite = 7;
+Q.old_middle_antisemite = 4;
 
 Q.new_middle_uspd = 2;
 Q.new_middle_spd = 8;
@@ -348,7 +348,7 @@ Q.new_middle_z = 15;
 Q.new_middle_nlp = 20;
 Q.new_middle_fkp = 0;
 Q.new_middle_dkp = 10;
-Q.new_middle_antisemite = 4;
+Q.new_middle_antisemite = 2;
 
 Q.rural_uspd = 0;
 Q.rural_spd = 5;
@@ -358,10 +358,10 @@ Q.rural_bb = 10;
 Q.rural_elp = 3;
 Q.rural_fvp = 10;
 Q.rural_z = 15;
-Q.rural_nlp = 20;
-Q.rural_fkp = 15;
-Q.rural_dkp = 35;
-Q.rural_antisemite = 5;
+Q.rural_nlp = 18;
+Q.rural_fkp = 20;
+Q.rural_dkp = 32;
+Q.rural_antisemite = 4;
 
 Q.unemployed_uspd = 25;
 Q.unemployed_spd = 45;
@@ -370,11 +370,11 @@ Q.unemployed_dhp = 0;
 Q.unemployed_bb = 0;
 Q.unemployed_elp = 0;
 Q.unemployed_fvp = 5;
-Q.unemployed_z = 10;
+Q.unemployed_z = 12;
 Q.unemployed_nlp = 5;
 Q.unemployed_fkp = 0;
 Q.unemployed_dkp = 0;
-Q.unemployed_antisemite = 5;
+Q.unemployed_antisemite = 2;
 
 // Demographics for catholics
 Q.catholics_uspd = 0;
@@ -400,9 +400,9 @@ Q.men_elp = 1;
 Q.men_fvp = 15;
 Q.men_z = 15;
 Q.men_nlp = 20;
-Q.men_fkp = 0;
-Q.men_dkp = 10;
-Q.men_antisemite = 3;
+Q.men_fkp = 2;
+Q.men_dkp = 8;
+Q.men_antisemite = 2;
 
 // Demographics for women
 Q.women_uspd = 5;
@@ -428,8 +428,8 @@ Q.german_elp = 0;
 Q.german_fvp = 10;
 Q.german_z = 15;
 Q.german_nlp = 15;
-Q.german_fkp = 3;
-Q.german_dkp = 15;
+Q.german_fkp = 5;
+Q.german_dkp = 10;
 Q.german_antisemite = 2;
 
 // Demographics for french culture
@@ -531,9 +531,9 @@ Q.irreligious_dkp = 0;
 Q.irreligious_antisemite = 1;
 
 Q.constituency_blocks = ['block1', 'block2', 'block3', 'block4', 'block5', 'block6', 'block7', 'block8']; // each block is a group of similar constituencies
-Q.block1_votes = 101; // urban worker
-Q.block2_votes = 70; // urban middle
-Q.block3_votes = 100; // rural prot
+Q.block1_votes = 100;; // urban worker
+Q.block2_votes = 60; // urban middle
+Q.block3_votes = 110; // rural prot
 Q.block4_votes = 20; // hanover
 Q.block5_votes = 20; // bavaria
 Q.block6_votes = 15; // alsace lorraine
