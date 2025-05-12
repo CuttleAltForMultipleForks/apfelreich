@@ -187,12 +187,12 @@ if (!Q.proportional) {
             // Reinforce support
             for (let i = 0; i < 2; i++) {
                 for (let party of Q.parties) {
-                    total_support -= normalized[party];
-                    normalized[party] *= (1 + normalized[party]);
-                    total_support += normalized[party];
+                    total_support -= support[party];
+                    support[party] = Math.pow(support[party], 1.5); // stronger than linear
+                    total_support += support[party];
                 }
                 for (let party of Q.parties) {
-                    normalized[party] = normalized[party] / total_support;
+                    normalized[party] = support[party] / total_support;
                 }
             }
 
