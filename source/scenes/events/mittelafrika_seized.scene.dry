@@ -1,6 +1,6 @@
 title: "Mittelafrika" Established
 subtitle: German forces have occupied Central Africa from the Entente
-view-if: month == 1 and year == 1919 and day >= 15
+view-if: month == 1 and year == 1919 and day >= 17
 max-visits: 1
 new-page: true
 on-arrival: old_middle_dkp += 3; rural_dkp += 3
