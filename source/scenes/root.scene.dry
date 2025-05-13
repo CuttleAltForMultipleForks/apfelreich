@@ -791,15 +791,6 @@ Q.dvlp_in_government = 0;
 Q.ifa_cohesion = 50;
 Q.ohl_cohesion = 60;
 
-# game design plan
-# todo
-# spd will have to choose between working within the system and working outside
-# working within increases USPD and KPD popularity as well as making SPD powerless to use de-facto force to stop like a coup
-# working outside lowers your influence on government formations and hurts IFA cohesion, leaving the OHL free to dominate and stuff
-# ultimate goal is new elections - or is it? right-wing may win after all...player chooses what course to take
-# the real ultimate goal is purging the OHL. you can try to establish a republic on the way if you want
-# but rather than this being a game of choosing a route, it's a balancing game. you need one foot in each act at all times
-# going fully either way is unlikely to work
 
 Q.in_right_coalition = 0;
 // Weimar coalition = SPD + Z + DDP
@@ -1356,6 +1347,16 @@ For other, non-difficulty related tweaks.
 view-if: end_disabled != 1
 on-arrival: end_disabled = 1
 go-to: menu
+
+# game design plan
+# todo
+# spd will have to choose between working within the system and working outside
+# working within increases USPD and KPD popularity as well as making SPD powerless to use de-facto force to stop like a coup
+# working outside lowers your influence on government formations and hurts IFA cohesion, leaving the OHL free to dominate and stuff
+# ultimate goal is new elections - or is it? right-wing may win after all...player chooses what course to take
+# the real ultimate goal is purging the OHL. you can try to establish a republic on the way if you want
+# but rather than this being a game of choosing a route, it's a balancing game. you need one foot in each act at all times
+# going fully either way is unlikely to work
 
 The end date has been disabled.
 
