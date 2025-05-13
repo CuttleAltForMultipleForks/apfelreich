@@ -555,7 +555,7 @@ Q.irreligious_antisemite = 1;
 Q.irreligious_dvlp = 0;
 
 Q.constituency_blocks = ['block1', 'block2', 'block3', 'block4', 'block5', 'block6', 'block7', 'block8']; // each block is a group of similar constituencies
-Q.block1_votes = 55;; // urban worker
+Q.block1_votes = 55; // urban worker
 Q.block2_votes = 55; // urban middle
 Q.block3_votes = 155; // rural prot
 Q.block4_votes = 20; // hanover
