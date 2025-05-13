@@ -490,7 +490,7 @@ go-to: coalition_menu if not vonc_formed; coalition_vonc if vonc_formed
 
 [? if dkp_r : {!<tr><td><div class="box seat dkp"> </div> !} DkP: {!</td><td>!} [+ dkp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_dkp +] {!</td><td>!} [+ dkp_r_disp +]% {!</td><td>!} [+ str_change_dkp +] {!</td></tr>!} ?]
 
-[? if dnvp_r : {!<tr><td><div class="box seat dvlp"> </div> !} DNVP: {!</td><td>!} [+ dnvp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_dnvp +] {!</td><td>!} [+ dnvp_r_disp +]% {!</td><td>!} [+ str_change_dnvp +] {!</td></tr>!} ?]
+[? if dnvp_r : {!<tr><td><div class="box seat dnvp"> </div> !} DNVP: {!</td><td>!} [+ dnvp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_dnvp +] {!</td><td>!} [+ dnvp_r_disp +]% {!</td><td>!} [+ str_change_dnvp +] {!</td></tr>!} ?]
 
 [? if dvlp_r : {!<tr><td><div class="box seat dvlp"> </div> !} DVLP: {!</td><td>!} [+ dvlp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_dvlp +] {!</td><td>!} [+ dvlp_r_disp +]% {!</td><td>!} [+ str_change_dvlp +] {!</td></tr>!} ?]
 
