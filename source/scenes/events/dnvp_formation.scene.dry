@@ -5,16 +5,14 @@ tags: event
 max-visits: 1
 on-arrival: {! 
 Q.parties.push('dnvp');
-for (var demo of Q.demographics) {
-    for (var c of demo) {
-        console.log(
-            c, 
-            Q[c+'_dkp'], 
-            Q[c+'_fkp'], 
-            Q[c+'_dvlp']
-        );
-
-        Q[c+'_dnvp'] = (Q[c+'_dkp']+Q[c+'_fkp']+Q[c+'_dvlp']);
+for (const groupType of Q.demographics) {
+    const groupArray = Q[groupType]; // e.g., Q['classes'] → ['old_middle_class', 'young_professionals']
+    
+    for (const subgroup of groupArray) {
+        Q[subgroup + '_dnvp'] =
+            (Q[subgroup + '_dkp'] ?? 0) +
+            (Q[subgroup + '_fkp'] ?? 0) +
+            (Q[subgroup + '_dvlp'] ?? 0);
     }
 }
 Q.dnvp_turnout = 1;
