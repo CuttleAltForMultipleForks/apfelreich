@@ -134,6 +134,14 @@ if (Q.spd_votes >= 30) {
     addNewsItem("SPD Surges!", "Landslide victory to come?");
 }
 
+if (Q.chancellor_race && Q.fehrenbach_points >= 1000 && Q.helfferich_points < 1000) {
+    addNewsItem("A Liberal Chancellor?", "Speculation arises as to the next chancellor's political alignment");
+}
+
+if (Q.chancellor_race && Q.helfferich_points >= 1000 && Q.fehrenbach_points < 1000) {
+    addNewsItem("A Conservative Chancellor?", "Speculation arises as to the next chancellor's political alignment");
+}
+
 if (Q.timestamp == "7.1.1919") {
     setTimeout(() => {
         addNewsItem("Peace Talks Underway", "The Central Powers prepare their demands for the Entente");
