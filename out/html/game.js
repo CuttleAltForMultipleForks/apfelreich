@@ -205,6 +205,7 @@ window.addNewsItem = function(headline, subtext) {
     }
     if (window.justLoaded) {
         window.justLoaded = false;
+        dendryUI.dendryEngine.state.qualities._initialized = 0;
     }
   };
 
