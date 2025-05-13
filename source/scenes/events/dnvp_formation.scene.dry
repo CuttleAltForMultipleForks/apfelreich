@@ -7,6 +7,13 @@ on-arrival: {!
 Q.parties.push('dnvp');
 for (var demo of Q.demographics) {
     for (var c of demo) {
+        console.log(
+            c, 
+            Q[c+'_dkp'], 
+            Q[c+'_fkp'], 
+            Q[c+'_dvlp']
+        );
+
         Q[c+'_dnvp'] = (Q[c+'_dkp']+Q[c+'_fkp']+Q[c+'_dvlp']);
     }
 }
@@ -15,6 +22,10 @@ Q.dnvp_leftist = -15;
 Q.dnvp_r = Q.dvlp_r+Q.dkp_r+Q.fkp_r;
 Q.dnvp_r_disp = Q.dvlp_r_disp+Q.dkp_r_disp+Q.fkp_r_disp;
 Q.dnvp_voteshare = Q.dvlp_voteshare+Q.dkp_voteshare+Q.fkp_voteshare;
+
+Q.dvlp_r = 0;
+Q.dkp_r = 0;
+Q.fkp_r = 0;
 
 Q.parties = Q.parties.filter(party => party !== 'dkp');
 Q.parties = Q.parties.filter(party => party !== 'fkp');
