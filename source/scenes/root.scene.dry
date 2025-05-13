@@ -555,14 +555,14 @@ Q.irreligious_antisemite = 1;
 Q.irreligious_dvlp = 0;
 
 Q.constituency_blocks = ['block1', 'block2', 'block3', 'block4', 'block5', 'block6', 'block7', 'block8']; // each block is a group of similar constituencies
-Q.block1_votes = 85;; // urban worker
+Q.block1_votes = 55;; // urban worker
 Q.block2_votes = 55; // urban middle
-Q.block3_votes = 130; // rural prot
+Q.block3_votes = 155; // rural prot
 Q.block4_votes = 20; // hanover
 Q.block5_votes = 20; // bavaria
 Q.block6_votes = 15; // alsace lorraine
 Q.block7_votes = 20; // poland
-Q.block8_votes = 50; // rhine
+Q.block8_votes = 55; // rhine
 
 Q.block1_classes = 1;
 Q.block1_sexes = 1;
@@ -790,6 +790,16 @@ Q.dvlp_in_government = 0;
 
 Q.ifa_cohesion = 50;
 Q.ohl_cohesion = 60;
+
+# game design plan
+# todo
+# spd will have to choose between working within the system and working outside
+# working within increases USPD and KPD popularity as well as making SPD powerless to use de-facto force to stop like a coup
+# working outside lowers your influence on government formations and hurts IFA cohesion, leaving the OHL free to dominate and stuff
+# ultimate goal is new elections - or is it? right-wing may win after all...player chooses what course to take
+# the real ultimate goal is purging the OHL. you can try to establish a republic on the way if you want
+# but rather than this being a game of choosing a route, it's a balancing game. you need one foot in each act at all times
+# going fully either way is unlikely to work
 
 Q.in_right_coalition = 0;
 // Weimar coalition = SPD + Z + DDP
