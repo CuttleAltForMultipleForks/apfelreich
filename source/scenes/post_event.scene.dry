@@ -72,46 +72,31 @@ for (var demographic of Q.demographics) {
 }
 // Initialize total support for parties
 var total_support = 0;
-console.log("Starting support calculation...");
 
 // Loop through each party
 for (var party of Q.parties) {
-    console.log(`\nCalculating support for party: ${party}`);
     var party_support = 0;
 
     // Loop through each demographic (class, sex, religion, culture)
     for (var demographic of Q.demographics) {
-        console.log(`  Processing demographic: ${demographic}`);
-        
         // Get the current demographic units (e.g., classes, sexes, etc.)
         var units = Q[demographic];
 
         // Loop through each unit within the demographic
         for (var unit of units) {
-            var unit_value = Q[unit];
-            var normalized_score = Q[unit + '_' + party + '_normalized'];
-            var unit_score = unit_value * normalized_score;
+            // Calculate the party's score for this unit
+            var unit_score = Q[unit] * Q[unit + '_' + party + '_normalized'];
+
+            // Multiply the unit score by the weight of the demographic (e.g., weight of class, sex, religion, etc.)
             var demographic_weight = Q[demographic + '_weight']; // Assuming each demographic has a weight
-            var weighted_score = unit_score * demographic_weight;
-
-            console.log(`    Unit: ${unit}`);
-            console.log(`      Value: ${unit_value}`);
-            console.log(`      Normalized score (${unit + '_' + party + '_normalized'}): ${normalized_score}`);
-            console.log(`      Demographic weight (${demographic + '_weight'}): ${demographic_weight}`);
-            console.log(`      Unit score: ${unit_score}`);
-            console.log(`      Weighted score: ${weighted_score}`);
-
-            party_support += weighted_score;
+            party_support += unit_score * demographic_weight;
         }
     }
 
     // Store the party's total support
     Q[party + '_support'] = party_support;
     total_support += party_support;
-    console.log(`  Total support for ${party}: ${party_support}`);
 }
-
-console.log(`\nTotal support across all parties: ${total_support}`);
 
 // 2. Normalize the support (fraction)
 for (var party of Q.parties) {

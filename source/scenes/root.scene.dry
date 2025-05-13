@@ -211,11 +211,12 @@ Q.protestants = 50;
 Q.jews = 1;
 Q.irreligious = 19;
 
-Q.german = 92;
+Q.german = 91;
 Q.polish = 2;
 Q.hanoverian = 2;
 Q.bavarian = 2;
 Q.french = 2;
+Q.hitlerian = 1;
 
 Q.men = 50;
 Q.women = 50;
