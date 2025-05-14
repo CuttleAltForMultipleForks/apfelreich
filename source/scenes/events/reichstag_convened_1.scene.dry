@@ -1,0 +1,150 @@
+title: [+ chancellor +] Agenda
+subtitle: The Reichstag reconvenes as [+ chancellor +] sets out his agendas
+tags: event
+new-page: true
+max-visits: 1
+view-if: time >= reichstag_time
+
+= [+ chancellor +] Agenda
+
+With [+ chancellor +] now chancellor and the Reichstag set to reconvene, the agenda - both of the government and of the Reichstag - is soon to be determined.
+
+- @fehrenbach: The IFA has an ally in office.
+- @helfferich: The OHl has an ally in office.
+- @breitenbach: Paul von Breitenbach reaches out to our allies.
+- @solf: Wilhelm Solf reaches out to us.
+- @delbruck: Clemens von Delbrück reaches out to our allies.
+- @posadowsky_wehner: Arthur von Posadowsky-Wehner reaches out to the centrists.
+
+@fehrenbach
+view-if: chancellor == "Fehrenbach"
+
+With Fehrenbach in office, there is large potential for the IFA to achieve what it desires from this government. At the same time, however, this potential risks being squandered by our allies in the IFA, who seem to have been lulled into a false sense of security and forgotten the importance of our fight against the army.
+
+There is, too, the matter of whether the SPD even should attempt to govern through Fehrenbach through the presenting of joint minimum programs, or simply prepare for the next elections. To moderate too much may leave a void to be filled by the Independent Socialists or even the Spartacists.
+
+- @spd_ifa: The SPD will attempt to work within the IFA.
+- @pivot_uspd: The SPD should formulate its own demands and those of the working class.
+
+@spd_ifa
+on-arrival: ifa_cohesion += 2; workers_spd -= 3; workers_uspd += 2; unemployed_spd -= 5; unemployed_uspd += 2; men_spd -= 1; men_uspd += 1; irreligious_spd -= 1; irreligious_uspd += 1; left_dissent += 5
+
+Now that we have shown willingness, it is up to our allies in the IFA to take the decisive step and determine whether or not we shall through Fehrenbach govern in a pseudo-coalition arrangement of sorts. The Centrists see in Fehrenbach the opportunity to rule themselves for once, underestimating the continued threat posed by the OHL.
+
+- @successful_program: Nonetheless, the IFA presents a unified agenda.
+- @unsuccessful_program: And so, the Centrists formulate their own program...
+
+@pivot_uspd
+on-arrival: workers_uspd -= 2; workers_spd += 3; ifa_cohesion -= 5; z_relation -= 5; fvp_relation -= 5; uspd_relation += 5
+
+As we prepare our own demands, working outside of the IFA to instead focus on bridging the gap between us and the Independent Socialists, the Centrists do the same, and can we blame them? Fehrenbach unveils his agenda, the same moderate one of the Centrists though modified to keep in mind the Kaiser's concerns, and we criticize them as inadequate. At the very least, reunification with the USPD may be a feasible task if we maintain course, lest we leave the workers disillusioned with nobody to turn to but the Spartacists.
+
+- @reichstag: And now, the Reichstag convenes...
+
+@successful_program
+choose-if: ifa_cohesion > 50
+unavailable-subtitle: The IFA's parties have taken too diverging of courses to unite behind an agenda.
+on-arrival: ifa_cohesion += 5; ohl_cohesion += 5; workers_uspd -= 1; workers_spd += 1; left_dissent -= 3
+
+After some discussion, an agenda is finally agreed upon. Concessions, of course, have to be made to keep in mind with the conditions that we find ourselves in, but at least we are accomplishing things.
+
+The minimum program agreed upon includes such things as Prussian electoral reform, to remove the three-class system, hasty demobilization, a peace treaty of "understanding" - even if, in the process, understanding Germany's victorious position - parliamentary consultation for the appointment of secretaries as an unofficial step towards parliamentarization, and the shift of responsibilities away from the OHL. Of course, the OHL and the reactionaries on its side is incensed at the idea.
+
+- @reichstag: And now, the Reichstag convenes...
+
+@unsuccessful_program
+view-if: ifa_cohesion <= 50
+on-arrival: left_dissent += 5; uspd_relation -= 5; ifa_cohesion -= 5; ohl_cohesion -= 5; spd_turnout -= 0.05
+
+todo: yeah we screwed up
+
+- @reichstag
+
+@helferrich
+view-if: chancellor == "Helfferich"
+go-to: reichstag
+
+@breitenbach
+view-if: chancellor == "Breitenbach"
+go-to: reichstag
+
+@solf
+view-if: chancellor == "Solf"
+go-to: reichstag
+
+@delbruck
+view-if: chancellor == "Delbrück"
+go-to: reichstag
+
+@posadowsky_wehner
+view-if: chancellor == "Posadowsky-Wehner"
+go-to: reichstag
+
+@reichstag
+on-display: {!
+data = Q.parties
+    .filter(party => Q[party + '_r']) // Only include parties with seat data
+    .map(party => ({
+        id: party,
+        legend: party.toUpperCase(),
+        name: party.toUpperCase(),
+        seats: Math.round(Q[party + '_r'] * 5),
+        leftist: Q[party + '_leftist'] || 0 // default to 0 if undefined
+    }))
+    .sort((a, b) => b.leftist - a.leftist) // sort from most to least left-wing
+    .map(({ leftist, ...rest }) => rest); // remove `leftist` from final output
+
+// `data` now contains the full party display list, ordered ideologically.
+
+if (window && d3) {
+    var width = 500; 
+    var height = 500;
+    var screenWidth = document.getElementById('content').offsetWidth;
+    if (screenWidth < width - 50) {
+        width = screenWidth - 50; 
+        height = width;
+        document.getElementById("reichstag").style.height = screenWidth/2 + "px";
+    } 
+
+    var parliament = d3.parliament();
+    parliament.width(width).height(height).innerRadiusCoef(0.4);
+    parliament.enter.fromCenter(true).smallToBig(true);
+    parliament.exit.toCenter(false).bigToSmall(true);
+    d3.select("#reichstag").datum(data).call(parliament);
+}
+!}
+
+= Reichstag Composition
+
+{!<svg id="reichstag" style="width: 500px; height: 250px;"> </svg>!}
+
+{!<table>!} 
+{!<tr><td>Party</td><td>Vote share</td><td>% Change</td><td>Reichstag share</td><td>% Change</td></tr>!}
+[? if uspd_r : {!<tr><td><div class="box seat uspd"> </div> !} USPD: {!</td><td>!} [+ uspd_voteshare +]% {!</td><td>!} [+ stvoteshare_change_uspd +] {!</td><td>!} [+ uspd_r_disp +]% {!</td><td>!} [+ str_change_uspd +] {!</td></tr>!} ?]
+
+{!<tr><td><div class="box" style='background-color:#E3000F; outline: 2px; outline-style: solid;'> </div> !} **SPD:** {!</td><td>!} **[+ spd_voteshare +]%** {!</td><td>!} **[+ stvoteshare_change_spd +]** {!</td><td>!} **[+ spd_r_disp +]%** {!</td><td>!} **[+ str_change_spd +]** {!</td></tr>!}
+
+[? if bb_r : {!<tr><td><div class="box seat bb"> </div> !} BB: {!</td><td>!} [+ bb_voteshare +]% {!</td><td>!} [+ stvoteshare_change_bb +] {!</td><td>!} [+ bb_r_disp +]% {!</td><td>!} [+ str_change_bb +] {!</td></tr>!} ?]
+
+[? if elp_r : {!<tr><td><div class="box seat elp"> </div> !} ELP: {!</td><td>!} [+ elp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_elp +] {!</td><td>!} [+ elp_r_disp +]% {!</td><td>!} [+ str_change_elp +] {!</td></tr>!} ?]
+
+[? if fvp_r : {!<tr><td><div class="box seat fvp"> </div> !} FvP: {!</td><td>!} [+ fvp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_fvp +] {!</td><td>!} [+ fvp_r_disp +]% {!</td><td>!} [+ str_change_fvp +] {!</td></tr>!} ?]
+
+[? if z_r : {!<tr><td><div class="box seat z"> </div> !} Z: {!</td><td>!} [+ z_voteshare +]% {!</td><td>!} [+ stvoteshare_change_z +] {!</td><td>!} [+ z_r_disp +]% {!</td><td>!} [+ str_change_z +] {!</td></tr>!} ?]
+
+[? if pp_r : {!<tr><td><div class="box seat pp"> </div> !} PP: {!</td><td>!} [+ pp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_pp +] {!</td><td>!} [+ pp_r_disp +]% {!</td><td>!} [+ str_change_pp +] {!</td></tr>!} ?]
+
+[? if dhp_r : {!<tr><td><div class="box seat dhp"> </div> !} DHP: {!</td><td>!} [+ dhp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_dhp +] {!</td><td>!} [+ dhp_r_disp +]% {!</td><td>!} [+ str_change_dhp +] {!</td></tr>!} ?]
+
+[? if nlp_r : {!<tr><td><div class="box seat nlp"> </div> !} NLP: {!</td><td>!} [+ nlp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_nlp +] {!</td><td>!} [+ nlp_r_disp +]% {!</td><td>!} [+ str_change_nlp +] {!</td></tr>!} ?]
+
+[? if fkp_r : {!<tr><td><div class="box seat fkp"> </div> !} FKP: {!</td><td>!} [+ fkp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_fkp +] {!</td><td>!} [+ fkp_r_disp +]% {!</td><td>!} [+ str_change_fkp +] {!</td></tr>!} ?]
+
+[? if dkp_r : {!<tr><td><div class="box seat dkp"> </div> !} DkP: {!</td><td>!} [+ dkp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_dkp +] {!</td><td>!} [+ dkp_r_disp +]% {!</td><td>!} [+ str_change_dkp +] {!</td></tr>!} ?]
+
+[? if dnvp_r : {!<tr><td><div class="box seat dnvp"> </div> !} DNVP: {!</td><td>!} [+ dnvp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_dnvp +] {!</td><td>!} [+ dnvp_r_disp +]% {!</td><td>!} [+ str_change_dnvp +] {!</td></tr>!} ?]
+
+[? if dvlp_r : {!<tr><td><div class="box seat dvlp"> </div> !} DVLP: {!</td><td>!} [+ dvlp_voteshare +]% {!</td><td>!} [+ stvoteshare_change_dvlp +] {!</td><td>!} [+ dvlp_r_disp +]% {!</td><td>!} [+ str_change_dvlp +] {!</td></tr>!} ?]
+
+[? if antisemite_r : {!<tr><td><div class="box seat antisemite"> </div> !} DSRP: {!</td><td>!} [+ antisemite_voteshare +]% {!</td><td>!} [+ stvoteshare_change_antisemite +] {!</td><td>!} [+ antisemite_r_disp +]% {!</td><td>!} [+ str_change_antisemite +] {!</td></tr>!} ?]
+{!</table>!}

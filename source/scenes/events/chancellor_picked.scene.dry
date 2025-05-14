@@ -18,6 +18,7 @@ if (Q.fehrenbach_points >= Q.helfferich_points * 1.5) {
 } else {
     Q.breitenbach_compromise = 1;
 }
+Q.reichstag_time = (Q.time + (Math.floor(Math.random() * (16 - 12 + 1)) + 12));
 !}
 
 = A New Chancellor
