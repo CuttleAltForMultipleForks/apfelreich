@@ -58,7 +58,7 @@ on-arrival: left_dissent += 5; uspd_relation -= 5; ifa_cohesion -= 5; ohl_cohesi
 
 todo: yeah we screwed up
 
-- @reichstag
+- @reichstag: And now, the Reichstag convenes...
 
 @helfferich
 view-if: chancellor == "Helfferich"
