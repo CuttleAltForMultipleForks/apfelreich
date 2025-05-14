@@ -3,7 +3,7 @@ subtitle: The Reichstag reconvenes as [+ chancellor +] sets out his agendas
 tags: event
 new-page: true
 max-visits: 1
-view-if: time >= reichstag_time
+view-if: time >= reichstag_time and chancellor != "Empty" and chancellor != "Hertling"
 
 = [+ chancellor +] Agenda
 
