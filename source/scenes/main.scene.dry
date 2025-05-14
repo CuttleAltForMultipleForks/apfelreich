@@ -71,7 +71,7 @@ if (!Q._initialized) {
             visit('status');
         }
 
-    }, 1000);
+    }, (Q.game_speed || 1000));
 }
 if (Q.advisor_action_timer <= 0) {
     Q.pinnedCardsDescription = 'Advisors - an action is available.';
@@ -167,7 +167,7 @@ if (!Q._initialized) {
             visit('status');
         }
 
-    }, 1000);
+    }, (Q.game_speed || 1000));
 }
 if (Q.advisor_action_timer <= 0) {
     Q.pinnedCardsDescription = 'Advisors - an action is available.';

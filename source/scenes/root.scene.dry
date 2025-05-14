@@ -1197,6 +1197,8 @@ Q.hamburg_election_month = 2;
 Q.wurttemberg_election_year = 1928;
 Q.wurttemberg_election_month = 5;
 
+Q.game_speed = 1000;
+
 Q.spd_pl = 25;
 Q.dnvp_pl = 24;
 Q.z_pl = 18;
