@@ -394,7 +394,7 @@ if (Q.chancellor_race) {
     Q.helfferich_points += Q.dvlp_votes;
     Q.helfferich_points += Q.dkp_votes;
     Q.helfferich_points += Q.fkp_votes;
-    if ((Q.fehrenbach_points/Q.helferrich_points) < 1.2 && (Q.fehrenbach_points/Q.helferrich_points) > 0.8) {
+    if ((Q.fehrenbach_points/Q.helfferich_points) < 1.2 && (Q.fehrenbach_points/Q.helfferich_points) > 0.8) {
         Q.fehrenbach_points *= 0.95;
         Q.helfferich_points *= 0.95;
     }

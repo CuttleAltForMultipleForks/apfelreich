@@ -60,7 +60,7 @@ todo: yeah we screwed up
 
 - @reichstag
 
-@helferrich
+@helfferich
 view-if: chancellor == "Helfferich"
 go-to: reichstag
 
