@@ -56,7 +56,7 @@ The minimum program agreed upon includes such things as Prussian electoral refor
 view-if: ifa_cohesion <= 50
 on-arrival: left_dissent += 5; uspd_relation -= 5; ifa_cohesion -= 5; ohl_cohesion -= 5; spd_turnout -= 0.05
 
-todo: yeah we screwed up
+Despite our support for
 
 - @reichstag: And now, the Reichstag convenes...
 
